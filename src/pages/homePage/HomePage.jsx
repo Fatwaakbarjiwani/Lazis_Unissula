@@ -52,7 +52,7 @@ export default function HomePage() {
             <img src={iconnavbar} alt="" className="w-full md:w-[90%]" />
           </div>
           <div className="w-full md:w-3/4 text-center md:text-left space-y-3">
-            <h1 className="font-Montserrat mt-2 sm:mt-0 text-white font-[900] text-lg sm:text-xl md:text-2xl lg:text-4xl text-stroke2 sm:text-stroke">
+            <h1 className="font-Montserrat mt-2 sm:mt-0 text-white font-[900] text-xl md:text-2xl lg:text-4xl text-stroke2 sm:text-stroke">
               Donasi Anda Harapan Mereka
             </h1>
             <p className="text-white text-sm sm:text-base lg:text-xl md:w-5/6 md:mt-4 mt-1 sm:mt-2">
@@ -71,7 +71,7 @@ export default function HomePage() {
       <Information />
       <div className="mx-4 md:mx-8 lg:mx-16 xl:mx-20 2xl:mx-32">
         {/* slider */}
-        <div className="mt-20 lg:mt-36 font-bold text-gray-600 text-lg sm:text-4xl space-y-2 sm:space-y-4">
+        <div className="mt-20 sm:mt-32 lg:mt-36 font-bold text-gray-600 text-lg sm:text-2xl md:text-4xl space-y-2 sm:space-y-4">
           <h1>Donasi Darurat</h1>
           <Carousel
             showDots={true}
@@ -101,7 +101,7 @@ export default function HomePage() {
           </Carousel>
         </div>
         {/* Campaign */}
-        <h1 className="hidden md:block font-bold text-lg sm:text-4xl text-gray-600 mt-8 sm:mb-4">
+        <h1 className="hidden md:block font-bold text-lg sm:text-2xl md:text-4xl text-gray-600 mt-8 sm:mb-4">
           Rekomendasi Kegiatan
         </h1>
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -110,7 +110,7 @@ export default function HomePage() {
           ))}
         </div>
         <div className="md:hidden border-y-8 border-gray-50 mt-8">
-          <h1 className="font-bold text-lg sm:text-4xl text-gray-600 sm:mb-4">
+          <h1 className="font-bold text-lg sm:text-2xl md:text-4xl text-gray-600 sm:mb-4">
             Rekomendasi Kegiatan
           </h1>
           <Carousel

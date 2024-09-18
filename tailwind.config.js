@@ -18,6 +18,12 @@ export default {
       fontSize: {
         y: "40px",
       },
+      screens: {
+        xs: "370px", 
+        as: "240px", 
+        bs: "380px", 
+        cs: "490px", 
+      },
     },
   },
   plugins: [
@@ -28,7 +34,7 @@ export default {
           color: "white",
         },
         ".text-stroke2": {
-          "-webkit-text-stroke": "0.3px #A43338",
+          "-webkit-text-stroke": "1/2px #A43338",
           color: "white",
         },
       };
