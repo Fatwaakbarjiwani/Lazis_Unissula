@@ -14,7 +14,7 @@ export default function Target({ targetAmount, amountCampaign }) {
     width: `${(amountCampaign / targetAmount) * 100}%`,
   };
   return (
-    <div className="w-full rounded-full bg-second">
+    <div className="w-full rounded-full bg-gray-400">
       <div
         style={progressWidthStyle}
         className={`${

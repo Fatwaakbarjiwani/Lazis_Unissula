@@ -4,6 +4,7 @@ import logo1 from "../../assets/logo1.svg";
 import { useEffect, useState } from "react";
 import { HiExclamation } from "react-icons/hi";
 import { setModalRegister } from "../../redux/reducers/authReducer";
+import { register } from "../../redux/actions/authAction";
 
 export default function ModalRegister() {
   const { modalRegister } = useSelector((state) => state.auth);
@@ -27,7 +28,7 @@ export default function ModalRegister() {
     } else if (password !== confirmPassword) {
       setError("Password dan Konfirmasi Password berbeda");
     } else {
-      // dispatch(register(userName, phoneNumber, password));
+      dispatch(register(userName, phoneNumber, email, password));
     }
   };
 
@@ -35,7 +36,7 @@ export default function ModalRegister() {
     if (modalRegister) {
       setIsVisible(true);
     } else {
-      setTimeout(() => setIsVisible(false), 300); 
+      setTimeout(() => setIsVisible(false), 300);
     }
   }, [modalRegister]);
 
@@ -49,7 +50,7 @@ export default function ModalRegister() {
     setIsVisible(false);
     setTimeout(() => {
       dispatch(setModalRegister(false));
-    }, 300); 
+    }, 300);
   };
 
   return (
@@ -99,7 +100,7 @@ export default function ModalRegister() {
                     htmlFor="name"
                     className="font-semibold text-lg text-gray-500"
                   >
-                    Nomor Telepon
+                    Nomor Handphone
                   </label>
                   <input
                     type="text"

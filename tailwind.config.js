@@ -9,7 +9,8 @@ export default {
         Madimi: ["Madimi One", "sans-serif"],
       },
       colors: {
-        primary: "#206143",
+        // primary: "#206143",
+        primary: "#69C53E",
         second: "#E6EAEE",
         thirt: "#B65C60",
         fourth: "#A43338",
@@ -27,7 +28,7 @@ export default {
           color: "white",
         },
         ".text-stroke2": {
-          "-webkit-text-stroke": "3px #A43338",
+          "-webkit-text-stroke": "0.3px #A43338",
           color: "white",
         },
       };

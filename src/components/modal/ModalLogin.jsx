@@ -6,26 +6,32 @@ import {
   setAcount,
   setModalLogin,
   setModalRegister,
+  setModalResetPassword,
+  setPs,
 } from "../../redux/reducers/authReducer";
+import { login } from "../../redux/actions/authAction";
+import { PiEye, PiEyeClosed } from "react-icons/pi";
 
 export default function ModalLogin() {
   const { modalLogin } = useSelector((state) => state.auth);
   const { acount } = useSelector((state) => state.auth);
   const [password, setPassword] = useState("");
   const [isVisible, setIsVisible] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // Added state to toggle password visibility
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (modalLogin) {
       setIsVisible(true);
-      setTimeout(() => setIsVisible(true), 10); // Trigger animation
+      setTimeout(() => setIsVisible(true), 10);
     } else {
       setIsVisible(false);
     }
   }, [modalLogin]);
 
   const handleLogin = () => {
-    // dispatch(login(acount, password));
+    dispatch(login(acount, password));
+    dispatch(setPs(password));
   };
 
   const handleDaftar = () => {
@@ -38,6 +44,10 @@ export default function ModalLogin() {
     setTimeout(() => {
       dispatch(setModalLogin(false));
     }, 300); // Wait for animation to finish
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
   return (
@@ -64,13 +74,14 @@ export default function ModalLogin() {
               <div className="flex flex-col gap-2 md:gap-3 mt-2">
                 <div className="flex flex-col ">
                   <label
-                    htmlFor="name"
+                    htmlFor="emailOrPhone"
                     className="font-semibold text-lg text-gray-500"
                   >
-                    Alamat Email/Nomor Telephone
+                    Alamat Email/Nomor Handphone
                   </label>
                   <input
                     type="text"
+                    id="emailOrPhone"
                     className="rounded-md md:rounded-xl ring-1 ring-gray-400 focus:outline-none w-full text-lg py-1 px-5"
                     value={acount}
                     onChange={(e) => dispatch(setAcount(e.target.value))}
@@ -78,18 +89,43 @@ export default function ModalLogin() {
                 </div>
                 <div className="flex flex-col ">
                   <label
-                    htmlFor="name"
+                    htmlFor="password"
                     className="font-semibold text-lg text-gray-500"
                   >
                     Kata Sandi
                   </label>
-                  <input
-                    type="password"
-                    className="rounded-md md:rounded-xl ring-1 ring-gray-400 focus:outline-none w-full text-lg py-1 px-5"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"} // Toggle input type between text and password
+                      id="password"
+                      className="rounded-md md:rounded-xl ring-1 ring-gray-400 focus:outline-none w-full text-lg py-1 px-5"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <button
+                      type="button"
+                      onClick={toggleShowPassword}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600"
+                    >
+                      {showPassword ? (
+                        <PiEye className="text-xl" />
+                      ) : (
+                        <PiEyeClosed className="text-xl" />
+                      )}
+                    </button>
+                  </div>
                 </div>
+              </div>
+              <div className="mt-2">
+                <button
+                  onClick={() => {
+                    dispatch(setModalLogin(false));
+                    dispatch(setModalResetPassword(true));
+                  }}
+                  className="text-sm text-primary cursor-pointer"
+                >
+                  Lupa password anda?
+                </button>
               </div>
               {/* button */}
               <button
@@ -98,8 +134,8 @@ export default function ModalLogin() {
               >
                 Masuk
               </button>
-              <div className="flex justify-center mt-3">
-                <p>Belum punya akun ?</p>
+              <div className="flex justify-center mt-3 active:scale-105 duration-75">
+                <p>Belum punya akun?</p>
               </div>
               <button
                 onClick={handleDaftar}
