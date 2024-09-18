@@ -58,7 +58,7 @@ export default function PembayaranCampaign() {
       >
         {/* content 1 */}
         <div className="sm:w-4/6 p-4 sm:p-0 sm:mt-16 mt-8 xl:mt-10 flex flex-col items-center rounded-xl">
-          <div className="md:p-5 lg:p-2 w-full sm:w-5/6 rounded-3xl lg:rounded-2xl xl:rounded-xl gap-4 lg:gap-8 ring-black bg-white ring-2 drop-shadow-lg ring-gray-300/20 md:flex justify-between">
+          <div className="md:p-5 lg:p-2 w-full sm:w-5/6 rounded-3xl lg:rounded-2xl xl:rounded-xl gap-4 lg:gap-8 ring-black bg-white ring-2 shadow sm:drop-shadow-lg ring-gray-300/20 md:flex justify-between">
             <div className="md:w-1/2">
               <img
                 src={detailCampaign.campaignImage}
@@ -87,7 +87,7 @@ export default function PembayaranCampaign() {
             {DataPembayaran.map((item) => (
               <button
                 key={item.id}
-                className={`bg-white ring-2 ring-gray-300/40 drop-shadow-lg w-full p-2 rounded-xl active:translate-y-[-5px] duration-300 ${
+                className={`bg-white ring-2 ring-gray-300/40 shadow sm:drop-shadow-lg w-full p-2 rounded-xl active:translate-y-[-5px] duration-300 ${
                   selectedTotal === item.total ? "bg-primary" : ""
                 }`}
                 onClick={() => setSelectedTotal(item.total)}

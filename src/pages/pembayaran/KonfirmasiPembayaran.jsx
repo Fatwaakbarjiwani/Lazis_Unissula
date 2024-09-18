@@ -1,19 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import qris from "../../assets/qris.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { transaksi } from "../../redux/actions/transaksiAction";
+
 export default function KonfirmasiPembayaran() {
   const [isOn, setIsOn] = useState(false);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { id } = useParams();
-  const { methode } = useSelector((state) => state.pembayaran);
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
-  const { nml } = useSelector((state) => state.pembayaran);
   const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState({ name: false, phoneNumber: false });
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const { methode, nml } = useSelector((state) => state.pembayaran);
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    setName(user?.username || "");
+    setPhoneNumber(user?.phoneNumber || "");
+    setEmail(user?.email || "");
+  }, [user]);
+
+  const handlePayment = () => {
+    // Check if the required fields are filled
+    if (!name || !phoneNumber) {
+      setErrors({
+        name: !name,
+        phoneNumber: !phoneNumber,
+      });
+      return;
+    }
+
+    // Proceed with the payment if validation is passed
+    dispatch(
+      transaksi(
+        isOn ? "Hamba Allah" : name,
+        phoneNumber,
+        email,
+        nml,
+        message,
+        id,
+        navigate
+      )
+    );
+  };
 
   return (
     <div className="font-Inter flex justify-center">
@@ -39,7 +72,7 @@ export default function KonfirmasiPembayaran() {
                 />
                 <div className="text-left">
                   <p className="font-bold text-lg">
-                    {methode == "qris" ? "Pembayaran QR" : "Pembayaran VA"}
+                    {methode === "qris" ? "Pembayaran QR" : "Pembayaran VA"}
                   </p>
                   <p className="text-sm">
                     Bayar dengan aplikasi pembayaran pilihan Anda
@@ -58,12 +91,27 @@ export default function KonfirmasiPembayaran() {
             <h1 className="font-semibold text-gray-600 text-lg">
               Nama Pengirim
             </h1>
-            <input
-              type="text"
-              className="w-full rounded-xl border-2 border-gray-400 p-1"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
+            {isOn ? (
+              <p className="w-full rounded-xl border-2 border-gray-400 p-1 text-gray-500 font-semibold">
+                Hamba Allah
+              </p>
+            ) : (
+              <input
+                type="text"
+                className={`w-full rounded-xl border-2 p-1 ${
+                  errors.name ? "border-red-500" : "border-gray-400"
+                }`}
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  if (e.target.value)
+                    setErrors((prev) => ({ ...prev, name: false }));
+                }}
+              />
+            )}
+            {errors.name && isOn == false && (
+              <p className="text-red-500">Nama Pengirim wajib diisi</p>
+            )}
           </div>
           <div className="space-y-1">
             <h1 className="font-semibold text-gray-600 text-lg">
@@ -71,10 +119,19 @@ export default function KonfirmasiPembayaran() {
             </h1>
             <input
               type="text"
-              className="w-full rounded-xl border-2 border-gray-400 p-1"
+              className={`w-full rounded-xl border-2 p-1 ${
+                errors.phoneNumber ? "border-red-500" : "border-gray-400"
+              }`}
               value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              onChange={(e) => {
+                setPhoneNumber(e.target.value);
+                if (e.target.value)
+                  setErrors((prev) => ({ ...prev, phoneNumber: false }));
+              }}
             />
+            {errors.phoneNumber && (
+              <p className="text-red-500">Nomor Handphone wajib diisi</p>
+            )}
           </div>
           <div className="space-y-1">
             <h1 className="font-semibold text-gray-600 text-lg">
@@ -110,7 +167,7 @@ export default function KonfirmasiPembayaran() {
             </button>
           </div>
           <div>
-            <p className="font-[100] ">
+            <p className="font-[100]">
               Apakah anda berkenan mendapatkan laporan secara berkala dari Lazis
               SA?
             </p>
@@ -135,19 +192,7 @@ export default function KonfirmasiPembayaran() {
             ></textarea>
           </div>
           <button
-            onClick={() => {
-              dispatch(
-                transaksi(
-                  name,
-                  phoneNumber,
-                  email,
-                  nml,
-                  message,
-                  id,
-                  navigate
-                )
-              );
-            }}
+            onClick={handlePayment}
             className="w-full bg-primary font-bold text-lg rounded-xl shadow shadow-lg  text-white p-2 active:translate-y-[-5px] duration-300"
           >
             Lanjut Pembayaran
