@@ -106,7 +106,7 @@ export default function HomePage() {
         </h1>
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {allCampaign.slice(0, 6).map((item) => (
-            <Card key={item?.campaignCode} item={item} />
+            <Card key={item?.campaignCode} item={item} h={"h-full"}/>
           ))}
         </div>
         <div className="md:hidden border-y-8 border-gray-50 mt-8">
@@ -119,7 +119,11 @@ export default function HomePage() {
             arrows={false}
           >
             {allCampaign.slice(0, 6).map((item) => (
-              <Card key={item?.campaignId} item={item} />
+              <Card
+                key={item?.campaignId}
+                item={item}
+                h={"min-h-[35vh] sm:min-h-[58vh]"}
+              />
             ))}
           </Carousel>
         </div>

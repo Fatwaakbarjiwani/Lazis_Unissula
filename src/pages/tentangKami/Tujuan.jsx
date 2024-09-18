@@ -1,7 +1,15 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setButtonPage } from "../../redux/reducers/pageReducer";
+
 export default function Tujuan() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(setButtonPage("tentangkami"));
+    }, []);
   return (
     <>
-      <h1 className="font-bold text-3xl mt-16 text-gray-700 mb-6">Tujuan</h1>
+      <h1 className="font-bold text-3xl mt-10 text-center text-primary mb-6">Tujuan</h1>
       <div className="flex items-center justify-center sm:w-10/12 md:w-3/4 lg:w-4/5 mx-auto">
         <ul className="sm:w-9/12 lg:w-4/5 list-decimal ml-5 list-outside text-justify px-3 pb-3 leading-8 font-Inter">
           <li>

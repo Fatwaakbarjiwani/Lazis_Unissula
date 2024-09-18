@@ -17,7 +17,7 @@ export default function Ziswaf() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const { page } = useParams();
   const { categoryZiswaf } = useSelector((state) => state.ziswaf);
-  
+
   const dispatch = useDispatch();
 
   const handleButton = (value) => {
@@ -56,10 +56,10 @@ export default function Ziswaf() {
   };
 
   useEffect(() => {
-        AOS.init({
-          duration: 1200,
-          once: true,
-        });
+    AOS.init({
+      duration: 1200,
+      once: true,
+    });
     if (page) {
       dispatch(setButtonPage(page));
     }
@@ -158,7 +158,7 @@ export default function Ziswaf() {
               <h1 className="text-3xl sm:text-5xl font-bold text-gray-600">
                 Salurkan donasi kamu dengan mudah
               </h1>
-              <p className="text-gray-600 font-light text-sm sm:text-base lg:text-lg xl:w-3/4 mt-4">
+              <p className="text-gray-600 font-bold text-sm sm:text-base lg:text-lg xl:w-3/4 mt-4">
                 Dengan berkontribusi, Anda akan membantu menyediakan sumber daya
                 penting kepada mereka yang sangat membutuhkannya.
               </p>

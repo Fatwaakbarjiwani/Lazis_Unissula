@@ -1,14 +1,21 @@
-import Struktur from "../assets/struktur.svg";
+import { useDispatch } from "react-redux";
+import Struktur from "../../assets/struktur.svg";
+import { useEffect } from "react";
+import { setButtonPage } from "../../redux/reducers/pageReducer";
 
 export default function StrukturOrganisasi() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(setButtonPage("tentangkami"));
+    }, []);
   return (
     <div className="my-6">
-      <h1 className="flex items-center justify-center mb-4 font-Inter text-3xl font-bold">
+      <h1 className="flex items-center text-gray-600 justify-center mb-4 font-Inter text-3xl font-bold">
         Struktur <span className="text-[#69C53E]">Organisasi</span>
       </h1>
       <div className="flex items-center justify-center">
         <img
-          className="cursor-pointer transition-transform duration-500 ease-in-out hover:scale-105"
+          className="cursor-pointer"
           src={Struktur}
           alt="StrukturOrganisasi"
         />

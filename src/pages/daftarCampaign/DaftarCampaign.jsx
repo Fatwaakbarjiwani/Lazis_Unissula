@@ -120,7 +120,7 @@ export default function DaftarCampaign() {
             </div>
           ) : (
             allCampaign.map((item) => (
-              <Card key={item.campaignCode} item={item} />
+              <Card key={item.campaignCode} item={item} h={"h-full"} />
             ))
           )}
         </div>

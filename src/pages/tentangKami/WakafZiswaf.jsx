@@ -1,4 +1,12 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setButtonPage } from "../../redux/reducers/pageReducer";
+
 export default function WakafZiswaf() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(setButtonPage("tentangkami"));
+    }, []);
   return (
     <>
       <h1 className="font-bold text-3xl mt-4 sm:mt-10 mb-6 text-center">

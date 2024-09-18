@@ -18,6 +18,16 @@ import ZakatZiswaf from "./pages/tentangKami/ZakatZiswaf";
 import InfaqZiswaf from "./pages/tentangKami/InfaqZiswaf";
 import WakafZiswaf from "./pages/tentangKami/WakafZiswaf";
 import ModalResetPassword from "./components/modal/ModalResetPassword";
+import Tujuan from "./pages/tentangKami/Tujuan";
+import VisiMisi from "./pages/tentangKami/VisiMisi";
+import TentangKami from "./pages/tentangKami/TentangKami";
+import KhidmahDakwah from "./pages/tentangKami/KhidmahDakwah";
+import KhidmahEkonomi from "./pages/tentangKami/KhidmahEkonomi";
+import KhidmahKesehatan from "./pages/tentangKami/KhidmahKesehatan";
+import KhidmahLingkungan from "./pages/tentangKami/KhidmahLingkungan";
+import KhidmahPendidikan from "./pages/tentangKami/KhidmahPendidikan";
+import KhidmahSosial from "./pages/tentangKami/KhidmahSosial";
+import StrukturOrganisasi from "./pages/tentangKami/StrukturOrganisasi";
 function App() {
   return (
     <Router>
@@ -48,6 +58,17 @@ function App() {
           <Route path="/penjelasan/zakat" element={<ZakatZiswaf />} />
           <Route path="/penjelasan/infak" element={<InfaqZiswaf />} />
           <Route path="/penjelasan/wakaf" element={<WakafZiswaf />} />
+          {/* tentang kami */}
+          <Route path="/penjelasan/Tujuan" element={<Tujuan />} />
+          <Route path="/penjelasan/VIsiMisi" element={<VisiMisi />} />
+          <Route path="/penjelasan/TentangKami" element={<TentangKami />} />
+          <Route path="/penjelasan/KhidmahDakwah" element={<KhidmahDakwah />} />
+          <Route path="/penjelasan/KhidmahEkonomi" element={<KhidmahEkonomi />} />
+          <Route path="/penjelasan/KhidmahKesehatan" element={<KhidmahKesehatan />} />
+          <Route path="/penjelasan/KhidmahLingkungan" element={<KhidmahLingkungan />} />
+          <Route path="/penjelasan/KhidmahPendidikan" element={<KhidmahPendidikan/>} />
+          <Route path="/penjelasan/KhidmahSosial" element={<KhidmahSosial/>} />
+          <Route path="/penjelasan/KhidmahOrganisasi" element={<StrukturOrganisasi/>} />
         </Routes>
       </div>
       <ModalRegister />

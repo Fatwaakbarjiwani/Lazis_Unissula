@@ -4,12 +4,14 @@ const initialState = {
     ? parseInt(localStorage.getItem("pageNumber"), 10)
     : 1,
   totalPageNumber: 0,
+  totalPageNumberMessage: 0,
   allCampaign: [],
   campaignBySearch: [],
   allCampaignEmergency: [],
   detailCampaign: [],
   allCampaignCategory: [],
   allMessage: [],
+  donatur: [],
   aamiinId: [],
   searchCampaign: "",
 };
@@ -29,6 +31,9 @@ const authSlice = createSlice({
     setTotalPageNumber: (state, action) => {
       state.totalPageNumber = action.payload;
     },
+    setTotalPageNumberMessage: (state, action) => {
+      state.totalPageNumberMessage = action.payload;
+    },
     setAllCampaign: (state, action) => {
       state.allCampaign = action.payload;
     },
@@ -47,6 +52,9 @@ const authSlice = createSlice({
     setAllMessage: (state, action) => {
       state.allMessage = action.payload;
     },
+    setDonatur: (state, action) => {
+      state.donatur = action.payload;
+    },
     setAamiinId: (state, action) => {
       state.aamiinId = action.payload;
     },
@@ -59,12 +67,14 @@ const authSlice = createSlice({
 export const {
   setPageNumber,
   setTotalPageNumber,
+  setTotalPageNumberMessage,
   setAllCampaign,
   setCampaignBySearch,
   setAllCampaignEmergency,
   setDetailCampaign,
   setAllCampaignCategory,
   setAllMessage,
+  setDonatur,
   setAamiinId,
   setSearchCampaign,
 } = authSlice.actions;

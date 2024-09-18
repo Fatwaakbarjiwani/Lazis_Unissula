@@ -1,7 +1,15 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setButtonPage } from "../../redux/reducers/pageReducer";
+
 export default function KhidmahSosial() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(setButtonPage("tentangkami"));
+    }, []);
   return (
     <>
-      <h1 className="font-bold text-3xl mt-16 text-gray-700 mb-6">
+      <h1 className="font-bold text-3xl mt-10 text-center text-gray-600 mb-6">
         Khidmah Bidang{" "}
         <span className="text-[#69C53E]">Sosial Kemanusiaan</span>
       </h1>

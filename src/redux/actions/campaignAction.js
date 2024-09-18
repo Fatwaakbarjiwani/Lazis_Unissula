@@ -6,7 +6,9 @@ import {
   setAllMessage,
   setCampaignBySearch,
   setDetailCampaign,
+  setDonatur,
   setTotalPageNumber,
+  setTotalPageNumberMessage,
 } from "../reducers/campaignReducer";
 export const API_URL = import.meta.env.VITE_API_URL;
 
@@ -76,11 +78,21 @@ export const getAllCampaignCategory = () => async (dispatch) => {
 };
 export const getAllMessage = () => async (dispatch) => {
   try {
-    const response = await axios.get(
-      `${API_URL}/messages`
-    );
+    const response = await axios.get(`${API_URL}/messages`);
     const data = response.data;
     dispatch(setAllMessage(data.content));
+  } catch (error) {
+    console.error("Error fetching message data:", error);
+  }
+};
+export const getTransactionCampaign = (id, page) => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      `${API_URL}/transaction/campaign/${id}?page=${page}`
+    );
+    const data = response.data;
+    dispatch(setDonatur(data.content));
+    dispatch(setTotalPageNumberMessage(data.totalPages));
   } catch (error) {
     console.error("Error fetching message data:", error);
   }

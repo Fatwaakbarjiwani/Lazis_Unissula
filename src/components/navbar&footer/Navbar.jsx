@@ -29,6 +29,8 @@ function Navbar() {
   const [isAcountVisible, setAcountVisible] = useState(false);
   const [isDropdownLVisible, setDropdownLVisible] = useState(false);
   const [isDropdownPVisible, setDropdownPVisible] = useState(false);
+  const [isDropdownLMVisible, setDropdownLMVisible] = useState(false);
+  const [isDropdownPMVisible, setDropdownPMVisible] = useState(false);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -148,6 +150,7 @@ function Navbar() {
                   <Box className="absolute bg-white rounded-b p-2 space-y-1">
                     {dataLayanan.map((item) => (
                       <button
+                        onClick={() => navigate(`/penjelasan/${item.code}`)}
                         key={item.id}
                         className="flex items-center gap-1 hover:scale-105 duration-150 font-semibold text-gray-600"
                       >
@@ -279,14 +282,61 @@ function Navbar() {
           >
             Berita
           </Link>
-          <div className="relative">
-            <button className="flex items-center gap-1 hover:scale-105 duration-150 font-semibold text-gray-600">
-              Layanan <img src={down} alt="Dropdown Icon" />
-            </button>
-          </div>
-          <button className="flex items-center gap-1 hover:scale-105 duration-150 font-semibold text-gray-600">
-            Profile <img src={down} alt="Dropdown Icon" />
-          </button>
+          <ClickAwayListener onClickAway={() => setDropdownPMVisible(false)}>
+            <Box>
+              <button
+                onClick={() => setDropdownPMVisible(!isDropdownPMVisible)}
+                className="flex items-center gap-1 hover:scale-105 duration-150 font-semibold text-gray-600"
+              >
+                Profile <img src={down} alt="" />
+              </button>
+              {isDropdownPMVisible ? (
+                <Box className="absolute bg-gray-50 rounded-b p-2">
+                  {dataProfile.map((item) => (
+                    <button
+                      onClick={() => {
+                        navigate(`/penjelasan/${item.code}`);
+                        setMenuVisible(false);
+                      }}
+                      key={item.id}
+                      className="flex items-center gap-1 hover:scale-105 duration-150 font-semibold text-gray-600"
+                    >
+                      {item.name}
+                    </button>
+                  ))}
+                </Box>
+              ) : null}
+            </Box>
+          </ClickAwayListener>
+          <ClickAwayListener onClickAway={() => setDropdownLMVisible(false)}>
+            <Box>
+              <button
+                onClick={() => {
+                  setDropdownLMVisible(!isDropdownLMVisible);
+                }}
+                className="flex items-center gap-1 hover:scale-105 duration-150 font-semibold text-gray-600"
+              >
+                Layanan
+                <img src={down} alt="" />
+              </button>
+              {isDropdownLMVisible ? (
+                <Box className="absolute bg-gray-50 rounded-b p-2 space-y-1">
+                  {dataLayanan.map((item) => (
+                    <button
+                      onClick={() => {
+                        navigate(`/penjelasan/${item.code}`);
+                        setMenuVisible(false);
+                      }}
+                      key={item.id}
+                      className="flex items-center gap-1 hover:scale-105 duration-150 font-semibold text-gray-600"
+                    >
+                      {item.name}
+                    </button>
+                  ))}
+                </Box>
+              ) : null}
+            </Box>
+          </ClickAwayListener>
         </div>
       )}
       {isAcountVisible && (
