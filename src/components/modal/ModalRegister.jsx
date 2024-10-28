@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { HiExclamation } from "react-icons/hi";
 import { setModalRegister } from "../../redux/reducers/authReducer";
 import { register } from "../../redux/actions/authAction";
+import { OrbitProgress } from "react-loading-indicators";
 
 export default function ModalRegister() {
   const { modalRegister } = useSelector((state) => state.auth);
@@ -15,6 +16,7 @@ export default function ModalRegister() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   const handleRegister = () => {
@@ -28,7 +30,10 @@ export default function ModalRegister() {
     } else if (password !== confirmPassword) {
       setError("Password dan Konfirmasi Password berbeda");
     } else {
-      dispatch(register(userName, phoneNumber, email, password));
+      setLoading(true);
+      dispatch(register(userName, phoneNumber, email, password)).finally(() =>
+        setLoading(false)
+      );
     }
   };
 
@@ -162,12 +167,24 @@ export default function ModalRegister() {
                   </div>
                 )}
               </div>
-              <button
-                onClick={handleRegister}
-                className="w-full bg-primary text-lg text-white mt-8 rounded-md md:rounded-xl px-5 py-2 hover:scale-105 transition-transform duration-300"
-              >
-                Daftar
-              </button>
+              {isLoading ? (
+                <div className="w-full flex justify-center mt-8">
+                  <OrbitProgress
+                    variant="dotted"
+                    color="#69c53e"
+                    text=""
+                    style={{ fontSize: "8px" }}
+                    textColor=""
+                  />
+                </div>
+              ) : (
+                <button
+                  onClick={handleRegister}
+                  className="w-full bg-primary text-lg text-white mt-8 rounded-md md:rounded-xl px-5 py-2 hover:scale-105 transition-transform duration-300"
+                >
+                  Daftar
+                </button>
+              )}
             </div>
           </div>
         </div>

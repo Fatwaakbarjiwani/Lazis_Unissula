@@ -15,7 +15,7 @@ export default function Information() {
       };
   return (
     <div className="flex justify-center font-Inter">
-      <div className="absolute as:top-[30vh] xs:top-[22vh] bs:top-[30vh] cs:top-[32vh] sm:top-[28vh] md:top-[42vh] lg:top-[70vh] flex w-[86%] bg-white shadow md:shadow-lg rounded-3xl px-1 sm:px-5 md:px-10 lg:px-20 sm:py-5 py-2 transition delay-150 duration-300 ease-in-out">
+      <div className="absolute as:top-[22vh] xs:top-[22vh] bs:top-[22vh] cs:top-[22vh] sm:top-[28vh] md:top-[42vh] lg:top-[70vh] flex w-[86%] bg-white shadow md:shadow-lg rounded-3xl px-1 sm:px-5 md:px-10 lg:px-20 sm:py-5 py-2 transition delay-150 duration-300 ease-in-out">
         <div className="flex w-full justify-around md:justify-between p-2 items-start">
           <div className="flex flex-col items-center justify-between h-full">
             <img src={info4} className="w-6 sm:w-10" alt="" />

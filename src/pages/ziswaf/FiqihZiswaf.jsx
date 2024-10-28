@@ -7,8 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setButtonPage } from "../../redux/reducers/pageReducer";
 import { getCategoryZiswaf } from "../../redux/actions/ziswafAction";
 import Information2 from "../../components/bar/Information2";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 export default function Ziswaf() {
   const [button, setButton] = useState("zakat");
@@ -56,10 +54,6 @@ export default function Ziswaf() {
   };
 
   useEffect(() => {
-    AOS.init({
-      duration: 1200,
-      once: true,
-    });
     if (page) {
       dispatch(setButtonPage(page));
     }
@@ -68,7 +62,7 @@ export default function Ziswaf() {
 
   return (
     <div>
-      <div className="px-4 sm:px-8 lg:px-[80px]" data-aos="zoom-out">
+      <div className="px-4 sm:px-8 lg:px-[80px]">
         <div className="grid grid-cols-2 sm:flex gap-3 sm:gap-5 justify-center items-center py-4 sm:py-6">
           {["zakat", "infak", "dskl", "wakaf"].map((item) => (
             <button

@@ -8,12 +8,14 @@ import {
 } from "../../redux/reducers/authReducer";
 import { HiInformationCircle } from "react-icons/hi";
 import { resetPassword } from "../../redux/actions/authAction";
+import { OrbitProgress } from "react-loading-indicators";
 
 export default function ModalResetPassword() {
   const { modalResetPassword } = useSelector((state) => state.auth);
   const [email, setEmail] = useState("");
   const [isSucces, setSucces] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [timer, setTimer] = useState(30); // Timer for resend email
   const [canResend, setCanResend] = useState(false);
   const dispatch = useDispatch();
@@ -47,7 +49,8 @@ export default function ModalResetPassword() {
   };
 
   const handleReset = () => {
-    dispatch(resetPassword(email, setSucces));
+    setLoading(true);
+    dispatch(resetPassword(email, setSucces)).finally(() => setLoading(false));
     setTimer(30);
     setCanResend(false);
   };
@@ -134,12 +137,26 @@ export default function ModalResetPassword() {
                 </div>
               )}
               {isSucces == false && (
-                <button
-                  onClick={handleReset}
-                  className="w-full bg-primary text-lg text-white mt-8 rounded-md md:rounded-xl px-5 py-1 md:py-2 hover:translate-y-[-5px] duration-300"
-                >
-                  Reset password
-                </button>
+                <>
+                  {isLoading ? (
+                    <div className="w-full flex justify-center mt-8">
+                      <OrbitProgress
+                        variant="dotted"
+                        color="#69c53e"
+                        text=""
+                        style={{ fontSize: "8px" }}
+                        textColor=""
+                      />
+                    </div>
+                  ) : (
+                    <button
+                      onClick={handleReset}
+                      className="w-full bg-primary text-lg text-white mt-8 rounded-md md:rounded-xl px-5 py-1 md:py-2 hover:translate-y-[-5px] duration-300"
+                    >
+                      Reset password
+                    </button>
+                  )}
+                </>
               )}
               {isSucces ? (
                 <div className="mt-4">

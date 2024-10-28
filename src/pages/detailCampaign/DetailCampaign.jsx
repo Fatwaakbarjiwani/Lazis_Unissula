@@ -262,7 +262,7 @@ export default function CampaignDetail() {
             {button == "Update" && (
               <>
                 {distribution.length > 0 ? (
-                  <div className="flex flex-col items-center gap-4 mt-10 mx-4">
+                  <div className="flex flex-col items-center gap-4 mt-10 px-4">
                     {distribution.map((item) => (
                       <div
                         className="flex justify-between w-full max-w-2xl gap-5 bg-white shadow sm:shadow-lg rounded border border-gray-200 p-2"

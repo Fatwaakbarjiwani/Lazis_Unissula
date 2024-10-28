@@ -36,20 +36,20 @@ export default function CardDoa({ id, nama, waktu, judul, ucapan, aamiin }) {
             {nama}
           </h3>
           <p className="text-[10px] sm:text-xs">{waktu}</p>
-          <p className="text-[10px] sm:text-xs text-primary line-clamp-1">
+          <p className="text-xs font-medium sm:text-xs text-green-800 line-clamp-1">
             {judul}
           </p>
         </div>
       </div>
       <p className="text-xs sm:text-base">{ucapan}</p>
-      <p className="text-xs sm:text-base text-[#f00793] font-semibold">
+      <p className="text-xs sm:text-base text-fourth font-semibold">
         {aamiin} orang memberi aamiin
       </p>
       <div className="flex justify-center">
         <button
           onClick={() => handleSaveId(id)}
           className={`flex hover:scale-105 duration-150 gap-1 items-center text-sm font-bold text-base ${
-            isAamiinClicked ? "text-[#f00793]" : "text-gray-600"
+            isAamiinClicked ? "text-fourth" : "text-gray-600"
           }`}
         >
           {isAamiinClicked ? (

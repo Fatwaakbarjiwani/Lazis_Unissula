@@ -15,8 +15,6 @@ import {
   getAllMessage,
 } from "../../redux/actions/campaignAction";
 import { Link } from "react-router-dom";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 export default function HomePage() {
   const { allCampaign } = useSelector((state) => state.campaign);
@@ -25,17 +23,12 @@ export default function HomePage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    AOS.init({
-      duration: 1200,
-      // offset: 250,
-      once: true,
-    });
     dispatch(getAllCampaign(0));
     dispatch(getAllMessage());
     dispatch(getAllCampaignEmergency());
   }, [dispatch]);
   return (
-    <div className="font-Inter" data-aos="zoom-out">
+    <div className="font-Inter">
       {/* Header */}
       <div
         className="flex justify-center pb-12 lg:h-[80vh]"
@@ -86,11 +79,11 @@ export default function HomePage() {
           >
             {allCampaignEmergency.slice(0, 10).map((item) => (
               <div key={item?.campaignId} className="flex justify-center">
-                <div className="realtive w-full sm:w-5/6 lg:w-4/6 lg:h-[60vh]">
+                <div className="realtive w-full sm:w-5/6 lg:w-5/6 lg:h-[70vh]">
                   <Link to={`/detailCampaign/${item?.campaignId}`}>
                     <img
                       src={item?.campaignImage}
-                      className="h-52 sm:h-60 md:h-72 lg:h-80 w-full rounded-2xl object-fill object-center"
+                      className="h-52 sm:h-60 md:h-72 lg:h-[65vh] w-full rounded-2xl object-fill object-center drop-shadow-lg"
                       alt=""
                       style={{ backgroundRepeat: "no-repeat" }}
                     />

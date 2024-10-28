@@ -5,11 +5,13 @@ import { editProfileUser } from "../../redux/actions/authAction";
 import { useNavigate } from "react-router-dom";
 import { FaCheck } from "react-icons/fa6";
 import toast from "react-hot-toast";
+import { OrbitProgress } from "react-loading-indicators";
 
 export default function EditProfile() {
   const { user } = useSelector((state) => state.auth);
   const { ps } = useSelector((state) => state.auth);
   const [edit, setEdit] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [address, setAddress] = useState("");
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -29,6 +31,7 @@ export default function EditProfile() {
   };
 
   const handleSave = () => {
+    setLoading(true);
     dispatch(
       editProfileUser(
         name,
@@ -41,7 +44,7 @@ export default function EditProfile() {
         toLogin,
         navigate
       )
-    );
+    ).finally(() => setLoading(false));
   };
   const handleCheck = () => {
     if (password == ps) {
@@ -83,6 +86,8 @@ export default function EditProfile() {
       setProfilePicture(null);
       setEditPassword(false);
     }
+  }, [user, edit]);
+  useEffect(() => {
     if (
       email !== user?.email ||
       phoneNumber !== user?.phoneNumber ||
@@ -92,7 +97,7 @@ export default function EditProfile() {
     } else {
       setToLogin(false);
     }
-  }, [user, edit, password]);
+  }, [email, phoneNumber, password]);
 
   return (
     <div className="w-full md:w-5/6 lg:w-4/6 flex flex-col gap-4">
@@ -212,19 +217,31 @@ export default function EditProfile() {
         </label>
       )}
       {edit ? (
-        <div className="flex flex-col md:flex-row gap-2 mt-4">
+        <div className="flex flex-col items-center md:flex-row gap-2 mt-4">
           <button
             onClick={() => setEdit(false)}
             className="rounded-full border-2 p-2 w-full md:w-1/2 border-gray-500 font-bold text-white bg-gray-500 outline-none shadow hover:-translate-y-1 duration-300"
           >
             Batal
           </button>
-          <button
-            onClick={handleSave}
-            className="rounded-full border-2 p-2 w-full md:w-1/2 border-primary font-bold text-white bg-primary outline-none shadow hover:-translate-y-1 duration-300"
-          >
-            Simpan
-          </button>
+          {isLoading ? (
+            <div className="md:w-1/2 w-full flex justify-center">
+              <OrbitProgress
+                variant="dotted"
+                color="#69c53e"
+                text=""
+                style={{ fontSize: "8px" }}
+                textColor=""
+              />
+            </div>
+          ) : (
+            <button
+              onClick={handleSave}
+              className="rounded-full border-2 p-2 w-full md:w-1/2 border-primary font-bold text-white bg-primary outline-none shadow hover:-translate-y-1 duration-300"
+            >
+              Simpan
+            </button>
+          )}
         </div>
       ) : (
         <button

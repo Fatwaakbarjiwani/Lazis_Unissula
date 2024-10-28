@@ -23,6 +23,7 @@ export default {
         as: "240px", 
         bs: "380px", 
         cs: "490px", 
+        ds: "1200px", 
       },
     },
   },

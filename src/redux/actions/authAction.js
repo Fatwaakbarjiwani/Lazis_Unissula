@@ -24,7 +24,11 @@ export const register =
         dispatch(setModalLogin(true));
       }
     } catch (error) {
-      toast.error("Proses Register Gagal");
+      Swal.fire({
+        title: "Proses register gagal",
+        text: error.response.data.message,
+        icon: "error",
+      });
     }
   };
 export const login = (acount, password) => async (dispatch) => {
@@ -35,7 +39,11 @@ export const login = (acount, password) => async (dispatch) => {
     });
     if (response) {
       const data = response.data;
-      toast.success("Proses Login Berhasil");
+      Swal.fire({
+        title: `Selamat datang ${data.username}`,
+        text: "Donasi Anda Harapan Mereka",
+        icon: "success",
+      });
       setTimeout(() => {
         dispatch(setModalLogin(false));
       }, 2000);
@@ -52,9 +60,35 @@ export const login = (acount, password) => async (dispatch) => {
       }
     }
   } catch (error) {
-    toast.error("Proses Login Gagal");
+    Swal.fire({
+      title: "Proses login gagal",
+      text: error.response.data.message,
+      icon: "error",
+    });
   }
 };
+
+export const registerWithGoogle = (accessToken) => async (dispatch) => {
+  try {
+    // console.log(accessToken);
+    
+    const response = await axios.post(`${API_URL}/auth/google`, {
+      access_token: accessToken,
+    });
+    if (response) {
+      const data = response.data;
+      dispatch(setToken(data.token));
+      dispatch(setModalLogin(false));
+    }
+  } catch (error) {
+    Swal.fire({
+      title: "Proses login gagal",
+      text: error.message,
+      icon: "error",
+    });
+  }
+};
+
 export const getMe = () => async (dispatch, getState) => {
   try {
     const { token } = getState().auth;
@@ -129,8 +163,6 @@ export const editProfileUser =
 
 export const resetPassword = (email, setSucces) => async (dispatch) => {
   try {
-    console.log(email);
-
     const response = await axios.post(`${API_URL}/auth/reset-password`, {
       email: email,
     });

@@ -16,19 +16,17 @@ import {
 } from "../../redux/reducers/campaignReducer";
 import { Box, ClickAwayListener } from "@mui/material";
 import { dataLayanan, dataProfile } from "../data/dropDown";
-import { BiUser } from "react-icons/bi";
-import { BsArrowDown } from "react-icons/bs";
 
 function Navbar() {
   const dispatch = useDispatch();
   const { buttonPage } = useSelector((state) => state.page);
   const { user } = useSelector((state) => state.auth);
-  const { token } = useSelector((state) => state.auth);
   const { searchCampaign } = useSelector((state) => state.campaign);
   const navigate = useNavigate();
 
   const [isSearchVisible, setSearchVisible] = useState(false);
   const [isMenuVisible, setMenuVisible] = useState(false);
+  const [isAcountVisible, setAcountVisible] = useState(false);
   const [isDropdownLVisible, setDropdownLVisible] = useState(false);
   const [isDropdownPVisible, setDropdownPVisible] = useState(false);
   const [isDropdownLMVisible, setDropdownLMVisible] = useState(false);
@@ -47,56 +45,27 @@ function Navbar() {
   };
 
   useEffect(() => {
-    if (token) {
-      dispatch(getMe());
-    }
-  }, [dispatch, token]);
+    dispatch(getMe());
+  }, [dispatch]);
 
   return (
-    <div className="fixed top-0 w-full font-Inter z-50 shadow-md bg-white/80 backdrop-blur-md">
+    <div className="fixed top-0 w-full font-Inter z-50 bg-white shadow-md">
       <div className="flex items-center justify-between gap-4 px-4 py-2">
-        <div className="flex items-end ">
-          {isSearchVisible ? (
-            <div className={`sm:hidden flex px-4 py-2`}>
-              <div className="flex bg-white hover:bg-gray-50 transition duration-300 shadow-inner ps-8 p-1 rounded-full items-center  gap-2 w-full">
-                <img src={search} className="w-5" alt="Search" />
-                <form onSubmit={handleSearch} className="w-full">
-                  <input
-                    type="text"
-                    placeholder="Cari Campaign"
-                    className="outline-none bg-transparent w-full"
-                    value={searchCampaign}
-                    onChange={(e) =>
-                      dispatch(setSearchCampaign(e.target.value))
-                    }
-                  />
-                </form>
-              </div>
-            </div>
-          ) : (
-            <Link
-              to={"/"}
-              onClick={() => {
-                dispatch(setButtonPage(""));
-              }}
-              className="flex sm:hidden"
-            >
-              <img src={logo} alt="Logo" className="h-12" />
-            </Link>
-          )}
+        {/* Logo Web */}
+        <div className="flex items-end">
           <Link
             to={"/"}
             onClick={() => {
               dispatch(setButtonPage(""));
             }}
-            className="sm:flex hidden"
+            className="flex"
           >
             <img src={logo} alt="Logo" className="h-12" />
           </Link>
         </div>
 
         {/* Search Bar for Larger Screens */}
-        <div className="hidden sm:flex bg-gray-100 hover:bg-white transition duration-300 ring-1 ring-gray-300 shadow-inner ps-8 p-1 rounded-full items-center justify-center gap-2">
+        <div className="hidden md:flex bg-gray-100 hover:bg-white transition duration-300 ring-1 ring-gray-300 shadow-inner ps-8 p-1 rounded-full items-center justify-center gap-2">
           <img src={search} className="w-5" alt="Search" />
           <form action="" onSubmit={handleSearch}>
             <input
@@ -110,14 +79,26 @@ function Navbar() {
         </div>
 
         {/* Desktop Navigation Links */}
-        <div className="flex gap-2 xl:gap-0 justify-end xl:justify-between w-2/6 md:w-3/6 xl:w-4/6">
+        <div className="flex gap-2 xl:gap-0 justify-end xl:justify-between w-3/6 xl:w-4/6">
           <button
             onClick={() => setSearchVisible(!isSearchVisible)}
-            className="block sm:hidden hover:scale-105 duration-150 font-semibold text-gray-600"
+            className="block md:hidden hover:scale-105 duration-150 font-semibold text-gray-600"
           >
             <img src={search} className="w-6" alt="Search Icon" />
           </button>
-          <div className="hidden space-x-4 lg:flex items-center">
+          <button
+            onClick={() => setMenuVisible(!isMenuVisible)}
+            className="block xl:hidden hover:scale-105 duration-150 font-semibold text-gray-600"
+          >
+            <MdMenu className="w-6 h-6" />
+          </button>
+          <button
+            onClick={() => setAcountVisible(!isAcountVisible)}
+            className="block sm:hidden hover:scale-105 duration-150 font-semibold text-gray-600"
+          >
+            <img src={acount} className="w-6" alt="Account Icon" />
+          </button>
+          <div className="hidden space-x-4 xl:flex items-center">
             <Link
               to={"/fiqihZiswaf/Ziswaf"}
               onClick={() => {
@@ -204,14 +185,8 @@ function Navbar() {
               </Box>
             </ClickAwayListener>
           </div>
-          <button
-            onClick={() => setMenuVisible(!isMenuVisible)}
-            className="block ds:hidden hover:scale-105 duration-150 font-semibold text-gray-600"
-          >
-            <MdMenu className="w-6 h-6" />
-          </button>
           {user !== null ? (
-            <div className="space-x-4 hidden ds:flex items-center xl:w-2/6 justify-center">
+            <div className="space-x-4 hidden sm:flex items-center xl:w-2/6 justify-center">
               <Link to={"/profile"}>
                 <button className="flex items-center gap-1 hover:scale-105 duration-150 font-semibold text-gray-600">
                   <img src={acount} alt="Account" />
@@ -226,7 +201,7 @@ function Navbar() {
               </button>
             </div>
           ) : (
-            <div className="hidden space-x-4 ds:flex">
+            <div className="hidden space-x-4 sm:flex">
               <button
                 onClick={() => dispatch(setModalLogin(true))}
                 className="flex items-center gap-1 hover:scale-105 duration-150 font-semibold text-gray-600"
@@ -243,13 +218,28 @@ function Navbar() {
           )}
         </div>
       </div>
+
+      {/* Mobile Search Bar */}
+      {isSearchVisible && (
+        <div className="lg:hidden flex justify-center bg-gray-50 shadow px-4 py-2 transition duration-300">
+          <div className="flex bg-white ring-1 ring-gray-300 shadow-inner ps-8 p-1 rounded-full items-center  gap-2 w-full">
+            <img src={search} className="w-5" alt="Search" />
+            <form onSubmit={handleSearch} className="w-full">
+              <input
+                type="text"
+                placeholder="Cari Campaign"
+                className="outline-none bg-transparent w-full"
+                value={searchCampaign}
+                onChange={(e) => dispatch(setSearchCampaign(e.target.value))}
+              />
+            </form>
+          </div>
+        </div>
+      )}
+
       {/* Mobile Navigation Links */}
-      <div
-        className={`${
-          isMenuVisible ? "" : "translate-x-[400px] transition"
-        } transition w-1/2 sm:w-1/3 md:w-3/12 lg:w-1/6 xl:hidden absolute right-0 h-screen duration-500 bg-white/80 backdrop-blur-md drop-shadow-md  px-4 py-2`}
-      >
-        <div className="lg:hidden flex flex-col gap-1">
+      {isMenuVisible && (
+        <div className="xl:hidden flex flex-col justify-between items-start bg-gray-50 px-4 py-2">
           <Link
             to={"/fiqihZiswaf/Ziswaf"}
             onClick={() => {
@@ -258,9 +248,9 @@ function Navbar() {
             }}
             className={`${
               buttonPage === "Ziswaf"
-                ? "text-primary border-b-2 border-primary w-full"
+                ? "text-primary underline-offset-8 underline"
                 : ""
-            } hover:scale-105 duration-150 font-semibold text-gray-600`}
+            } hover:scale-105 duration-150 font-semibold text-gray-600 mb-2`}
           >
             Ziswaf
           </Link>
@@ -272,9 +262,9 @@ function Navbar() {
             }}
             className={`${
               buttonPage === "Campaign"
-                ? "text-primary border-b-2 border-primary w-full"
+                ? "text-primary underline-offset-8 underline"
                 : ""
-            } hover:scale-105 duration-150 font-semibold text-gray-600`}
+            } hover:scale-105 duration-150 font-semibold text-gray-600 mb-2`}
           >
             Campaign
           </Link>
@@ -286,22 +276,22 @@ function Navbar() {
             }}
             className={`${
               buttonPage === "Berita"
-                ? "text-primary border-b-2 border-primary w-full"
+                ? "text-primary underline-offset-8 underline"
                 : ""
-            } hover:scale-105 duration-150 font-semibold text-gray-600`}
+            } hover:scale-105 duration-150 font-semibold text-gray-600 mb-2`}
           >
             Berita
           </Link>
           <ClickAwayListener onClickAway={() => setDropdownPMVisible(false)}>
-            <Box className="overflow-hidden">
+            <Box>
               <button
                 onClick={() => setDropdownPMVisible(!isDropdownPMVisible)}
-                className="flex items-center text-center gap-1 hover:scale-105 duration-150 font-semibold text-gray-600"
+                className="flex items-center gap-1 hover:scale-105 duration-150 font-semibold text-gray-600"
               >
-                Profile <BsArrowDown />
+                Profile <img src={down} alt="" />
               </button>
               {isDropdownPMVisible ? (
-                <Box className="p-2 space-y-3 flex flex-col">
+                <Box className="absolute bg-gray-50 rounded-b p-2">
                   {dataProfile.map((item) => (
                     <button
                       onClick={() => {
@@ -309,7 +299,7 @@ function Navbar() {
                         setMenuVisible(false);
                       }}
                       key={item.id}
-                      className="text-left hover:scale-105 duration-150 text-sm sm:text-base text-gray-600"
+                      className="flex items-center gap-1 hover:scale-105 duration-150 font-semibold text-gray-600"
                     >
                       {item.name}
                     </button>
@@ -326,10 +316,11 @@ function Navbar() {
                 }}
                 className="flex items-center gap-1 hover:scale-105 duration-150 font-semibold text-gray-600"
               >
-                Layanan <BsArrowDown />
+                Layanan
+                <img src={down} alt="" />
               </button>
               {isDropdownLMVisible ? (
-                <Box className=" p-2 space-y-3 flex flex-col">
+                <Box className="absolute bg-gray-50 rounded-b p-2 space-y-1">
                   {dataLayanan.map((item) => (
                     <button
                       onClick={() => {
@@ -337,7 +328,7 @@ function Navbar() {
                         setMenuVisible(false);
                       }}
                       key={item.id}
-                      className="text-left hover:scale-105 duration-150 text-sm sm:text-base text-gray-600"
+                      className="flex items-center gap-1 hover:scale-105 duration-150 font-semibold text-gray-600"
                     >
                       {item.name}
                     </button>
@@ -347,39 +338,42 @@ function Navbar() {
             </Box>
           </ClickAwayListener>
         </div>
-        {user !== null ? (
-          <div className="xl:hidden space-y-2 w-full mt-6">
-            <Link to={"/profile"}>
-              <button className="gap-2 w-full flex items-center bg-primary p-1 text-white gap-1 hover:scale-105 rounded duration-150 font-semibold text-gray-600">
-                <BiUser className="text-2xl" />
-                <p className="line-clamp-1 text-left">{user?.username}</p>
+      )}
+      {isAcountVisible && (
+        <>
+          {user !== null ? (
+            <div className="sm:hidden space-y-2 items-center px-4 p-1 bg-gray-50">
+              <Link to={"/profile"}>
+                <button className="w-full flex items-center justify-center gap-1 hover:scale-105 rounded duration-150 font-semibold text-gray-600 border-primary border-2">
+                  <img src={acount} alt="Account" />
+                  <p className="line-clamp-1 text-left">{user?.username}</p>
+                </button>
+              </Link>
+              <button
+                onClick={() => dispatch(logout())}
+                className="hover:scale-105 duration-150 font-semibold w-full text-white bg-red-700 p-1 rounded px-4"
+              >
+                Logout
               </button>
-            </Link>
-            <button
-              onClick={() => dispatch(logout())}
-              className="hover:scale-105 duration-150 font-semibold w-full text-left text-white bg-red-700 p-1 rounded px-4"
-            >
-              Logout
-            </button>
-          </div>
-        ) : (
-          <div className="xl:hidden space-y-2 w-full mt-6">
-            <button
-              onClick={() => dispatch(setModalLogin(true))}
-              className="rounded-md flex items-center border-2 text-primary border-primary gap-1 hover:scale-105 duration-150 font-semibold text-gray-600 w-full"
-            >
-              <BiUser className="text-2xl text-primary" />
-              <p>Masuk</p>
-            </button>
-            <button
-              onClick={() => dispatch(setModalRegister(true))}
-              className="hover:scale-105 duration-150 font-semibold text-left text-white bg-primary p-1 rounded w-full px-4"
-            >
-              Daftar
-            </button>
-          </div>
-        )}
-      </div>
+            </div>
+          ) : (
+            <div className="sm:hidden space-y-2 items-center px-4 p-1 bg-gray-50">
+              <button
+                onClick={() => dispatch(setModalLogin(true))}
+                className="flex items-center justify-center border-2 border-primary gap-1 hover:scale-105 duration-150 font-semibold text-gray-600 w-full"
+              >
+                <img src={acount} alt="Account" /> <p>Masuk</p>
+              </button>
+              <button
+                onClick={() => dispatch(setModalRegister(true))}
+                className="hover:scale-105 duration-150 font-semibold text-white bg-primary p-1 rounded w-full px-4"
+              >
+                Daftar
+              </button>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }

@@ -5,6 +5,7 @@ const key = "secretKey";
 const initialState = {
   nml: getNmlFromLocalStorage(),
   methode: "",
+  transactionUser: [],
 };
 function getNmlFromLocalStorage() {
   const encryptedNml = localStorage.getItem("nml");
@@ -42,9 +43,12 @@ const authSlice = createSlice({
     setMethode: (state, action) => {
       state.methode = action.payload;
     },
+    setTransactionUser: (state, action) => {
+      state.transactionUser = action.payload;
+    },
   },
 });
 
-export const { setNml, setMethode } = authSlice.actions;
+export const { setNml, setMethode, setTransactionUser } = authSlice.actions;
 
 export default authSlice.reducer;

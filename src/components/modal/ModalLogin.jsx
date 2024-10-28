@@ -11,12 +11,15 @@ import {
 } from "../../redux/reducers/authReducer";
 import { login } from "../../redux/actions/authAction";
 import { PiEye, PiEyeClosed } from "react-icons/pi";
+import { OrbitProgress } from "react-loading-indicators";
+import GoogleLogin from "../oauth/GoogleLogin";
 
 export default function ModalLogin() {
   const { modalLogin } = useSelector((state) => state.auth);
   const { acount } = useSelector((state) => state.auth);
   const [password, setPassword] = useState("");
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false); // Added state to toggle password visibility
   const dispatch = useDispatch();
 
@@ -30,7 +33,8 @@ export default function ModalLogin() {
   }, [modalLogin]);
 
   const handleLogin = () => {
-    dispatch(login(acount, password));
+    setLoading(true);
+    dispatch(login(acount, password)).finally(() => setLoading(false));
     dispatch(setPs(password));
   };
 
@@ -128,12 +132,25 @@ export default function ModalLogin() {
                 </button>
               </div>
               {/* button */}
-              <button
-                onClick={handleLogin}
-                className="w-full bg-primary text-lg text-white mt-8 rounded-md md:rounded-xl px-5 py-1 md:py-2 hover:translate-y-[-5px] duration-300"
-              >
-                Masuk
-              </button>
+              {isLoading ? (
+                <div className="w-full flex justify-center mt-8">
+                  <OrbitProgress
+                    variant="dotted"
+                    color="#69c53e"
+                    text=""
+                    style={{ fontSize: "8px" }}
+                    textColor=""
+                  />
+                </div>
+              ) : (
+                <button
+                  onClick={handleLogin}
+                  className="w-full bg-primary text-lg text-white mt-6 rounded-md md:rounded-xl px-5 py-1 md:py-2 hover:translate-y-[-5px] duration-300"
+                >
+                  Masuk
+                </button>
+              )}
+              <GoogleLogin/>
               <div className="flex justify-center mt-3 active:scale-105 duration-75">
                 <p>Belum punya akun?</p>
               </div>
