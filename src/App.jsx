@@ -28,6 +28,7 @@ import KhidmahLingkungan from "./pages/tentangKami/KhidmahLingkungan";
 import KhidmahPendidikan from "./pages/tentangKami/KhidmahPendidikan";
 import KhidmahSosial from "./pages/tentangKami/KhidmahSosial";
 import StrukturOrganisasi from "./pages/tentangKami/StrukturOrganisasi";
+import Hotline from "./components/navbar&footer/Hotline";
 function App() {
   return (
     <Router>
@@ -74,6 +75,7 @@ function App() {
       <ModalRegister />
       <ModalLogin />
       <ModalResetPassword />
+      <Hotline/>
     </Router>
   );
 }
