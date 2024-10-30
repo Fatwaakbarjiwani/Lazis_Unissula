@@ -77,7 +77,7 @@ function Navbar() {
             <Link
               to={"/"}
               onClick={() => {
-                dispatch(setButtonPage(""));
+                dispatch(setButtonPage("Home"));
               }}
               className="flex sm:hidden"
             >
@@ -87,7 +87,7 @@ function Navbar() {
           <Link
             to={"/"}
             onClick={() => {
-              dispatch(setButtonPage(""));
+              dispatch(setButtonPage("Home"));
             }}
             className="sm:flex hidden"
           >
@@ -118,6 +118,19 @@ function Navbar() {
             <img src={search} className="w-6" alt="Search Icon" />
           </button>
           <div className="hidden space-x-4 lg:flex items-center">
+            <Link
+              to={"/"}
+              onClick={() => {
+                dispatch(setButtonPage("Home"));
+              }}
+              className={`${
+                buttonPage === "Home"
+                  ? "text-primary underline-offset-8 underline"
+                  : ""
+              } hover:scale-105 duration-150 font-semibold text-gray-600`}
+            >
+              Home
+            </Link>
             <Link
               to={"/fiqihZiswaf/Ziswaf"}
               onClick={() => {

@@ -7,6 +7,7 @@ import {
   setUser,
 } from "../reducers/authReducer";
 import Swal from "sweetalert2";
+import { setSummary } from "../reducers/pageReducer";
 export const API_URL = import.meta.env.VITE_API_URL;
 
 export const register =
@@ -71,7 +72,7 @@ export const login = (acount, password) => async (dispatch) => {
 export const registerWithGoogle = (accessToken) => async (dispatch) => {
   try {
     // console.log(accessToken);
-    
+
     const response = await axios.post(`${API_URL}/auth/google`, {
       access_token: accessToken,
     });
@@ -100,6 +101,17 @@ export const getMe = () => async (dispatch, getState) => {
     if (response) {
       const data = response.data;
       dispatch(setUser(data));
+    }
+  } catch (error) {
+    error;
+  }
+};
+export const getSummary = () => async (dispatch) => {
+  try {
+    const response = await axios.get(`${API_URL}/summary`);
+    if (response) {
+      const data = response.data;
+      dispatch(setSummary(data));
     }
   } catch (error) {
     error;

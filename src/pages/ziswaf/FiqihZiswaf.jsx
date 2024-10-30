@@ -7,35 +7,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { setButtonPage } from "../../redux/reducers/pageReducer";
 import { getCategoryZiswaf } from "../../redux/actions/ziswafAction";
 import Information2 from "../../components/bar/Information2";
+import { Commet } from "react-loading-indicators";
+import { BiCategory } from "react-icons/bi";
 
 export default function Ziswaf() {
   const [button, setButton] = useState("zakat");
-  const [click, setClick] = useState(false);
-  const [biaya, setBiaya] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
   const { page } = useParams();
   const { categoryZiswaf } = useSelector((state) => state.ziswaf);
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
 
   const handleButton = (value) => {
     setButton(value);
-    setClick(false);
-  };
-
-  const formatNumber = (value) => {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  };
-
-  const handleNominalChange = (e) => {
-    let inputValue = e.target.value.replace(/[^\d]/g, "");
-    inputValue = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    setBiaya(formatNumber(inputValue));
-  };
-
-  const handleCategoryChange = (value) => {
-    setSelectedCategory(value);
-    setClick(false);
+    setIsLoading(true);
   };
 
   const getTitle = () => {
@@ -57,7 +42,8 @@ export default function Ziswaf() {
     if (page) {
       dispatch(setButtonPage(page));
     }
-    dispatch(getCategoryZiswaf(button));
+    setIsLoading(true);
+    dispatch(getCategoryZiswaf(button)).finally(() => setIsLoading(false));
   }, [page, dispatch, button]);
 
   return (
@@ -69,7 +55,6 @@ export default function Ziswaf() {
               key={item}
               onClick={() => {
                 handleButton(item);
-                setSelectedCategory("");
               }}
               className={`py-1 px-3 sm:px-5 border sm:border-2 border-primary rounded sm:rounded-full shadow-md text-gray-600 font-semibold text-xs sm:text-base hover:bg-green-700 hover:text-white hover:border-green-700 ${
                 button === item
@@ -83,55 +68,41 @@ export default function Ziswaf() {
         </div>
 
         <div className="text-center text-lg sm:text-xl font-semibold">
-          <div className="border-y-8 sm:border-y-0 py-2 sm:py-0 border-gray-50 flex flex-col sm:flex-row justify-between gap-4 sm:gap-12 items-center">
-            <img className="w-1/2 sm:w-1/3" src={bunga} alt="Bunga" />
+          <div className="border-y-8 sm:border-y-0 py-2 sm:py-0 border-gray-50 flex flex-col sm:flex-row justify-between gap-4 items-center">
+            <img
+              className="w-1/2 sm:w-1/2 h-[50vh] object-cover rounded-2xl bg-black"
+              src={bunga}
+              alt="Bunga"
+            />
             <div className="w-full sm:w-3/6">
               <div className="text-center sm:text-right text-3xl sm:text-5xl font-bold text-gray-600">
                 <h2>{getTitle()}</h2>
                 <h2>kamu dengan mudah</h2>
               </div>
-
-              <div className="flex items-center space-x-2 mt-4 justify-center sm:justify-start">
-                <span className="text-base sm:text-lg font-Inter text-[#3B3B3B]">
-                  Kategori
-                </span>
-                {click === false ? (
-                  <button
-                    className="bg-red-600 text-sm sm:text-base text-white font-semibold px-3 py-2 rounded sm:rounded-full shadow-lg"
-                    onClick={() => setClick(true)}
-                  >
-                    {selectedCategory ? selectedCategory : `Kategori ${button}`}
-                  </button>
-                ) : (
-                  <select
-                    className="bg-red-600 text-white font-semibold px-3 py-1 rounded-full shadow-lg"
-                    onChange={(e) => handleCategoryChange(e.target.value)}
-                    value={selectedCategory}
-                  >
-                    {categoryZiswaf.map((item) => (
-                      <option key={item?.id} value={item?.categoryName}>
-                        {item?.categoryName}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              </div>
-
-              <div className="w-full flex items-center my-4 shadow ring-1 ring-gray-300 rounded-xl">
-                <p className="p-3 ring-1 ring-gray-300 rounded-s-xl">Rp</p>
-                <input
-                  type="text"
-                  className="w-full focus:outline-none text-xl m-2"
-                  value={biaya}
-                  onChange={handleNominalChange}
-                />
-              </div>
-
-              <div className="flex justify-center sm:justify-start">
-                <button className="py-2 px-4 bg-red-700 text-white rounded-lg sm:rounded-full w-full sm:w-auto hover:scale-105 transition-transform">
-                  Bayar Sekarang
-                </button>
-              </div>
+              {isLoading ? (
+                <div className="mt-4">
+                  <div className="loader">
+                    <Commet
+                      color="#69C53E"
+                      size="small"
+                      text="Loading"
+                      textColor="#69C53E"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="mt-4 flex flex-wrap gap-2 text-nowrap justify-end">
+                  {categoryZiswaf.map((item, id) => (
+                    <button
+                      key={id}
+                      className="hover:scale-105 duration-150 flex gap-2 items-center border bg-white border-primary rounded-xl p-2 drop-shadow-md text-lg text-gray-600 font-Inter"
+                    >
+                      <BiCategory />
+                      {item.categoryName}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 

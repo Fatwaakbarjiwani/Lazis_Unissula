@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  buttonPage: "",
+  buttonPage: "Home",
+  summary: [],
 };
 const authSlice = createSlice({
   name: "page",
@@ -9,9 +10,12 @@ const authSlice = createSlice({
     setButtonPage: (state, action) => {
       state.buttonPage = action.payload;
     },
+    setSummary: (state, action) => {
+      state.summary = action.payload;
+    },
   },
 });
 
-export const { setButtonPage } = authSlice.actions;
+export const { setButtonPage, setSummary } = authSlice.actions;
 
 export default authSlice.reducer;

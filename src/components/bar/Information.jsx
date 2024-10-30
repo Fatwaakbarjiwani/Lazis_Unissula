@@ -1,21 +1,22 @@
-import info1 from "../../assets/info1.svg"
-import info2 from "../../assets/info2.svg"
-import info3 from "../../assets/info3.svg"
-import info4 from "../../assets/info4.svg"
+import { useEffect } from "react";
+import info1 from "../../assets/info1.svg";
+import info2 from "../../assets/info2.svg";
+import info3 from "../../assets/info3.svg";
+import info4 from "../../assets/info4.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { getSummary } from "../../redux/actions/authAction";
 export default function Information() {
-    const summary = {
-      totalDistributionReceiver: 5000, // Jumlah penerima manfaat
-      totalTransactionAmount: 150000000, // Jumlah total penghimpunan (misalnya dalam Rupiah)
-      totalDistributionAmount: 120000000, // Jumlah total distribusi (misalnya dalam Rupiah)
-      totalUser: 1000, // Jumlah total donatur
-    };
-
-      const formatNumber = (number) => {
-        return number.toLocaleString("id-ID");
-      };
+  const dispatch = useDispatch();
+  const { summary } = useSelector((state) => state.page);
+  useEffect(() => {
+    dispatch(getSummary())
+  }, [dispatch]);
+  const formatNumber = (number) => {
+    return number.toLocaleString("id-ID");
+  };
   return (
     <div className="flex justify-center font-Inter">
-      <div className="absolute as:top-[22vh] xs:top-[22vh] bs:top-[22vh] cs:top-[22vh] sm:top-[28vh] md:top-[42vh] lg:top-[70vh] flex w-[86%] bg-white shadow md:shadow-lg rounded-3xl px-1 sm:px-5 md:px-10 lg:px-20 sm:py-5 py-2 transition delay-150 duration-300 ease-in-out">
+      <div className="absolute as:top-[35vh] xs:top-[35vh] bs:top-[35vh] cs:top-[35vh] sm:top-[35vh] md:top-[35vh] lg:top-[70vh] flex w-[86%] bg-white shadow md:shadow-lg rounded-3xl px-1 sm:px-5 md:px-10 lg:px-20 sm:py-5 py-2 transition delay-150 duration-300 ease-in-out">
         <div className="flex w-full justify-around md:justify-between p-2 items-start">
           <div className="flex flex-col items-center justify-between h-full">
             <img src={info4} className="w-6 sm:w-10" alt="" />

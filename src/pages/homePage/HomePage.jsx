@@ -1,5 +1,6 @@
-import header from "../../assets/header.svg";
-import iconnavbar from "../../assets/iconnavbar.svg";
+import header from "../../assets/bg.svg";
+import iconnavbar from "../../assets/laptob.svg";
+import clock from "../../assets/clock.svg";
 import Information from "../../components/bar/Information";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -15,6 +16,7 @@ import {
   getAllMessage,
 } from "../../redux/actions/campaignAction";
 import { Link } from "react-router-dom";
+import { FaHandPointRight } from "react-icons/fa";
 
 export default function HomePage() {
   const { allCampaign } = useSelector((state) => state.campaign);
@@ -31,7 +33,7 @@ export default function HomePage() {
     <div className="font-Inter">
       {/* Header */}
       <div
-        className="flex justify-center pb-12 lg:h-[80vh]"
+        className="flex justify-center pb-12 h-[40vh] lg:h-[80vh]"
         style={{
           backgroundImage: `url(${header})`,
           backgroundSize: "cover",
@@ -42,7 +44,7 @@ export default function HomePage() {
       >
         <div className="flex justify-center w-5/6 items-center gap-5">
           <div className="w-1/2 hidden md:block">
-            <img src={iconnavbar} alt="" className="w-full md:w-[90%]" />
+            <img src={iconnavbar} alt="" className="w-full md:w-full" />
           </div>
           <div className="w-full md:w-3/4 text-center md:text-left space-y-3">
             <h1 className="font-Montserrat mt-2 sm:mt-0 text-white font-[900] text-xl md:text-2xl lg:text-4xl text-stroke2 sm:text-stroke">
@@ -52,11 +54,30 @@ export default function HomePage() {
               Dengan berdonasi, Anda tidak hanya membantu materi,tapi juga
               menyalakan harapan bagi mereka yang membutuhkan
             </p>
-            <Link to={"/daftarCampaign/Campaign/1"}>
-              <button className="text-white font-semibold bg-fourth px-2 py-1 sm:px-4 rounded-md mt-4 text-sm sm:text-base md:text-lg hover:scale-105 duration-300">
-                DONASI SEKARANG
+            <div className="flex items-end justify-center sm:justify-normal gap-2">
+              <button className="text-gray-600 bg-white px-4 py-1 sm:px-4 rounded-3xl hover:scale-105 duration-300">
+                <div className="flex text-left gap-2 items-center">
+                  <img
+                    src={clock}
+                    alt=""
+                    className="w-8 h-8 md:w-auto md:h-aut0"
+                  />
+                  <div className="lg:space-y-[-1vh]">
+                    <h1 className="text-sm sm:text-base md:text-lg font-semibold">
+                      Opening Houres
+                    </h1>
+                    <p className="text-xs sm:text-sm">
+                      Senin - Kamis : 09.00 - 18.00
+                    </p>
+                  </div>
+                </div>
               </button>
-            </Link>
+              <Link to={"/daftarCampaign/Campaign/1"}>
+                <button className="text-gray-600 hover:scale-105 duration-300">
+                  <FaHandPointRight className="w-10 h-10 bg-white rounded-full p-1" />
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -99,7 +120,7 @@ export default function HomePage() {
         </h1>
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {allCampaign.slice(0, 6).map((item) => (
-            <Card key={item?.campaignCode} item={item} h={"h-full"}/>
+            <Card key={item?.campaignCode} item={item} h={"h-full"} />
           ))}
         </div>
         <div className="md:hidden border-y-8 border-gray-50 mt-8">
