@@ -1,6 +1,6 @@
 import axios from "axios";
 import toast from "react-hot-toast";
-import { setTransactionUser } from "../reducers/pembayaranReducer";
+import { setSummary, setTransactionUser } from "../reducers/pembayaranReducer";
 
 export const API_URL = import.meta.env.VITE_API_URL;
 
@@ -46,5 +46,16 @@ export const getTransactionUser = () => async (dispatch, getState) => {
     dispatch(setTransactionUser(data));
   } catch (error) {
     return;
+  }
+};
+
+export const getSummary = (type) => async (dispatch) => {
+  try {
+    dispatch(setSummary([]));
+    const response = await axios.get(`${API_URL}/summary/${type}`);
+    const data = response.data;
+    dispatch(setSummary(data));
+  } catch (error) {
+    console.error("Error fetching all yiswaf category", error);
   }
 };

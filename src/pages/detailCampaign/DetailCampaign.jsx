@@ -74,13 +74,13 @@ export default function CampaignDetail() {
       <div className="font-Inter">
         <div className="pb-4 border-b-2 border-gray-200">
           <div className="flex-none md:flex justify-between items-center xl:px-20 lg:px-10  sm:mt-4 sm:px-5 font-Inter xl:gap-8 md:gap-5 gap-3">
-            <div className="md:w-1/2 w-full p-4 sm:p-0">
+            <div className="md:w-[500px] w-full p-4 sm:p-0">
               {loading ? (
                 <Skeleton height={300} direction="ltr" enableAnimation={true} />
               ) : (
                 <img
                   src={detailCampaign?.campaignImage}
-                  className="w-full rounded-3xl"
+                  className="w-full rounded-3xl h-[280px]"
                   alt=""
                 />
               )}
@@ -360,7 +360,7 @@ export default function CampaignDetail() {
         )}
       </div>
       {loading ? (
-        <Skeleton height={100}/>
+        <Skeleton height={100} />
       ) : (
         <>
           <div className="px-2 md:px-10 lg:px-20 bg-white py-8">

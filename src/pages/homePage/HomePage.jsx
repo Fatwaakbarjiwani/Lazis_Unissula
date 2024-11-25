@@ -1,3 +1,4 @@
+// import header from "../../assets/landingPage.jpg";
 import header from "../../assets/bg.svg";
 import iconnavbar from "../../assets/laptob.svg";
 import clock from "../../assets/clock.svg";
@@ -5,7 +6,6 @@ import Information from "../../components/bar/Information";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Card from "../../components/card/Card";
-import CardDoa from "../../components/card/CardDoa";
 import Footer from "../../components/navbar&footer/Footer";
 import { responsive1, responsive2 } from "../../components/data/Responsive";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +17,7 @@ import {
 } from "../../redux/actions/campaignAction";
 import { Link } from "react-router-dom";
 import { FaHandPointRight } from "react-icons/fa";
+import DoaList from "../../components/card/CardDoa";
 
 export default function HomePage() {
   const { allCampaign } = useSelector((state) => state.campaign);
@@ -54,8 +55,8 @@ export default function HomePage() {
               Dengan berdonasi, Anda tidak hanya membantu materi,tapi juga
               menyalakan harapan bagi mereka yang membutuhkan
             </p>
-            <div className="flex items-end justify-center sm:justify-normal gap-2">
-              <button className="text-gray-600 bg-white px-4 py-1 sm:px-4 rounded-3xl hover:scale-105 duration-300">
+            <div className="flex items-center justify-center sm:justify-normal gap-2">
+              <button className="text-gray-600 bg-white px-4 py-1 sm:px-4 rounded-3xl">
                 <div className="flex text-left gap-2 items-center">
                   <img
                     src={clock}
@@ -104,7 +105,7 @@ export default function HomePage() {
                   <Link to={`/detailCampaign/${item?.campaignId}`}>
                     <img
                       src={item?.campaignImage}
-                      className="h-52 sm:h-60 md:h-72 lg:h-[65vh] w-full rounded-2xl object-fill object-center drop-shadow-lg"
+                      className="h-52 sm:h-60 md:h-72 lg:h-[70vh] w-full rounded-2xl object-fill object-center drop-shadow-lg"
                       alt=""
                       style={{ backgroundRepeat: "no-repeat" }}
                     />
@@ -146,7 +147,7 @@ export default function HomePage() {
           <h1 className="font-bold text-lg sm:text-4xl text-gray-600 mt-4 sm:mt-8 text-left">
             Doa-Doa Orang Baik
           </h1>
-          <div>
+          {/* <div>
             <Carousel
               arrows={false}
               keyBoardControl={true}
@@ -165,7 +166,8 @@ export default function HomePage() {
                 />
               ))}
             </Carousel>
-          </div>
+          </div> */}
+          <DoaList allMessage={allMessage}/>
         </div>
       </div>
       <Footer />

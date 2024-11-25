@@ -1,65 +1,28 @@
-import user from "../../assets/user.svg";
-import love from "../../assets/love.svg";
-import love2 from "../../assets/love2.svg";
+import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
+import user from "../../assets/user.svg";
 
-export default function CardDoa({ id, nama, waktu, judul, ucapan, aamiin }) {
-  const [saveID, setSaveID] = useState([]);
-
-  useEffect(() => {
-    const storedIds = JSON.parse(localStorage.getItem("savedDoaIds")) || [];
-    setSaveID(storedIds);
-  }, []);
-
-  const handleSaveId = (id) => {
-    let updatedIds = [...saveID];
-    if (updatedIds.includes(id)) {
-      updatedIds = updatedIds.filter((savedId) => savedId !== id);
-    } else {
-      updatedIds.push(id);
-    }
-
-    setSaveID(updatedIds);
-    localStorage.setItem("savedDoaIds", JSON.stringify(updatedIds));
-  };
-  const isAamiinClicked = saveID.includes(id);
-
+// CardDoa component
+function CardDoa({ nama, waktu, judul, ucapan }) {
   return (
-    <div className="bg-second p-2 shadow-md rounded-2xl h-full flex flex-col justify-between m-1">
+    <div
+      className={`${
+        ucapan == "" ? "hidden" : "flex"
+      } bg-second p-2 shadow-md rounded-2xl h-full   flex-col justify-between m-1 min-w-[250px]`}
+    >
       <div className="flex items-center gap-2">
-        <div>
-          <img src={user} alt="" />
-        </div>
+        <img src={user} alt="User" />
         <div>
           <h3 className="text-xs sm:text-base font-semibold text-gray-800">
             {nama}
           </h3>
           <p className="text-[10px] sm:text-xs">{waktu}</p>
-          <p className="text-xs font-medium sm:text-xs text-green-800 line-clamp-1">
-            {judul}
-          </p>
         </div>
       </div>
-      <p className="text-xs sm:text-base">{ucapan}</p>
-      <p className="text-xs sm:text-base text-fourth font-semibold">
-        {aamiin} orang memberi aamiin
+      <p className="text-xs sm:text-base font-semibold text-gray-700">{ucapan}</p>
+      <p className="text-xs font-medium sm:text-xs text-green-800 line-clamp-1">
+        {judul}
       </p>
-      <div className="flex justify-center">
-        <button
-          onClick={() => handleSaveId(id)}
-          className={`flex hover:scale-105 duration-150 gap-1 items-center text-sm font-bold text-base ${
-            isAamiinClicked ? "text-fourth" : "text-gray-600"
-          }`}
-        >
-          {isAamiinClicked ? (
-            <img className="h-6 sm:h-auto" src={love2} alt="" />
-          ) : (
-            <img className="h-6 sm:h-auto" src={love} alt="" />
-          )}
-          Aamiin
-        </button>
-      </div>
     </div>
   );
 }
@@ -70,5 +33,75 @@ CardDoa.propTypes = {
   judul: PropTypes.string,
   ucapan: PropTypes.string,
   aamiin: PropTypes.number,
-  id: PropTypes.number,
 };
+
+// DoaList component with auto-scrolling and infinite loop
+function DoaList({ allMessage }) {
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const scrollRef = useRef(null);
+
+  // Adjust the scroll speed as needed
+  const scrollSpeed = 1;
+
+  // Duplicate the messages array to simulate infinite scrolling
+  const messagesToRender = [...allMessage, ...allMessage];
+
+  useEffect(() => {
+    const scroll = () => {
+      setScrollPosition((prev) => prev + scrollSpeed);
+    };
+
+    const interval = setInterval(scroll, 16); // 16ms for smooth 60fps scrolling
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const totalWidth = scrollRef.current?.scrollWidth / 2; // half of the duplicated list
+
+    // Reset position to the start of the list once it has scrolled halfway through
+    if (scrollPosition >= totalWidth) {
+      setScrollPosition(0);
+    }
+  }, [scrollPosition]);
+
+  return (
+    <div className="overflow-hidden w-full flex items-center">
+      <div
+        ref={scrollRef}
+        className="flex"
+        style={{
+          transform: `translateX(-${scrollPosition}px)`,
+          whiteSpace: "nowrap",
+        }}
+      >
+        {messagesToRender.map((item, index) => (
+          <CardDoa
+            key={`${item?.id}-${index}`}
+            nama={item?.username}
+            judul={item?.campaign?.campaignName}
+            waktu={item?.messagesDate}
+            ucapan={item?.messages}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+DoaList.propTypes = {
+  allMessage: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      username: PropTypes.string,
+      campaign: PropTypes.shape({
+        campaignName: PropTypes.string,
+      }),
+      messagesDate: PropTypes.string,
+      messages: PropTypes.string,
+      aamiin: PropTypes.number,
+    })
+  ),
+};
+
+export default DoaList;

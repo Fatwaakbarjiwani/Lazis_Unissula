@@ -29,11 +29,6 @@ export const dataLayanan = [
     name: "Khidmah Sosial",
     code: "KhidmahSosial",
   },
-  {
-    id: 7,
-    name: "Khidmah Organisasi",
-    code: "KhidmahOrganisasi",
-  },
 ];
 export const dataProfile = [
   {
@@ -51,5 +46,9 @@ export const dataProfile = [
     name: "Tentang Kami",
     code: "TentangKami",
   },
-  
+  {
+    id: 4,
+    name: "Khidmah Organisasi",
+    code: "KhidmahOrganisasi",
+  },
 ];

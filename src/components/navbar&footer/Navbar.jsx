@@ -1,5 +1,6 @@
 import search from "../../assets/search.svg";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logoYBWSA.png";
+import logo2 from "../../assets/logo2.png";
 import down from "../../assets/down.svg";
 import { MdMenu } from "react-icons/md";
 import { useEffect, useState } from "react";
@@ -82,6 +83,7 @@ function Navbar() {
               className="flex sm:hidden"
             >
               <img src={logo} alt="Logo" className="h-12" />
+              <img src={logo2} alt="Logo" className="h-12" />
             </Link>
           )}
           <Link
@@ -92,6 +94,7 @@ function Navbar() {
             className="sm:flex hidden"
           >
             <img src={logo} alt="Logo" className="h-12" />
+            <img src={logo2 } alt="Logo" className="h-12" />
           </Link>
         </div>
 
@@ -263,6 +266,20 @@ function Navbar() {
         } transition w-1/2 sm:w-1/3 md:w-3/12 lg:w-1/6 xl:hidden absolute right-0 h-screen duration-500 bg-white/80 backdrop-blur-md drop-shadow-md  px-4 py-2`}
       >
         <div className="lg:hidden flex flex-col gap-1">
+          <Link
+            to={"/"}
+            onClick={() => {
+              dispatch(setButtonPage("Home"));
+              setMenuVisible(false);
+            }}
+            className={`${
+              buttonPage === "Home"
+                ? "text-primary border-b-2 border-primary w-full"
+                : ""
+            } hover:scale-105 duration-150 font-semibold text-gray-600`}
+          >
+            Home
+          </Link>
           <Link
             to={"/fiqihZiswaf/Ziswaf"}
             onClick={() => {

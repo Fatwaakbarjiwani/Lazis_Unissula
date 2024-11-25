@@ -29,6 +29,7 @@ import KhidmahPendidikan from "./pages/tentangKami/KhidmahPendidikan";
 import KhidmahSosial from "./pages/tentangKami/KhidmahSosial";
 import StrukturOrganisasi from "./pages/tentangKami/StrukturOrganisasi";
 import Hotline from "./components/navbar&footer/Hotline";
+import PembayaranZiswaf from "./pages/pembayaran/PembayanZiswaf";
 function App() {
   return (
     <Router>
@@ -51,6 +52,7 @@ function App() {
             path="/pembayaranCampaign/:id"
             element={<PembayaranCampaign />}
           />
+          <Route path="/pembayaranZiswaf/:category/:id" element={<PembayaranZiswaf />} />
           <Route
             path="/konfirmasiPembayaran/:id"
             element={<KonfirmasiPembayaran />}
@@ -64,18 +66,33 @@ function App() {
           <Route path="/penjelasan/VIsiMisi" element={<VisiMisi />} />
           <Route path="/penjelasan/TentangKami" element={<TentangKami />} />
           <Route path="/penjelasan/KhidmahDakwah" element={<KhidmahDakwah />} />
-          <Route path="/penjelasan/KhidmahEkonomi" element={<KhidmahEkonomi />} />
-          <Route path="/penjelasan/KhidmahKesehatan" element={<KhidmahKesehatan />} />
-          <Route path="/penjelasan/KhidmahLingkungan" element={<KhidmahLingkungan />} />
-          <Route path="/penjelasan/KhidmahPendidikan" element={<KhidmahPendidikan/>} />
-          <Route path="/penjelasan/KhidmahSosial" element={<KhidmahSosial/>} />
-          <Route path="/penjelasan/KhidmahOrganisasi" element={<StrukturOrganisasi/>} />
+          <Route
+            path="/penjelasan/KhidmahEkonomi"
+            element={<KhidmahEkonomi />}
+          />
+          <Route
+            path="/penjelasan/KhidmahKesehatan"
+            element={<KhidmahKesehatan />}
+          />
+          <Route
+            path="/penjelasan/KhidmahLingkungan"
+            element={<KhidmahLingkungan />}
+          />
+          <Route
+            path="/penjelasan/KhidmahPendidikan"
+            element={<KhidmahPendidikan />}
+          />
+          <Route path="/penjelasan/KhidmahSosial" element={<KhidmahSosial />} />
+          <Route
+            path="/penjelasan/KhidmahOrganisasi"
+            element={<StrukturOrganisasi />}
+          />
         </Routes>
       </div>
       <ModalRegister />
       <ModalLogin />
       <ModalResetPassword />
-      <Hotline/>
+      <Hotline />
     </Router>
   );
 }

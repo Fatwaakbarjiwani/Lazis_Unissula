@@ -67,6 +67,7 @@ export const getDetailCampaign = (id) => async (dispatch) => {
     console.error("Error fetching detail campaign", error);
   }
 };
+
 export const getAllCampaignCategory = () => async (dispatch) => {
   try {
     const response = await axios.get(`${API_URL}/campaignCategory`);

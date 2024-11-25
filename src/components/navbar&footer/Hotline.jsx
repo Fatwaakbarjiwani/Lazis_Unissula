@@ -5,7 +5,7 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 export default function Hotline() {
     const [displayedText, setDisplayedText] = useState("");
     const [showMessage, setShowMessage] = useState(true);
-    const message = "Ada yang bisa kami bantu?...";
+    const message = "A da yang bisa kami bantu?...";
 
     useEffect(() => {
         let index = 0;
