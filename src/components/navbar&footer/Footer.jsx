@@ -5,7 +5,8 @@ import li from "../../assets/linkedin.svg";
 import pesan from "../../assets/pesan.svg";
 import browser from "../../assets/browser.svg";
 import footer from "../../assets/footer.svg";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logoYBWSA.png";
+import logo2 from "../../assets/logo2.png";
 import { Link } from "react-router-dom";
 
 
@@ -16,11 +17,13 @@ export default function Footer() {
       className="flex flex-col md:flex-row md:flex-wrap gap-y-4 justify-around md:justify-between lg:p-16 p-5 bg-GREENDARK text-white font-Inter mt-10 w-full h-auto"
     >
       <div className="md:w-1/4 w-full flex flex-col gap-2 xl:gap-5 items-start">
-        <div className="bg-white p-1 rounded">
-          <img src={logo} alt="Logo" className="w-24 md:w-32" />
+        <div className="bg-white p-1 rounded flex justify-between items-center">
+          <img src={logo} alt="Logo" className="h-12" />
+          <img src={logo2} alt="Logo" className="h-12" />
         </div>
         <p className="text-sm md:text-base">
-          Jl.Raya Kaligawe,Km.4,Sambirejo,Genuk,Terboyo Wetan,Kec.Genuk,Kota Semarang,Jawa Tengah 50112
+          Jl.Raya Kaligawe,Km.4,Sambirejo,Genuk,Terboyo Wetan,Kec.Genuk,Kota
+          Semarang,Jawa Tengah 50112
         </p>
         <div className="flex gap-2 md:gap-4">
           <button className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-10 md:h-10 flex justify-center items-center hover:scale-110">
@@ -77,10 +80,10 @@ export default function Footer() {
             </div>
           </Link>
           <Link to>
-          <div className="flex gap-2 items-center">
-            <img src={pesan} className="w-5 md:w-6" alt="Contact" />
-            <p>https://lazis-ds.org/</p>
-          </div>
+            <div className="flex gap-2 items-center">
+              <img src={pesan} className="w-5 md:w-6" alt="Contact" />
+              <p>https://lazis-ds.org/</p>
+            </div>
           </Link>
         </div>
       </div>

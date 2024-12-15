@@ -28,7 +28,7 @@
             )}
             <img
               src={item?.campaignImage}
-              className=" object-cover h-24 sm:h-36 md:h-40 lg:h-44 rounded-t-xl md:rounded-t-xl xl:rounded-3xl w-full"
+              className="object-cover h-28 sm:h-36 md:h-40 lg:h-44 rounded-t-xl md:rounded-t-xl xl:rounded-3xl w-full"
               alt=""
             />
             <div>
@@ -40,7 +40,7 @@
           <div className="flex flex-col gap-1 px-1 pb-2 sm:pb-3 sm:px-3">
             {/* category */}
             <div className="flex flex-col justify-between gap-1">
-              <div className="md:text-sm text-[6px] flex gap-1 items-center font-semibold">
+              <div className="md:text-sm text-[10px] flex gap-1 items-center font-semibold">
                 <p>Kategori</p>
                 <p className="bg-fourth text-white px-1 sm:px-1 rounded-3xl font-semibold">
                   {item?.campaignCategory}
@@ -55,7 +55,7 @@
               </div>
             </div>
             <div className="flex flex-col gap-1 justify-between sm:hidden">
-              <p className="xl:text-base md:text-sm sm:text-xs text-[8px]">
+              <p className="xl:text-base md:text-sm sm:text-xs text-[10px]">
                 Terkumpul
               </p>
               <div className="w-full rounded-full bg-NEUTRAL04">
@@ -89,7 +89,7 @@
             <div className="block sm:hidden justify-between">
               <div className="flex gap-1 items-center">
                 <img className="lg:w-7 md:w-5 w-3" src={time} alt="" />
-                <p className="lg:text-base md:text-sm sm:text-xs text-[8px]">
+                <p className="lg:text-base md:text-sm sm:text-xs text-[10px]">
                   {item?.endDate}
                 </p>
               </div>
@@ -109,7 +109,7 @@
               </button>
               <div className="flex gap-1 items-center">
                 <img className="lg:w-5 md:w-5 w-3" src={time} alt="" />
-                <p className="xl:text-base lg:text-sm sm:text-xs text-[8px]">
+                <p className="xl:text-base lg:text-sm sm:text-xs text-[10px]">
                   {item?.endDate}
                 </p>
               </div>

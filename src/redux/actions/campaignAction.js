@@ -6,7 +6,9 @@ import {
   setAllMessage,
   setCampaignBySearch,
   setDetailCampaign,
+  setDistribution,
   setDonatur,
+  setRincian,
   setTotalPageNumber,
   setTotalPageNumberMessage,
 } from "../reducers/campaignReducer";
@@ -94,6 +96,24 @@ export const getTransactionCampaign = (id, page) => async (dispatch) => {
     const data = response.data;
     dispatch(setDonatur(data.content));
     dispatch(setTotalPageNumberMessage(data.totalPages));
+  } catch (error) {
+    console.error("Error fetching message data:", error);
+  }
+};
+export const getDistribusiCampaign = (id) => async (dispatch) => {
+  try {
+    const response = await axios.get(`${API_URL}/distribution/campaign/${id}`);
+    const data = response.data;
+    dispatch(setDistribution(data));
+  } catch (error) {
+    console.error("Error fetching message data:", error);
+  }
+};
+export const getRincian = (id) => async (dispatch) => {
+  try {
+    const response = await axios.get(`${API_URL}/percentage/rincian/${id}`);
+    const data = response.data;
+    dispatch(setRincian(data));
   } catch (error) {
     console.error("Error fetching message data:", error);
   }

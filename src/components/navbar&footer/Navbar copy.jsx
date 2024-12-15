@@ -379,3 +379,4 @@ function Navbar() {
 }
 
 export default Navbar;
+<div className="w-full md:w-3/4 text-center md:text-left space-y-3"></div>

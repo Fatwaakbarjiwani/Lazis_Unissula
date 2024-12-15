@@ -35,7 +35,7 @@ function App() {
     <Router>
       <Toaster position="top-center" reverseOrder={false} />
       <Navbar />
-      <div className="relative top-16 ">
+      <div className="relative top-16">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/berita/:page/:number" element={<Berita />} />
@@ -52,7 +52,10 @@ function App() {
             path="/pembayaranCampaign/:id"
             element={<PembayaranCampaign />}
           />
-          <Route path="/pembayaranZiswaf/:category/:id" element={<PembayaranZiswaf />} />
+          <Route
+            path="/pembayaranZiswaf/:category/:id"
+            element={<PembayaranZiswaf />}
+          />
           <Route
             path="/konfirmasiPembayaran/:id"
             element={<KonfirmasiPembayaran />}

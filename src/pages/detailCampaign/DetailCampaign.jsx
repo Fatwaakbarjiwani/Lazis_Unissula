@@ -3,7 +3,6 @@ import Footer from "../../components/navbar&footer/Footer";
 import Target from "../../components/card/Target";
 import { CiShare1 } from "react-icons/ci";
 import { useEffect, useState } from "react";
-import distribution from "./distribution";
 import Card from "../../components/card/Card";
 import location from "../../assets/location.svg";
 import image0 from "../../assets/image0.svg";
@@ -11,22 +10,28 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getAllCampaign,
   getDetailCampaign,
+  getDistribusiCampaign,
+  getRincian,
   getTransactionCampaign,
 } from "../../redux/actions/campaignAction";
 import { setButtonPage } from "../../redux/reducers/pageReducer";
 import { Pagination } from "@mui/material";
 import Skeleton from "react-loading-skeleton";
+import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 
 export default function CampaignDetail() {
   const { id } = useParams();
+  const { rincian } = useSelector((state) => state.campaign);
   const { allCampaign } = useSelector((state) => state.campaign);
   const { totalPageNumberMessage } = useSelector((state) => state.campaign);
   const { donatur } = useSelector((state) => state.campaign);
   const { detailCampaign } = useSelector((state) => state.campaign);
+  const { distribution } = useSelector((state) => state.campaign);
   const [page, setPage] = useState(1);
   const [button, setButton] = useState("Detail");
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+  const [dropdown, setDropdown] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -34,6 +39,8 @@ export default function CampaignDetail() {
       dispatch(getDetailCampaign(id)).then(() => setLoading(false));
       dispatch(getAllCampaign(0));
       dispatch(getTransactionCampaign(id, page - 1));
+      dispatch(getDistribusiCampaign(id));
+      dispatch(getRincian(id));
     }
     dispatch(setButtonPage("detailCampaign"));
   }, [id, dispatch, page]);
@@ -73,14 +80,14 @@ export default function CampaignDetail() {
       {/* content */}
       <div className="font-Inter">
         <div className="pb-4 border-b-2 border-gray-200">
-          <div className="flex-none md:flex justify-between items-center xl:px-20 lg:px-10  sm:mt-4 sm:px-5 font-Inter xl:gap-8 md:gap-5 gap-3">
+          <div className="flex-none md:flex justify-between items-center xl:px-20 lg:px-10  sm:mt-4 sm:px-5 font-Inter xl:gap-8 md:gap-5 gap-2">
             <div className="md:w-[500px] w-full p-4 sm:p-0">
               {loading ? (
                 <Skeleton height={300} direction="ltr" enableAnimation={true} />
               ) : (
                 <img
                   src={detailCampaign?.campaignImage}
-                  className="w-full rounded-3xl h-[280px]"
+                  className="w-full object-contain rounded-3xl h-auto"
                   alt=""
                 />
               )}
@@ -89,7 +96,7 @@ export default function CampaignDetail() {
               {loading ? (
                 <Skeleton count={2} height={50} />
               ) : (
-                <p className="mt-3 md:mt-0 font-bold lg:text-4xl md:text-3xl xl:text-5xl text-2xl text-gray-600 text-center md:text-end">
+                <p className="font-bold lg:text-4xl md:text-3xl xl:text-5xl text-2xl text-gray-600 text-center md:text-end">
                   Salurkan Donasi Kamu Dengan Mudah
                 </p>
               )}
@@ -233,8 +240,19 @@ export default function CampaignDetail() {
             {button == "Detail" && (
               <div className="sm:flex my-2 sm:my-5 justify-center sm:px-20">
                 <div className="flex flex-col gap-2 lg:gap-2 text-Inter lg:text-lg md:text-base text-xs text-NEUTRAL04 w-[100%] bg-white ring-NEUTRAL04 shadow sm:drop-shadow-lg p-5 sm:px-10 text-justify rounded-3xl">
-                  <h3>{detailCampaign?.description}</h3>
-                  <p className="font-bold">Dapat disalurkan dengan cara :</p>
+                  <h3>
+                    {detailCampaign?.description
+                      ? detailCampaign.description
+                          .split("\n")
+                          .map((line, index) => (
+                            <p key={index} style={{ textIndent: "20px" }}>
+                              {line}
+                            </p>
+                          ))
+                      : null}
+                  </h3>
+
+                  {/* <p className="font-bold">Dapat disalurkan dengan cara :</p>
                   <ul>
                     <h3 className="font-semibold text-gray-900">
                       1. {`Klik tombol "Donasi Sekarang"`}
@@ -255,45 +273,185 @@ export default function CampaignDetail() {
                     <h3 className="font-semibold text-gray-900">
                       6. Dapatkan laporan via email
                     </h3>
-                  </ul>
+                  </ul> */}
                 </div>
               </div>
             )}
             {button == "Update" && (
-              <>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-10 px-4 xl:px-20 lg:px-10 items-start sm:mt-4 sm:px-5">
                 {distribution.length > 0 ? (
-                  <div className="flex flex-col items-center gap-4 mt-10 px-4">
-                    {distribution.map((item) => (
-                      <div
-                        className="flex justify-between w-full max-w-2xl gap-5 bg-white shadow sm:shadow-lg rounded border border-gray-200 p-2"
-                        key={item.id}
-                      >
-                        <img src={item.image} className="w-[100%]" alt="" />
-                        <div className="w-full">
-                          <h1 className="text-end font-bold text-gray-600 text-xs sm:text-base">
-                            {item.distributionDate}
-                          </h1>
-                          <h1 className="font-bold text-sm sm:text-base">
-                            {item.description}
-                          </h1>
-                          Kepada :
-                          <h1 className="text-primary font-bold text-sm sm:text-base">
-                            {item.receiver}
-                          </h1>
-                          Sebesar :
-                          <h1 className="text-primary font-bold text-sm sm:text-base">
-                            Rp {formatNumber(item.distributionAmount)}
-                          </h1>
+                  <div className="flex items-center gap-4">
+                    <div className="w-full">
+                      <h1 className="font-bold text-gray-800 text-2xl mb-4">
+                        Rincian Penyaluran Dana
+                      </h1>
+                      {distribution.map((item) => (
+                        <div
+                          className="flex justify-between w-full max-w-2xl gap-5 bg-white border-y border-gray-200 p-2"
+                          key={item.id}
+                        >
+                          <div className="w-full">
+                            <h1 className="text-start font-semibold text-gray-800 text-xs sm:text-base">
+                              {item.distributionDate}
+                            </h1>
+                            <h1 className="font-base text-sm sm:text-lg">
+                              {item.description}
+                            </h1>
+                            Kepada :
+                            <h1 className="text-primary font-bold text-sm sm:text-base">
+                              {item.receiver}
+                            </h1>
+                            Sebesar :
+                            <h1 className="text-primary font-bold text-sm sm:text-base">
+                              Rp {formatNumber(item.distributionAmount)}
+                            </h1>
+                            <img
+                              src={item.image}
+                              className="w-3/4 h-auto object-contain bg-gray-50"
+                              alt=""
+                            />
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 ) : (
                   <div className="flex justify-center mt-4">
                     <img src={image0} alt="" className="w-2/6" />
                   </div>
                 )}
-              </>
+                <div>
+                  <button
+                    onClick={() => setDropdown(!dropdown)}
+                    className="active:scale-105 duration-200 w-full shadow border border-gray-300 rounded flex justify-between p-2 items-center"
+                  >
+                    <div className="flex gap-4  items-center">
+                      <div className="font-bold p-1 rounded-full bg-primary text-white">
+                        100%
+                      </div>
+                      <h1 className="text-gray-800 font-semibold">
+                        Dana yang sudah terkumpul
+                      </h1>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <p className="text-primary md:text-lg text-sm md:text-base lg:text-xl font-bold">
+                        Rp {formatNumber(detailCampaign?.currentAmount || 0)}
+                      </p>
+                      {dropdown ? (
+                        <MdArrowDropUp
+                          className="text-primary shadow border-2 border-primary rounded-full"
+                          size={25}
+                        />
+                      ) : (
+                        <MdArrowDropDown
+                          className="text-primary shadow border-2 border-primary rounded-full"
+                          size={25}
+                        />
+                      )}
+                    </div>
+                  </button>
+                  {dropdown == true && (
+                    <div className="bg-primary/5 rounded-lg p-2 mt-2">
+                      <div className="flex justify-between items-start">
+                        <p className="bg-primary rounded-full text-white font-semibold p-1 px-2">
+                          {100 - rincian?.persentase?.persen_operasional || 0} %
+                        </p>
+                        <div className="space-y-2 w-10/12">
+                          <div className="flex justify-between w-full">
+                            <div className="flex gap-2 items-center">
+                              <h1 className="text-gray-800">
+                                Dana Untuk Penggalangan Dana
+                              </h1>
+                            </div>
+                            <h1 className="font-semibold text-gray-800">
+                              Rp
+                              {formatNumber(
+                                rincian?.dana_untuk_penggalangan_dana || 0
+                              )}
+                            </h1>
+                          </div>
+                          <div className="flex justify-between w-full">
+                            <div className="flex gap-2 items-center">
+                              <h1 className="text-gray-800">
+                                Biaya transaksi dan teknologi
+                              </h1>
+                            </div>
+                            <h1 className="font-semibold text-gray-800">
+                              Rp{" "}
+                              {formatNumber(
+                                rincian?.biaya_transaksi_dan_teknologi || 0
+                              )}
+                            </h1>
+                          </div>
+                          <div className="flex justify-between w-full">
+                            <div className="flex gap-2 items-center">
+                              <h1 className="text-gray-800">Sudah dicairkan</h1>
+                            </div>
+                            <h1 className="font-semibold text-gray-800">
+                              Rp{" "}
+                              {formatNumber(
+                                rincian?.dana_sudah_disalurkan || 0
+                              )}
+                            </h1>
+                          </div>
+                          <div className="flex justify-between w-full">
+                            <div className="flex gap-2 items-center">
+                              <h1 className="text-primary">Belum dicairkan</h1>
+                            </div>
+                            <h1 className="font-semibold text-primary">
+                              Rp{" "}
+                              {formatNumber(
+                                rincian?.dana_belum_disalurkan || 0
+                              )}
+                            </h1>
+                          </div>
+                        </div>
+                        <MdArrowDropDown
+                          className="text-primary shadow border-2 border-primary rounded-full"
+                          size={25}
+                        />
+                      </div>
+                      <div className="flex justify-between items-start mt-4">
+                        <p className="bg-primary rounded-full text-white font-semibold p-1 px-2">
+                          {rincian?.persentase?.persen_operasional} %
+                        </p>
+                        <div className="space-y-2 w-10/12">
+                          <div className="flex justify-between w-full">
+                            <div className="flex gap-2 items-center">
+                              <h1 className="text-gray-800">
+                                Donasi Operasional
+                              </h1>
+                            </div>
+                          </div>
+                          <div className="flex justify-between w-full">
+                            <div className="flex gap-2 items-center">
+                              <h1 className="text-primary">Sejumlah</h1>
+                            </div>
+                            <h1 className="font-semibold text-primary">
+                              Rp {formatNumber(rincian?.biaya_operasional || 0)}
+                            </h1>
+                          </div>
+                          <div className="flex justify-between w-full">
+                            <div>
+                              <h1 className="text-gray-800">
+                                Donasi untuk operasional{" "}
+                                <span className="text-primary">
+                                  Lazis Sultan Agung
+                                </span>{" "}
+                                agar donasi semakin aman,muadah dan transparant
+                              </h1>
+                            </div>
+                          </div>
+                        </div>
+                        <MdArrowDropDown
+                          className="text-primary shadow border-2 border-primary rounded-full"
+                          size={25}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
             )}
             {button == "Donatur" && (
               <>

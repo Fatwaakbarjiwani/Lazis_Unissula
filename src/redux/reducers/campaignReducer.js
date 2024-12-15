@@ -11,9 +11,11 @@ const initialState = {
   detailCampaign: [],
   allCampaignCategory: [],
   allMessage: [],
+  rincian: [],
   donatur: [],
   aamiinId: [],
   searchCampaign: "",
+  distribution: [],
 };
 const authSlice = createSlice({
   name: "campaign",
@@ -52,6 +54,9 @@ const authSlice = createSlice({
     setAllMessage: (state, action) => {
       state.allMessage = action.payload;
     },
+    setRincian: (state, action) => {
+      state.rincian = action.payload;
+    },
     setDonatur: (state, action) => {
       state.donatur = action.payload;
     },
@@ -60,6 +65,9 @@ const authSlice = createSlice({
     },
     setSearchCampaign: (state, action) => {
       state.searchCampaign = action.payload;
+    },
+    setDistribution: (state, action) => {
+      state.distribution = action.payload;
     },
   },
 });
@@ -76,7 +84,9 @@ export const {
   setAllMessage,
   setDonatur,
   setAamiinId,
+  setRincian,
   setSearchCampaign,
+  setDistribution,
 } = authSlice.actions;
 
 export default authSlice.reducer;

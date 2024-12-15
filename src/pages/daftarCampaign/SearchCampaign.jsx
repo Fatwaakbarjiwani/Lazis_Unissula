@@ -51,9 +51,10 @@ export default function SearchCampaign() {
               to={`/daftarCampaign/Campaign/1`}
               className="text-xs text-primary -500 sm:text-base font-bold flex gap-2 items-center"
             >
-              Lihat semua <BiSolidArrowToRight className="text-2xl"/>
+              Lihat semua <BiSolidArrowToRight className="text-2xl" />
             </Link>
           </div>
+
           <div className="justify-between grid md:grid-cols-3 grid-cols-2 mb-8 md:gap-6 sm:gap-5 gap-y-2">
             {allCampaign.slice(0, 6).map((item) => (
               <Card key={item.campaignName} item={item} />
