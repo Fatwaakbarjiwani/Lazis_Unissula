@@ -325,16 +325,16 @@ export default function CampaignDetail() {
                     onClick={() => setDropdown(!dropdown)}
                     className="active:scale-105 duration-200 w-full shadow border border-gray-300 rounded flex justify-between p-2 items-center"
                   >
-                    <div className="flex gap-4  items-center">
-                      <div className="font-bold p-1 rounded-full bg-primary text-white">
+                    <div className="flex gap-4 items-center">
+                      <div className="font-bold p-1 text-nowrap rounded-full bg-primary text-white">
                         100%
                       </div>
-                      <h1 className="text-gray-800 font-semibold">
+                      <h1 className="text-gray-800 text-left text-sm font-semibold">
                         Dana yang sudah terkumpul
                       </h1>
                     </div>
                     <div className="flex items-center gap-2">
-                      <p className="text-primary md:text-lg text-sm md:text-base lg:text-xl font-bold">
+                      <p className="text-primary md:text-lg text-sm text-nowrap md:text-base lg:text-xl font-bold">
                         Rp {formatNumber(detailCampaign?.currentAmount || 0)}
                       </p>
                       {dropdown ? (
@@ -352,8 +352,8 @@ export default function CampaignDetail() {
                   </button>
                   {dropdown == true && (
                     <div className="bg-primary/5 rounded-lg p-2 mt-2">
-                      <div className="flex justify-between items-start">
-                        <p className="bg-primary rounded-full text-white font-semibold p-1 px-2">
+                      <div className="flex justify-between items-start gap-2">
+                        <p className="bg-primary rounded-full text-nowrap text-white font-semibold p-1 px-2">
                           {100 - rincian?.persentase?.persen_operasional || 0} %
                         </p>
                         <div className="space-y-2 w-10/12">
@@ -363,7 +363,7 @@ export default function CampaignDetail() {
                                 Dana Untuk Penggalangan Dana
                               </h1>
                             </div>
-                            <h1 className="font-semibold text-gray-800">
+                            <h1 className="font-semibold text-gray-800 text-nowrap text-sm">
                               Rp
                               {formatNumber(
                                 rincian?.dana_untuk_penggalangan_dana || 0
@@ -376,7 +376,7 @@ export default function CampaignDetail() {
                                 Biaya transaksi dan teknologi
                               </h1>
                             </div>
-                            <h1 className="font-semibold text-gray-800">
+                            <h1 className="font-semibold text-gray-800 text-nowrap text-sm">
                               Rp{" "}
                               {formatNumber(
                                 rincian?.biaya_transaksi_dan_teknologi || 0
@@ -387,7 +387,7 @@ export default function CampaignDetail() {
                             <div className="flex gap-2 items-center">
                               <h1 className="text-gray-800">Sudah dicairkan</h1>
                             </div>
-                            <h1 className="font-semibold text-gray-800">
+                            <h1 className="font-semibold text-gray-800 text-nowrap text-sm">
                               Rp{" "}
                               {formatNumber(
                                 rincian?.dana_sudah_disalurkan || 0
@@ -411,8 +411,8 @@ export default function CampaignDetail() {
                           size={25}
                         />
                       </div>
-                      <div className="flex justify-between items-start mt-4">
-                        <p className="bg-primary rounded-full text-white font-semibold p-1 px-2">
+                      <div className="flex justify-between items-start mt-4 gap-2">
+                        <p className="bg-primary rounded-full text-nowrap text-white font-semibold p-1 px-2">
                           {rincian?.persentase?.persen_operasional} %
                         </p>
                         <div className="space-y-2 w-10/12">
@@ -427,7 +427,7 @@ export default function CampaignDetail() {
                             <div className="flex gap-2 items-center">
                               <h1 className="text-primary">Sejumlah</h1>
                             </div>
-                            <h1 className="font-semibold text-primary">
+                            <h1 className="font-semibold text-primary text-nowrap text-sm">
                               Rp {formatNumber(rincian?.biaya_operasional || 0)}
                             </h1>
                           </div>
