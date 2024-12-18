@@ -50,7 +50,7 @@ export default function Ziswaf() {
 
   return (
     <div>
-      <div className="px-4 sm:px-8 lg:px-[80px] pb-6 bg-primary/10 border-b border-primary/50 shadow">
+      <div className="px-2 sm:px-8 lg:px-[80px] pb-6 bg-primary/10 border-b border-primary/50 shadow">
         <div className="grid grid-cols-2 sm:flex gap-3 sm:gap-5 justify-center items-center py-4 sm:py-6">
           {["zakat", "infak", "dskl", "wakaf"].map((item) => (
             <button
@@ -106,7 +106,7 @@ export default function Ziswaf() {
         </div>
       </div>
 
-      <div className="px-4 sm:px-8 lg:px-[80px] text-center text-lg sm:text-xl">
+      <div className="px-2 sm:px-8 lg:px-[80px] text-center text-lg sm:text-xl">
         <Information2 />
         <div className="text-left mt-8 sm:w-1/2 leading-relaxed">
           <h1 className="text-3xl md:text-5xl font-bold mb-4 text-gray-600">

@@ -56,7 +56,7 @@ export default function DaftarCampaign() {
 
   return (
     <div>
-      <div className="px-4 sm:px-8 lg:px-[80px] py-4 sm:py-6 font-Inter">
+      <div className="px-2 sm:px-8 lg:px-[80px] py-4 sm:py-6 font-Inter">
         <div className="sm:flex items-end justify-between">
           <div>
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold font-Inter text-gray-600">

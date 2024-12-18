@@ -92,7 +92,7 @@ export default function CampaignDetail() {
                 />
               )}
             </div>
-            <div className="md:w-3/6 w-full px-4 md:px-0">
+            <div className="md:w-3/6 w-full px-2 md:px-0">
               {loading ? (
                 <Skeleton count={2} height={50} />
               ) : (
@@ -278,7 +278,7 @@ export default function CampaignDetail() {
               </div>
             )}
             {button == "Update" && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-10 px-4 xl:px-20 lg:px-10 items-start sm:mt-4 sm:px-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-10 px-2 xl:px-20 lg:px-10 items-start sm:mt-4 sm:px-5">
                 {distribution.length > 0 ? (
                   <div className="flex items-center gap-4">
                     <div className="w-full">

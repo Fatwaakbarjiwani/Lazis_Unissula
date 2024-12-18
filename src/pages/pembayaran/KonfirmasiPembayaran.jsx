@@ -50,7 +50,7 @@ export default function KonfirmasiPembayaran() {
 
   return (
     <div className="font-Inter flex justify-center">
-      <div className="w-full sm:w-3/6 my-4 sm:my-10 px-4">
+      <div className="w-full sm:w-3/6 my-4 sm:my-10 px-2">
         <h1 className="font-bold text-gray-500 text-center text-3xl">
           Konfirmasi <span className="text-primary">Pembayaran</span>
         </h1>
@@ -59,7 +59,7 @@ export default function KonfirmasiPembayaran() {
             <h1 className="font-semibold text-gray-600 text-lg">
               Metode Pembayaran
             </h1>
-            <div className="justify-between duration-300 flex items-center gap-5 w-full border-2 border-gray-200 rounded-3xl shadow px-4 p-1">
+            <div className="justify-between duration-300 flex items-center gap-5 w-full border-2 border-gray-200 rounded-3xl shadow px-2 p-1">
               <div className="flex gap-2">
                 <img
                   src={

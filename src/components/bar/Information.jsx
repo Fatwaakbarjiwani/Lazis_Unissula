@@ -48,7 +48,7 @@ export default function Information() {
           <div className="flex flex-col items-center justify-between h-full">
             <img src={info1} className="w-10 sm:w-16" alt="" />
             <p className="text-primary md:text-lg text-[10px] ms:text-sm lg:text-xl">
-              {summary.totalUser || 0}
+              {summary.totalDonatur || 0}
             </p>
             <p className="font-bold md:text-lg sm:text-sm text-[8px] text-center lg:text-xl text-gray-600 font-Inter">
               Donatur

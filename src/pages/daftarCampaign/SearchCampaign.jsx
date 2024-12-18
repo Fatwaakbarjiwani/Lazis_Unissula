@@ -24,7 +24,7 @@ export default function SearchCampaign() {
   }, [name, dispatch]);
   return (
     <>
-      <div className="px-4 sm:px-8 lg:px-[80px] py-4 sm:py-6 font-Inter">
+      <div className="px-2 sm:px-8 lg:px-[80px] py-4 sm:py-6 font-Inter">
         <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold font-Inter text-gray-600">
           Hasil Pencarian <span className="text-primary">{`"${name}"`}</span>
         </h1>

@@ -13,7 +13,7 @@ export default function MetodePembayaran() {
       <h1 className="font-bold text-gray-500 text-center text-3xl">
         Metode <span className="text-primary">Pembayaran</span>
       </h1>
-      <div className="sm:w-3/6 w-full bg-white px-4 sm:px-8">
+      <div className="sm:w-3/6 w-full bg-white px-2 sm:px-8">
         <Link
           to={`/konfirmasiPembayaran/${id}`}
           className="flex w-3/12 items-center gap-1 font-semibold text-gray-500 hover:translate-y-[-5px] duration-200"
