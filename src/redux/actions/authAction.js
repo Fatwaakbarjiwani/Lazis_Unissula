@@ -3,11 +3,12 @@ import toast from "react-hot-toast";
 import {
   setModalLogin,
   setModalRegister,
+  setSummaryUser,
   setToken,
   setUser,
 } from "../reducers/authReducer";
 import Swal from "sweetalert2";
-import { setSummary } from "../reducers/pageReducer";
+import { setSlides, setSummary } from "../reducers/pageReducer";
 export const API_URL = import.meta.env.VITE_API_URL;
 
 export const register =
@@ -113,6 +114,35 @@ export const getSummary = () => async (dispatch) => {
       const data = response.data;
       dispatch(setSummary(data));
     }
+  } catch (error) {
+    error;
+  }
+};
+export const getSummaryDonatur = () => async (dispatch, getState) => {
+  try {
+    const { token } = getState().auth;
+    const response = await axios.get(`${API_URL}/donatur/summary`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response) {
+      const data = response.data;
+      dispatch(setSummaryUser(data));
+    }
+  } catch (error) {
+    error;
+  }
+};
+export const getSlides = () => async (dispatch) => {
+  try {
+    const response = await axios.get(`${API_URL}/dashboardImage`);
+    if (response) {
+      const data = response.data;
+      dispatch(setSlides(data));
+      console.log(data);
+    }
+    
   } catch (error) {
     error;
   }

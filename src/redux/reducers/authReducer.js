@@ -25,6 +25,7 @@ const initialState = {
   email: "",
   acount: "",
   user: null,
+  summaryUser: [],
   ps: getPsFromLocalStorage(),
 };
 const authSlice = createSlice({
@@ -60,6 +61,9 @@ const authSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    setSummaryUser: (state, action) => {
+      state.summaryUser = action.payload;
+    },
     setPs: (state, action) => {
       if (action.payload) {
         const encryptedPs = CryptoJS.AES.encrypt(
@@ -82,6 +86,7 @@ export const {
   setModalResetPassword,
   setEmail,
   setPhoneNumber,
+  setSummaryUser,
   setAcount,
   setUser,
   setPs

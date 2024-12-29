@@ -19,7 +19,7 @@ export default function Profile() {
   return (
     <>
       <div className="flex justify-center font-Inter px-2 md:px-0 min-h-svh">
-        <div className="w-full md:w-5/6 lg:w-4/6 mt-10 flex flex-col md:flex-row justify-between gap-6">
+        <div className="w-full md:w-5/6 lg:w-4/6 mt-10 flex flex-col md:flex-row md:justify-between gap-6">
           <div className="h-1/4 space-y-3">
             <div className="flex gap-3 items-center">
               <img
