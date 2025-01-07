@@ -81,13 +81,13 @@ export default function CampaignDetail() {
       <div className="font-Inter">
         <div className="pb-4 border-b-2 border-gray-200">
           <div className="flex-none md:flex justify-between items-center xl:px-20 lg:px-10  sm:mt-4 sm:px-5 font-Inter xl:gap-8 md:gap-5 gap-2">
-            <div className="md:w-[500px] w-full p-4 sm:p-0">
+            <div className="md:w-[500px] w-full p-2 sm:p-0">
               {loading ? (
                 <Skeleton height={300} direction="ltr" enableAnimation={true} />
               ) : (
                 <img
                   src={detailCampaign?.campaignImage}
-                  className="w-full object-contain rounded-3xl h-auto"
+                  className="w-full object-contain rounded md:rounded-3xl h-auto"
                   alt=""
                 />
               )}
@@ -96,7 +96,7 @@ export default function CampaignDetail() {
               {loading ? (
                 <Skeleton count={2} height={50} />
               ) : (
-                <p className="font-bold lg:text-4xl md:text-3xl xl:text-5xl text-2xl text-gray-600 text-center md:text-end">
+                <p className="font-extrabold md:font-bold lg:text-4xl md:text-3xl xl:text-5xl text-3xl text-gray-600 text-left md:text-end">
                   Salurkan Donasi Kamu Dengan Mudah
                 </p>
               )}
@@ -239,7 +239,7 @@ export default function CampaignDetail() {
             {/* 3 button */}
             {button == "Detail" && (
               <div className="sm:flex my-2 sm:my-5 justify-center sm:px-20">
-                <div className="flex flex-col gap-2 lg:gap-2 text-Inter lg:text-lg md:text-base text-xs text-NEUTRAL04 w-[100%] bg-white ring-NEUTRAL04 shadow sm:drop-shadow-lg p-5 sm:px-10 text-justify rounded-3xl">
+                <div className="flex flex-col gap-2 lg:gap-2 text-Inter lg:text-lg md:text-base text-xs text-NEUTRAL04 w-[100%] bg-white ring-NEUTRAL04 shadow sm:drop-shadow-lg p-4 sm:px-10 text-justify rounded-3xl">
                   <h3>
                     {detailCampaign?.description
                       ? detailCampaign.description

@@ -9,6 +9,7 @@ import {
 } from "../reducers/authReducer";
 import Swal from "sweetalert2";
 import { setSlides, setSummary } from "../reducers/pageReducer";
+import { setToken2 } from "../reducers/pembayaranReducer";
 export const API_URL = import.meta.env.VITE_API_URL;
 
 export const register =
@@ -107,6 +108,24 @@ export const getMe = () => async (dispatch, getState) => {
     error;
   }
 };
+export const getMe2 = () => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      `https://donasi.lazisybwsa.cloudsmartech.com/auth`,
+      {
+        username: "lazissultanagung",
+        password: "sultanagung123",
+      }
+    );
+    if (response) {
+      const data = response.data;
+      // dispatch(setToken2(data.x-api-key));
+      console.log(data);
+    }
+  } catch (error) {
+    error;
+  }
+};
 export const getSummary = () => async (dispatch) => {
   try {
     const response = await axios.get(`${API_URL}/summary`);
@@ -142,7 +161,6 @@ export const getSlides = () => async (dispatch) => {
       dispatch(setSlides(data));
       console.log(data);
     }
-    
   } catch (error) {
     error;
   }

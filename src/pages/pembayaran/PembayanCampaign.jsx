@@ -3,7 +3,10 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { setNml } from "../../redux/reducers/pembayaranReducer";
+import {
+  setNml,
+  setTypePembayaran,
+} from "../../redux/reducers/pembayaranReducer";
 import { getDetailCampaign } from "../../redux/actions/campaignAction";
 import DataPembayaran from "../../components/data/DataPembayaran";
 
@@ -13,8 +16,7 @@ export default function PembayaranCampaign() {
   const { nml } = useSelector((state) => state.pembayaran);
   const { id } = useParams();
   const [selectedTotal, setSelectedTotal] = useState("");
-  const navigate = useNavigate();  
-
+  const navigate = useNavigate();
 
   function hapusTitik(nml) {
     let nmlStr = nml.toString();
@@ -40,13 +42,10 @@ export default function PembayaranCampaign() {
   };
 
   const handleClick = () => {
-    if (
-      nml === "" ||
-      parseFloat(nml) <= 0 ||
-      parseFloat(nml) < 10000
-    ) {
+    if (nml === "" || parseFloat(nml) <= 0 || parseFloat(nml) < 10000) {
       toast.error("Masukkan nml dengan benar (0 < nml <= 10000)");
     } else {
+      dispatch(setTypePembayaran("campaign"));
       navigate(`/konfirmasiPembayaran/${id}`);
     }
   };
@@ -79,7 +78,9 @@ export default function PembayaranCampaign() {
           <div className="w-full sm:w-5/6 mt-8">
             <p className="font-bold text-xl">
               Anda akan melakukan pembayaran{" "}
-              <span className="text-primary">{detailCampaign.campaignName}</span>
+              <span className="text-primary">
+                {detailCampaign.campaignName}
+              </span>
             </p>
             <p>Nominal {detailCampaign.campaignName} Rp </p>
           </div>

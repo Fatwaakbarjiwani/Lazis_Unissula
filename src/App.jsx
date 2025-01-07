@@ -30,6 +30,8 @@ import KhidmahSosial from "./pages/tentangKami/KhidmahSosial";
 import StrukturOrganisasi from "./pages/tentangKami/StrukturOrganisasi";
 import Hotline from "./components/navbar&footer/Hotline";
 import PembayaranZiswaf from "./pages/pembayaran/PembayanZiswaf";
+import PembayaranVa from "./pages/pembayaran/PembayaranVa";
+import PembayaranQris from "./pages/pembayaran/PembayaranQris";
 function App() {
   return (
     <Router>
@@ -55,6 +57,14 @@ function App() {
           <Route
             path="/pembayaranZiswaf/:category/:id"
             element={<PembayaranZiswaf />}
+          />
+          <Route
+            path="/pembayaranVa/:id"
+            element={<PembayaranVa />}
+          />
+          <Route
+            path="/pembayaranQris/:id"
+            element={<PembayaranQris />}
           />
           <Route
             path="/konfirmasiPembayaran/:id"

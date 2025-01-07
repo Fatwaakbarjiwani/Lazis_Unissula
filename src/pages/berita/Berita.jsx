@@ -14,8 +14,10 @@ import {
 } from "../../redux/actions/beritaAction";
 import { Pagination } from "@mui/material";
 import { Commet } from "react-loading-indicators";
-import Carousel from "react-multi-carousel";
-import { responsive4 } from "../../components/data/Responsive";
+import "swiper/css";
+import "swiper/css/pagination";
+import { FreeMode } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Berita() {
   const [topic, setTopic] = useState("");
@@ -79,35 +81,38 @@ export default function Berita() {
         </div>
       ) : (
         <div>
-          <Carousel
-            responsive={responsive4}
-            arrows={false}
-            autoPlay={true}
-            autoPlaySpeed={3000}
-            showDots={false}
-            infinite={true}
+          <Swiper
+            loop={true}
+            speed={2000}
+            grabCursor={true}
+            slidesPerView={1}
+            modules={[FreeMode]}
+            autoplay={{
+              delay: 3000, // Auto slide every 3 seconds
+              disableOnInteraction: false, // Keep autoplay even after user interaction
+            }}
           >
             {topBerita?.slice(0, 5).map((item) => (
-              <Link
-                to={`/detailBerita/${item?.id}`}
-                key={item?.id}
-                className="h-[50vh] sm:h-[60vh] md:h-[70vh] relative flex items-end"
-                style={{
-                  backgroundImage: `url(${item?.newsImage})`,
-                  backgroundRepeat: "no-repeat",
-                  width: "100%",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              >
-                <div className="absolute bottom-0 bg-gradient-to-t from-black via-black/30 to-transparent h-[50vh] w-full"></div>
-                <h1 className="relative font-bold text-white text-2xl sm:text-3xl md:text-4xl mb-10 sm:mb-16 md:mb-20 mx-6 sm:mx-12 md:mx-20">
-                  <p className="relative z-40">{item?.title}</p>
-                  <div className="z-0 absolute top-0 w-3/6 sm:w-2/6 h-8 sm:h-10 bg-gradient-to-r from-primary to-transparent"></div>
-                </h1>
-              </Link>
+              <SwiperSlide key={item?.id || `slide-${Math.random()}`}>
+                <Link
+                  to={`/detailBerita/${item?.id}`}
+                  className="h-[50vh] sm:h-[60vh] md:h-[70vh] relative flex items-end"
+                  style={{
+                    backgroundImage: `url(${item?.newsImage})`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                >
+                  <div className="absolute bottom-0 bg-gradient-to-t from-black via-black/30 to-transparent h-[50vh] w-full"></div>
+                  <h1 className="relative font-bold text-white text-2xl sm:text-3xl md:text-4xl mb-10 sm:mb-16 md:mb-20 mx-6 sm:mx-12 md:mx-20">
+                    <p className="relative z-40">{item?.title}</p>
+                    <div className="z-0 absolute top-0 w-3/6 sm:w-2/6 h-8 sm:h-10 bg-gradient-to-r from-primary to-transparent"></div>
+                  </h1>
+                </Link>
+              </SwiperSlide>
             ))}
-          </Carousel>
+          </Swiper>
 
           <div className="mx-4 sm:mx-8 md:mx-20 mt-4">
             <div className="shadow border-2 border-gray-300 rounded-xl flex px-4 sm:px-8">

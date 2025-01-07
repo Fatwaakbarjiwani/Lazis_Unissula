@@ -1,4 +1,3 @@
-import Card from "../../components/card/Card";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +11,8 @@ import Footer from "../../components/navbar&footer/Footer";
 import { BsArrowDown } from "react-icons/bs";
 import { Commet } from "react-loading-indicators";
 import { Pagination } from "@mui/material";
+import Card2 from "../../components/card/Card2";
+import Card3 from "../../components/card/Card3";
 
 export default function DaftarCampaign() {
   const { page } = useParams();
@@ -102,7 +103,7 @@ export default function DaftarCampaign() {
             </button>
           )}
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-y-4 sm:gap-6 mt-2 sm:mt-8">
+        <div className="grid sm:hidden grid-cols-1 lg:grid-cols-3 gap-y-4 sm:gap-6 mt-2 sm:mt-8">
           {isLoading ? (
             <div className="col-span-2 lg:col-span-3 flex justify-center mt-4">
               <div className="loader">
@@ -120,7 +121,29 @@ export default function DaftarCampaign() {
             </div>
           ) : (
             allCampaign.map((item) => (
-              <Card key={item.campaignCode} item={item} h={"h-full"} />
+              <Card2 key={item.campaignCode} item={item} h={"h-full"} />
+            ))
+          )}
+        </div>
+        <div className="hidden sm:grid grid-cols-1 lg:grid-cols-3 gap-y-4 sm:gap-6 mt-2 sm:mt-8">
+          {isLoading ? (
+            <div className="col-span-2 lg:col-span-3 flex justify-center mt-4">
+              <div className="loader">
+                <Commet
+                  color="#69C53E"
+                  size="medium"
+                  text="Loading"
+                  textColor="#69C53E"
+                />
+              </div>
+            </div>
+          ) : allCampaign.length === 0 ? (
+            <div className="col-span-2 lg:col-span-3 text-center text-gray-500">
+              Campaign dengan kategori ini tidak tersedia.
+            </div>
+          ) : (
+            allCampaign.map((item) => (
+              <Card3 key={item.campaignCode} item={item} h={"h-full"} />
             ))
           )}
         </div>

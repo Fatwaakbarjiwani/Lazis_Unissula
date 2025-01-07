@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import Target from "./Target";
 
-export default function Card({ item, h }) {
+export default function Card3({ item, h }) {
   const navigate = useNavigate();
   const formatNumber = (value) => {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -28,11 +28,11 @@ export default function Card({ item, h }) {
           )}
           <img
             src={item?.campaignImage}
-            className="object-cover h-32 sm:h-36 md:h-40 lg:h-44 rounded-t-xl md:rounded-t-xl xl:rounded-3xl w-full"
+            className="object-cover h-28 sm:h-36 md:h-40 lg:h-44 rounded-t-xl md:rounded-t-xl xl:rounded-3xl w-full"
             alt=""
           />
           <div>
-            <p className="font-Inter font-bold md:text-base text-base lg:text-lg line-clamp-2 mt-2 lg:leading-6 px-1 md:px-0">
+            <p className="font-Inter font-bold md:text-base text-xs lg:text-lg line-clamp-2 mt-2 lg:leading-6 px-1 md:px-0">
               {item?.campaignName}
             </p>
           </div>
@@ -40,21 +40,24 @@ export default function Card({ item, h }) {
         <div className="flex flex-col gap-1 px-1 pb-2 sm:pb-3 sm:px-3">
           {/* category */}
           <div className="flex flex-col justify-between gap-1">
+            <div className="md:text-sm text-[10px] flex gap-1 items-center font-semibold">
+              <p>Kategori</p>
+              <p className="bg-fourth text-white px-1 sm:px-1 rounded-3xl font-semibold">
+                {item?.campaignCategory}
+              </p>
+            </div>
             {/* location */}
             <div className="flex gap-1 lg:gap-1 items-center">
-              <img src={location} className="lg:w-5 md:w-5 w-5" alt="" />
-              <p className="md:text-sm xl:text-base sm:text-xs text-sm font-semibold">
+              <img src={location} className="lg:w-5 md:w-5 w-3" alt="" />
+              <p className="md:text-sm xl:text-base sm:text-xs text-[10px] font-semibold">
                 {item?.location}
               </p>
             </div>
           </div>
-          <div className="flex flex-col gap-1 mt-1 justify-between sm:hidden">
-            <div className="flex justify-between">
-              <p className="xl:text-base md:text-sm text-xs">Terkumpul</p>
-              <p className="xl:text-base md:text-sm text-sm font-semibold text-primary">
-                Rp {formatNumber(item.targetAmount || 0)}
-              </p>
-            </div>
+          <div className="flex flex-col gap-1 justify-between sm:hidden">
+            <p className="xl:text-base md:text-sm sm:text-xs text-[10px]">
+              Terkumpul
+            </p>
             <div className="w-full rounded-full bg-NEUTRAL04">
               <Target
                 targetAmount={item?.targetAmount}
@@ -72,13 +75,13 @@ export default function Card({ item, h }) {
             <div className="hidden sm:flex justify-between">
               <p className="xl:text-base md:text-sm sm:text-xs ">Terkumpul</p>
               <p className="xl:text-base md:text-sm sm:text-xs ">
-                Rp {formatNumber(item?.currentAmount || 0)}
+                Rp {formatNumber(item?.currentAmount)}
               </p>
             </div>
             <div className="hidden sm:flex justify-between">
               <p className="xl:text-base md:text-sm sm:text-xs ">Target</p>
               <p className="xl:text-base md:text-sm sm:text-xs ">
-                Rp {formatNumber(item?.targetAmount || 0)}
+                Rp {formatNumber(item?.targetAmount)}
               </p>
             </div>
           </div>
@@ -117,7 +120,7 @@ export default function Card({ item, h }) {
   );
 }
 
-Card.propTypes = {
+Card3.propTypes = {
   item: PropTypes.object.isRequired,
   h: PropTypes.string,
 };

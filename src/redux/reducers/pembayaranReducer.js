@@ -4,9 +4,15 @@ const key = "secretKey";
 
 const initialState = {
   nml: getNmlFromLocalStorage(),
+  va: localStorage.getItem("va") || null,
+  token2: localStorage.getItem("sgh") || null,
   methode: "",
   transactionUser: [],
   summary: [],
+  billing: [],
+  vaNumber: [],
+  typePembayaran: localStorage.getItem("type") || null,
+  qris: [],
 };
 function getNmlFromLocalStorage() {
   const encryptedNml = localStorage.getItem("nml");
@@ -29,6 +35,30 @@ const authSlice = createSlice({
   name: "pembayaran",
   initialState,
   reducers: {
+    setVa: (state, action) => {
+      if (action.payload) {
+        localStorage.setItem("va", action.payload);
+      } else {
+        localStorage.removeItem("va");
+      }
+      state.va = action.payload;
+    },
+    setTypePembayaran: (state, action) => {
+      if (action.payload) {
+        localStorage.setItem("type", action.payload);
+      } else {
+        localStorage.removeItem("type");
+      }
+      state.typePembayaran = action.payload;
+    },
+    setToken2: (state, action) => {
+      if (action.payload) {
+        localStorage.setItem("sgh", action.payload);
+      } else {
+        localStorage.removeItem("sgh");
+      }
+      state.token2 = action.payload;
+    },
     setNml: (state, action) => {
       if (action.payload) {
         // Enkripsi nilai nml sebelum menyimpannya
@@ -51,10 +81,29 @@ const authSlice = createSlice({
     setSummary: (state, action) => {
       state.summary = action.payload;
     },
+    setBilling: (state, action) => {
+      state.billing = action.payload;
+    },
+    setVaNumber: (state, action) => {
+      state.vaNumber = action.payload;
+    },
+    setQris: (state, action) => {
+      state.qris = action.payload;
+    },
   },
 });
 
-export const { setNml, setMethode, setTransactionUser, setSummary } =
-  authSlice.actions;
+export const {
+  setNml,
+  setMethode,
+  setTransactionUser,
+  setSummary,
+  setBilling,
+  setQris,
+  setVa,
+  setVaNumber,
+  setToken2,
+  setTypePembayaran,
+} = authSlice.actions;
 
 export default authSlice.reducer;

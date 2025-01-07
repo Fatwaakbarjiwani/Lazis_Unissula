@@ -27,7 +27,7 @@ const DonasiDarurat = () => {
       slidesPerView={1}
       loop={true}
       modules={[Pagination, Autoplay]}
-      className="z-20 rounded md:rounded-3xl"
+      className="z-20 md:rounded-3xl"
     >
       {allCampaignEmergency.slice(0, 10).map((item) => (
         <SwiperSlide key={item?.campaignId}>
@@ -36,7 +36,7 @@ const DonasiDarurat = () => {
               <Link to={`/detailCampaign/${item?.campaignId}`}>
                 <img
                   src={item?.campaignImage}
-                  className="h-52 sm:h-60 md:h-72 lg:h-[75vh] object-cover w-full rounded md:rounded-3xl"
+                  className="h-52 sm:h-60 md:h-72 lg:h-[75vh] object-cover w-full md:rounded-3xl"
                   alt=""
                   style={{ backgroundRepeat: "no-repeat" }}
                 />

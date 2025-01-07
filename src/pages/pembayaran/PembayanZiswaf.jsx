@@ -3,7 +3,10 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { setNml } from "../../redux/reducers/pembayaranReducer";
+import {
+  setNml,
+  setTypePembayaran,
+} from "../../redux/reducers/pembayaranReducer";
 import DataPembayaran from "../../components/data/DataPembayaran";
 import { getDetailZiswaf } from "../../redux/actions/ziswafAction";
 import { setButtonPage } from "../../redux/reducers/pageReducer";
@@ -26,7 +29,7 @@ export default function PembayaranZiswaf() {
   dispatch(setNml(hapusTitik(selectedTotal)));
   useEffect(() => {
     if (id) {
-      dispatch(setButtonPage(category))
+      dispatch(setButtonPage(category));
       dispatch(getDetailZiswaf(category, id));
     }
   }, [id, category, dispatch]);
@@ -45,6 +48,7 @@ export default function PembayaranZiswaf() {
     if (nml === "" || parseFloat(nml) <= 0 || parseFloat(nml) < 10000) {
       toast.error("Masukkan nml dengan benar (0 < nml <= 10000)");
     } else {
+      dispatch(setTypePembayaran(category));
       navigate(`/konfirmasiPembayaran/${id}`);
     }
   };

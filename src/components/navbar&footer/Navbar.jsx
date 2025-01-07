@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalLogin } from "../../redux/reducers/authReducer";
 import { setButtonPage } from "../../redux/reducers/pageReducer";
-import { getMe, logout } from "../../redux/actions/authAction";
+import { getMe, getMe2, logout } from "../../redux/actions/authAction";
 import {
   setPageNumber,
   setSearchCampaign,
@@ -51,6 +51,7 @@ function Navbar() {
     if (token) {
       dispatch(getMe());
     }
+    dispatch(getMe2());
   }, [dispatch, token]);
 
   return (

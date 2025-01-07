@@ -1,11 +1,18 @@
 import axios from "axios";
 import toast from "react-hot-toast";
-import { setSummary, setTransactionUser } from "../reducers/pembayaranReducer";
+import {
+  setBilling,
+  setSummary,
+  setTransactionUser,
+  setVa,
+} from "../reducers/pembayaranReducer";
 
 export const API_URL = import.meta.env.VITE_API_URL;
 
 export const transaksi =
   (
+    type,
+    methode,
     name,
     phoneNumber,
     email,
@@ -17,7 +24,7 @@ export const transaksi =
   async (dispatch) => {
     try {
       const response = await axios.post(
-        `${API_URL}/transaction/campaign/${campaignId}`,
+        `${API_URL}/billing/${type}/${campaignId}`,
         {
           username: name,
           phoneNumber: phoneNumber,
@@ -28,7 +35,15 @@ export const transaksi =
       );
       if (response) {
         toast.success("Proses transaksi berhasil");
-        navigate(`/detailCampaign/${campaignId}`);
+        navigate(
+          `/${
+            methode === "qris" ? "pembayaranQris" : "pembayaranVa"
+          }/${campaignId}`
+        );
+        // dispatch(setBilling(response.data));
+        const data = response.data;
+
+        dispatch(setVa(data.vaNumber));
       }
     } catch (error) {
       console.error("Error fetching campaign data:", error);
@@ -46,6 +61,35 @@ export const getTransactionUser = () => async (dispatch, getState) => {
     dispatch(setTransactionUser(data));
   } catch (error) {
     return;
+  }
+};
+export const getTransaction = (va) => async (dispatch) => {
+  try {
+    const response = await axios.post(
+      `https://donasi.lazisybwsa.cloudsmartech.com/billing`,
+      {
+        // Body JSON yang dikirim
+        vaNumber: va,
+        prefix: "02029",
+      },
+      {
+        headers: {
+          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsYXppc3N1bHRhbmFndW5nIiwiaWF0IjoxNzM2MjMxMDA4LCJleHAiOjE3MzYyMzQ2MDh9._IqvZa2s1C_H32ZBJxQ5to2oYc7b-P8h3D1UID4EOnE`,
+          "Content-Type": "application/json", // Pastikan content-type JSON
+        },
+      }
+    );
+
+    const data = response.data;
+
+    // Log data untuk verifikasi
+    console.log(data);
+
+    // Dispatch hasil ke Redux
+    dispatch(setBilling(data));
+  } catch (error) {
+    // Log error agar lebih mudah debug
+    console.error("Error fetching transaction:", error.message);
   }
 };
 

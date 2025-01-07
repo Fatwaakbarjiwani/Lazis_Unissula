@@ -15,7 +15,9 @@ export default function KonfirmasiPembayaran() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { methode, nml } = useSelector((state) => state.pembayaran);
+  const { methode, nml, typePembayaran } = useSelector(
+    (state) => state.pembayaran
+  );
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -37,6 +39,8 @@ export default function KonfirmasiPembayaran() {
     // Proceed with the payment if validation is passed
     dispatch(
       transaksi(
+        typePembayaran,
+        methode,
         isOn ? "Hamba Allah" : name,
         phoneNumber,
         email,
@@ -59,7 +63,7 @@ export default function KonfirmasiPembayaran() {
             <h1 className="font-semibold text-gray-600 text-lg">
               Metode Pembayaran
             </h1>
-            <div className="justify-between duration-300 flex items-center gap-5 w-full border-2 border-gray-200 rounded-3xl shadow px-2 p-1">
+            <div className="justify-between duration-300 flex items-center gap-5 w-full border border-gray-200 rounded-3xl shadow px-2 p-2">
               <div className="flex gap-2">
                 <img
                   src={
@@ -92,14 +96,14 @@ export default function KonfirmasiPembayaran() {
               Nama Pengirim
             </h1>
             {isOn ? (
-              <p className="w-full rounded-xl border-2 border-gray-400 p-1 text-gray-500 font-semibold">
+              <p className="w-full rounded-xl border border-gray-600 p-2 text-gray-500 font-semibold">
                 Hamba Allah
               </p>
             ) : (
               <input
                 type="text"
-                className={`w-full rounded-xl border-2 p-1 ${
-                  errors.name ? "border-red-500" : "border-gray-400"
+                className={`w-full rounded-xl border p-2 ${
+                  errors.name ? "border-red-500" : "border-gray-600"
                 }`}
                 value={name}
                 onChange={(e) => {
@@ -119,8 +123,8 @@ export default function KonfirmasiPembayaran() {
             </h1>
             <input
               type="text"
-              className={`w-full rounded-xl border-2 p-1 ${
-                errors.phoneNumber ? "border-red-500" : "border-gray-400"
+              className={`w-full rounded-xl border p-2 ${
+                errors.phoneNumber ? "border-red-500" : "border-gray-600"
               }`}
               value={phoneNumber}
               onChange={(e) => {
@@ -139,7 +143,7 @@ export default function KonfirmasiPembayaran() {
             </h1>
             <input
               type="text"
-              className="w-full rounded-xl border-2 border-gray-400 p-1"
+              className="w-full rounded-xl border border-gray-600 p-2"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -153,10 +157,10 @@ export default function KonfirmasiPembayaran() {
             </div>
             <button
               onClick={() => setIsOn(!isOn)}
-              className={`rounded-full flex w-1/12 p-1 ${
+              className={`rounded-full flex w-1/12 p-2 ${
                 isOn
-                  ? "bg-white border-2 border-primary justify-end"
-                  : "justify-start bg-white-500 border-2 border-gray-400"
+                  ? "bg-white border border-primary justify-end"
+                  : "justify-start bg-white-500 border border-gray-600"
               } text-white`}
             >
               <p
@@ -185,7 +189,7 @@ export default function KonfirmasiPembayaran() {
               Pesan Anda
             </p>
             <textarea
-              className="w-full border-2 border-gray-400 rounded-xl p-2 text-lg outline-primary"
+              className="w-full border border-gray-600 rounded-xl p-2 text-lg outline-primary"
               placeholder="Tuliskan doa atau dukungan untuk donasi ini"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
