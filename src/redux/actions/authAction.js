@@ -111,19 +111,31 @@ export const getMe = () => async (dispatch, getState) => {
 export const getMe2 = () => async (dispatch) => {
   try {
     const response = await axios.get(
-      `https://donasi.lazisybwsa.cloudsmartech.com/auth`,
+      "https://donasi.lazisybwsa.cloudsmartech.com/auth",
       {
-        username: "lazissultanagung",
-        password: "sultanagung123",
+        headers: {
+          username: "lazissultanagung",
+          password: "sultanagung123",
+          "Content-Type": "application/json",
+        },
+        data: {
+          username: "lazissultanagung",
+          password: "sultanagung123",
+        },
       }
     );
+
     if (response) {
       const data = response.data;
-      // dispatch(setToken2(data.x-api-key));
       console.log(data);
+      // Dispatch to Redux store or handle response here
+      // dispatch({ type: "SET_AUTH_DATA", payload: data });
     }
   } catch (error) {
-    error;
+    console.error(
+      "Error fetching data:",
+      error.response?.data || error.message
+    );
   }
 };
 export const getSummary = () => async (dispatch) => {

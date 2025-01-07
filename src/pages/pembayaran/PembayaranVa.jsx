@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { MdContentCopy } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-// import { getTransaction } from "../../redux/actions/transaksiAction";
+import { getTransaction } from "../../redux/actions/transaksiAction";
 
 export default function PembayaranVa() {
   const [isCopied, setIsCopied] = useState(false);
@@ -24,7 +24,7 @@ export default function PembayaranVa() {
   };
 
   useEffect(() => {
-    // dispatch(getTransaction("020297221266165"));
+    dispatch(getTransaction("020297221266165"));
   }, [dispatch]);
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 px-4 sm:px-6 py-2 flex flex-col items-center justify-center">

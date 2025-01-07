@@ -74,7 +74,7 @@ export const getTransaction = (va) => async (dispatch) => {
       },
       {
         headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsYXppc3N1bHRhbmFndW5nIiwiaWF0IjoxNzM2MjMxMDA4LCJleHAiOjE3MzYyMzQ2MDh9._IqvZa2s1C_H32ZBJxQ5to2oYc7b-P8h3D1UID4EOnE`,
+          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsYXppc3N1bHRhbmFndW5nIiwiaWF0IjoxNzM2MjM3MTI3LCJleHAiOjE3MzYyNDA3Mjd9.lKMM-1Py6F3y00fl_IvZBLLQRmKXRKEbxlzSV-qQxU4`,
           "Content-Type": "application/json", // Pastikan content-type JSON
         },
       }
