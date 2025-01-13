@@ -73,8 +73,6 @@ export const login = (acount, password) => async (dispatch) => {
 
 export const registerWithGoogle = (accessToken) => async (dispatch) => {
   try {
-    // console.log(accessToken);
-
     const response = await axios.post(`${API_URL}/auth/google`, {
       access_token: accessToken,
     });
@@ -169,7 +167,6 @@ export const getSlides = () => async (dispatch) => {
     if (response) {
       const data = response.data;
       dispatch(setSlides(data));
-      console.log(data);
     }
   } catch (error) {
     error;

@@ -107,9 +107,6 @@ export const getToken2 = () => async (dispatch) => {
 
     const data = response.data;
 
-    // Log data untuk verifikasi
-    console.log(data);
-
     // Dispatch hasil ke Redux
     dispatch(setBilling(data));
   } catch (error) {

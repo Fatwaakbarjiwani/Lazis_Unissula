@@ -17,21 +17,6 @@ export default function Header() {
   useEffect(() => {
     dispatch(getSlides());
   }, [dispatch]);
-  // const slides = [
-  //   {
-  //     id: 1,
-  //     background: header1,
-  //   },
-  //   {
-  //     id: 2,
-  //     background: header2,
-  //   },
-  //   {
-  //     id: 3,
-  //     background: header3,
-  //   },
-  // ];
-console.log(slides);
 
   return (
     <div>

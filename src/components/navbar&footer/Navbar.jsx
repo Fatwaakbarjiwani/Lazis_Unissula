@@ -264,7 +264,7 @@ function Navbar() {
       <div
         className={`${
           isMenuVisible ? "" : "translate-x-[400px] transition"
-        } transition w-1/2 sm:w-1/3 md:w-3/12 lg:w-1/6 xl:hidden absolute right-0 h-screen duration-500 bg-white/80 backdrop-blur-md drop-shadow-md  px-4 py-2`}
+        } transition w-1/2 sm:w-1/3 md:w-3/12 lg:w-1/6 xl:hidden absolute right-0 h-screen duration-200 bg-white/80 backdrop-blur-md drop-shadow-md  px-4 py-2`}
       >
         <div className="lg:hidden flex flex-col gap-1">
           <Link
