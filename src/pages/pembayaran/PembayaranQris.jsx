@@ -61,7 +61,7 @@ export default function PembayaranQris() {
         {/* QR Code Section */}
         <div
           id="qr-section"
-          className="bg-white border border-gray-200 rounded-xl p-8 mb-12 shadow-md flex flex-col gap-6 items-center"
+          className="bg-white border border-gray-200 rounded-xl p-8 mb-4 shadow-md flex flex-col gap-6 items-center"
         >
           <h2 className="text-xl font-semibold text-gray-800">
             QRIS LAZIS SULTAN AGUNG
@@ -108,36 +108,35 @@ export default function PembayaranQris() {
           </div>
 
           {/* Campaign Details */}
-          {typePembayaran == "campaign" ? (
-            <div className="mb-4 w-full">
-              <h3 className="text-sm text-gray-700 font-semibold mb-3 uppercase">
-                Detail Campaign
-              </h3>
-              <div className="bg-gray-100 rounded-lg p-4 flex items-center gap-4">
-                <img
-                  src={detailCampaign?.campaignImage}
-                  alt={detailCampaign?.campaignName}
-                  className="w-3/4 rounded-md object-cover shadow-sm"
-                />
-                <p className="text-gray-800 font-semibold">
-                  {detailCampaign?.campaignName}
-                </p>
-              </div>
-            </div>
-          ) : (
-            <div className="mb-4 w-full">
-              <h3 className="text-sm text-center text-gray-700 font-semibold mb-3 uppercase">
-                Detail {typePembayaran}
-              </h3>
-              <div className="bg-gray-100 rounded-lg p-4 flex items-center gap-4">
-                <p className="text-gray-800 text-center w-full font-semibold">
-                  {detailZiswaf.categoryName}
-                </p>
-              </div>
-            </div>
-          )}
         </div>
-
+        {typePembayaran == "campaign" ? (
+          <div className="mb-4 w-full">
+            <h3 className="text-sm text-gray-700 font-semibold mb-3 uppercase">
+              Detail Campaign
+            </h3>
+            <div className="bg-gray-100 rounded-lg p-4 sm:flex items-center gap-4">
+              <img
+                src={detailCampaign?.campaignImage}
+                alt={detailCampaign?.campaignName}
+                className="w-full sm:w-3/4 rounded-md object-cover shadow-sm"
+              />
+              <p className="text-gray-800 font-semibold">
+                {detailCampaign?.campaignName}
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div className="mb-4 w-full">
+            <h3 className="text-sm text-center text-gray-700 font-semibold mb-3 uppercase">
+              Detail {typePembayaran}
+            </h3>
+            <div className="bg-gray-100 rounded-lg p-4 flex items-center gap-4">
+              <p className="text-gray-800 text-center w-full font-semibold">
+                {detailZiswaf.categoryName}
+              </p>
+            </div>
+          </div>
+        )}
         <button
           onClick={downloadQR}
           className="bg-gray-700 hover:bg-gray-800 text-white text-sm font-medium px-6 py-3 rounded-xl flex items-center gap-3 shadow-lg transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"

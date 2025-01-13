@@ -132,11 +132,11 @@ export default function PembayaranVa() {
             <h3 className="text-sm text-gray-700 font-semibold mb-3">
               Detail Campaign
             </h3>
-            <div className="bg-gray-100 rounded-lg p-4 flex items-center gap-4">
+            <div className="bg-gray-100 rounded-lg p-4 sm:flex items-center gap-4">
               <img
                 src={detailCampaign?.campaignImage}
                 alt={detailCampaign?.campaignName}
-                className="w-3/4 rounded-md object-cover shadow-sm"
+                className="w-full sm:w-3/4 rounded-md object-cover shadow-sm"
               />
               <p className="text-gray-800 font-semibold">
                 {detailCampaign?.campaignName}
