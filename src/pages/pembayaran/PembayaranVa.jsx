@@ -75,7 +75,7 @@ export default function PembayaranVa() {
         <div className="relative text-center mb-6">
           <Link
             to={`/konfirmasiPembayaran/${id}`}
-            className="absolute left-2 top-2"
+            className="left-2 top-2"
           >
             <BsArrowLeft />
           </Link>
@@ -96,7 +96,7 @@ export default function PembayaranVa() {
             <p className="text-xl font-semibold text-gray-900">{vaNumber}</p>
             <button
               onClick={copyToClipboard}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition duration-200"
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg shadow active:bg-blue-700 transition duration-200"
             >
               {isCopied ? (
                 <FaCheckCircle className="text-lg" />
@@ -164,7 +164,7 @@ export default function PembayaranVa() {
             className={`w-full flex items-center justify-center gap-2 px-5 py-3 font-bold rounded-lg shadow-lg transition duration-300 ${
               isLoading
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-green-600 text-white hover:bg-green-700"
+                : "bg-green-600 text-white active:bg-green-700"
             }`}
           >
             {isLoading ? (

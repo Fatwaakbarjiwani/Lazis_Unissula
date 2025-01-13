@@ -139,7 +139,7 @@ export default function PembayaranQris() {
         )}
         <button
           onClick={downloadQR}
-          className="bg-gray-700 hover:bg-gray-800 text-white text-sm font-medium px-6 py-3 rounded-xl flex items-center gap-3 shadow-lg transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+          className="bg-gray-700 active:bg-gray-800 text-white text-sm font-medium px-6 py-3 rounded-xl flex items-center gap-3 shadow-lg transform transition-all duration-300 active:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
         >
           <HiOutlineDownload className="text-lg" />
           Download QRIS dengan Detail
