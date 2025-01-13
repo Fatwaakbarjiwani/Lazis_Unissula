@@ -78,7 +78,7 @@ export default function KonfirmasiPembayaran() {
                   <p className="font-bold text-lg text-gray-800">
                     {methode === "qris" ? "Pembayaran QR" : "Pembayaran VA"}
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p className="hidden sm:block text-sm text-gray-500">
                     Bayar dengan aplikasi pembayaran pilihan Anda
                   </p>
                 </div>
