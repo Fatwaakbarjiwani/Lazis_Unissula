@@ -65,21 +65,42 @@ export default function DetailBerita() {
           ) : (
             <div className="flex mt-3">
               <p className="flex items-center text-slate-600">Bagikan berita</p>
-              <a href="http://">
+
+              {/* Bagikan ke Twitter */}
+              <a
+                href={`https://twitter.com/intent/tweet?url=https://campaign.lazis-sa.org/detailBerita/${id}&text=${encodeURIComponent(
+                  detailBerita?.title || ""
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <div className="ml-2 rounded-full w-8 h-8 bg-black hover:bg-white flex items-center justify-center cursor-pointer hover:text-black hover:border hover:border-black transform transition-transform duration-300 ease-in-out hover:scale-100">
                   <FaXTwitter className="text-white hover:text-black w-5 h-5 cursor-pointer" />
                 </div>
               </a>
-              <a href="http://">
+
+              {/* Bagikan ke Facebook */}
+              <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=https://campaign.lazis-sa.org/detailBerita/${id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <div className="ml-2 rounded-full w-8 h-8 bg-black hover:bg-white flex items-center justify-center cursor-pointer hover:text-blue-800 hover:border hover:border-blue-800 transform transition-transform duration-300 ease-in-out hover:scale-100">
                   <FaFacebook className="text-white hover:text-blue-800 w-5 h-5 cursor-pointer" />
                 </div>
               </a>
-              <a href="http://">
-                <div className="ml-2 rounded-full w-8 h-8 bg-black hover:bg-gradient-to-b from-[#833ab4] via-[#fd1d1d] to-[#fcb045] flex items-center justify-center cursor-pointer hover:text-blue-800 transform transition-transform duration-300 ease-in-out hover:scale-100">
+
+              {/* Bagikan ke Instagram */}
+              <a
+                href={`https://www.instagram.com/?url=https://campaign.lazis-sa.org/detailBerita/${id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="ml-2 rounded-full w-8 h-8 bg-black hover:bg-gradient-to-b from-[#833ab4] via-[#fd1d1d] to-[#fcb045] flex items-center justify-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-100">
                   <FaInstagram className="text-white hover:text-white w-5 h-5 cursor-pointer" />
                 </div>
               </a>
+
               <p className="flex items-center ml-2 font-semibold text-teal-800">
                 {loading ? <Skeleton width={80} /> : "24/12/2023"}
               </p>
