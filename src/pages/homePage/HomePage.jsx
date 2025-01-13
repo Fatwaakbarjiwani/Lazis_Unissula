@@ -53,7 +53,7 @@ export default function HomePage() {
             ))}
           </div>
         </div>
-        <div className="px-2 md:px-8 lg:px-16 xl:mpx-20 2xl:px-32 md:hidden border-y-4 py-2 border-gray-200 mt-4">
+        <div className="px-2 md:px-8 lg:px-16 xl:mpx-20 2xl:px-32 md:hidden border-b-4 py-2 border-gray-200 mt-4">
           <h1 className="font-sans font-extrabold text-2xl sm:text-2xl md:text-4xl text-gray-600 sm:mb-4">
             REKOMENDASI <span className="text-primary">DONASI</span>
           </h1>
@@ -71,7 +71,7 @@ export default function HomePage() {
           </Swiper>
         </div>
         {/* doa doa */}
-        <div className="px-2 md:px-8 lg:px-16 xl:px-20 2xl:px-32 border-b-4 sm:border-b-0 py-2 border-gray-200">
+        <div className="px-2 md:px-8 lg:px-16 xl:px-20 2xl:px-32 py-2">
           <h1 className="font-sans font-extrabold text-2xl sm:text-4xl text-gray-600 sm:mt-8 text-left">
             DOA DOA ORANG BAIK
           </h1>

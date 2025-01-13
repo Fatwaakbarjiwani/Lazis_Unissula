@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
 import {
   setNml,
   setTypePembayaran,
 } from "../../redux/reducers/pembayaranReducer";
 import { getDetailCampaign } from "../../redux/actions/campaignAction";
 import DataPembayaran from "../../components/data/DataPembayaran";
+import Swal from "sweetalert2";
 
 export default function PembayaranCampaign() {
   const dispatch = useDispatch();
@@ -42,8 +42,12 @@ export default function PembayaranCampaign() {
   };
 
   const handleClick = () => {
-    if (nml === "" || parseFloat(nml) <= 0 || parseFloat(nml) < 10000) {
-      toast.error("Masukkan nml dengan benar (0 < nml <= 10000)");
+    if (nml === "" || parseFloat(nml) <= 0 || parseFloat(nml) < 1000) {
+      Swal.fire({
+        title: `Pembayaran kurang dari 1000`,
+        text: "Harap memasukkan nominal dengan benar",
+        icon: "error",
+      });
     } else {
       dispatch(setTypePembayaran("campaign"));
       navigate(`/konfirmasiPembayaran/${id}`);
@@ -77,12 +81,9 @@ export default function PembayaranCampaign() {
           {/* colom */}
           <div className="w-full sm:w-5/6 mt-8">
             <p className="font-bold text-xl">
-              Anda akan melakukan pembayaran{" "}
-              <span className="text-primary">
-                {detailCampaign.campaignName}
-              </span>
+              Masukkan nominal untuk donasi anda
             </p>
-            <p>Nominal {detailCampaign.campaignName} Rp </p>
+            <p>{detailCampaign.campaignName}</p>
           </div>
           {/* harga */}
           <div className="w-full sm:w-5/6 gap-2 grid grid-cols-2 md:gap-6 my-3">
@@ -100,12 +101,12 @@ export default function PembayaranCampaign() {
           </div>
           {/*  */}
           <div className="w-full sm:w-5/6">
-            <p className="text-xl lg:text-2xl mt-5 font-bold">Jumlah</p>
+            <p className="text-sm lg:text-xl mt-5 font-bold">Jumlah</p>
           </div>
           {/*  */}
           <div className="w-full sm:w-5/6">
-            <div className="w-full ring-gray-400 ring-2 mt-3 rounded-xl flex items-center">
-              <p className="text-xl rounded-l-xl p-2 ring-gray-400 ring-2">
+            <div className="w-full border border-gray-400 shadow mt-2 rounded-xl flex items-center">
+              <p className="text-xl rounded-l-xl p-2 border-r border-gray-400">
                 Rp
               </p>
               <input

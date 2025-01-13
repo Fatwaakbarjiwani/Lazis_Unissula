@@ -6,6 +6,7 @@ import { transaksi } from "../../redux/actions/transaksiAction";
 
 export default function KonfirmasiPembayaran() {
   const [isOn, setIsOn] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -27,7 +28,6 @@ export default function KonfirmasiPembayaran() {
   }, [user]);
 
   const handlePayment = () => {
-    // Check if the required fields are filled
     if (!name || !phoneNumber) {
       setErrors({
         name: !name,
@@ -36,7 +36,7 @@ export default function KonfirmasiPembayaran() {
       return;
     }
 
-    // Proceed with the payment if validation is passed
+    setLoading(true);
     dispatch(
       transaksi(
         typePembayaran,
@@ -49,22 +49,22 @@ export default function KonfirmasiPembayaran() {
         id,
         navigate
       )
-    );
+    ).finally(() => setLoading(false));
   };
 
   return (
-    <div className="font-Inter flex justify-center">
-      <div className="w-full sm:w-3/6 my-4 sm:my-10 px-2">
-        <h1 className="font-bold text-gray-500 text-center text-3xl">
-          Konfirmasi <span className="text-primary">Pembayaran</span>
+    <div className="font-Inter flex justify-center bg-gray-50 min-h-screen sm:py-10">
+      <div className="w-full sm:w-3/6 bg-white shadow-lg rounded-lg p-4 sm:px-6 sm:py-8">
+        <h1 className="font-bold text-gray-700 text-center text-xl sm:text-3xl mb-4 sm:mb-8">
+          KONFIRMASI <span className="text-primary">PEMBAYARAN</span>
         </h1>
-        <div className="mt-4 sm:mt-10 space-y-3">
-          <div className="space-y-1">
-            <h1 className="font-semibold text-gray-600 text-lg">
+        <div className="space-y-6">
+          <div>
+            <h1 className="font-semibold text-gray-600 text-lg mb-2">
               Metode Pembayaran
             </h1>
-            <div className="justify-between duration-300 flex items-center gap-5 w-full border border-gray-200 rounded-3xl shadow px-2 p-2">
-              <div className="flex gap-2">
+            <div className="flex items-center justify-between border border-gray-200 rounded-xl shadow-sm px-4 py-3">
+              <div className="flex items-center gap-4">
                 <img
                   src={
                     methode === "qris"
@@ -75,35 +75,36 @@ export default function KonfirmasiPembayaran() {
                   alt="QR Code"
                 />
                 <div className="text-left">
-                  <p className="font-bold text-lg">
+                  <p className="font-bold text-lg text-gray-800">
                     {methode === "qris" ? "Pembayaran QR" : "Pembayaran VA"}
                   </p>
-                  <p className="text-sm">
+                  <p className="text-sm text-gray-500">
                     Bayar dengan aplikasi pembayaran pilihan Anda
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => navigate(`/metodePembayaran/${id}`)}
-                className="bg-primary hover:scale-105 duration-100 px-3 shadow rounded-xl text-white font-semibold"
+                className="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:scale-105 transition-transform"
               >
                 Ganti
               </button>
             </div>
           </div>
-          <div className="space-y-1">
-            <h1 className="font-semibold text-gray-600 text-lg">
+
+          <div>
+            <h1 className="font-semibold text-gray-600 text-lg mb-2">
               Nama Pengirim
             </h1>
             {isOn ? (
-              <p className="w-full rounded-xl border border-gray-600 p-2 text-gray-500 font-semibold">
+              <p className="w-full rounded-xl border border-gray-300 bg-gray-100 p-3 text-gray-500 font-medium">
                 Hamba Allah
               </p>
             ) : (
               <input
                 type="text"
-                className={`w-full rounded-xl border p-2 ${
-                  errors.name ? "border-red-500" : "border-gray-600"
+                className={`w-full rounded-xl border p-3 focus:ring focus:ring-primary focus:outline-none ${
+                  errors.name ? "border-red-500" : "border-gray-300"
                 }`}
                 value={name}
                 onChange={(e) => {
@@ -113,18 +114,21 @@ export default function KonfirmasiPembayaran() {
                 }}
               />
             )}
-            {errors.name && isOn == false && (
-              <p className="text-red-500">Nama Pengirim wajib diisi</p>
+            {errors.name && !isOn && (
+              <p className="text-red-500 text-sm mt-1">
+                Nama Pengirim wajib diisi
+              </p>
             )}
           </div>
-          <div className="space-y-1">
-            <h1 className="font-semibold text-gray-600 text-lg">
+
+          <div>
+            <h1 className="font-semibold text-gray-600 text-lg mb-2">
               Nomor Handphone
             </h1>
             <input
               type="text"
-              className={`w-full rounded-xl border p-2 ${
-                errors.phoneNumber ? "border-red-500" : "border-gray-600"
+              className={`w-full rounded-xl border p-3 focus:ring focus:ring-primary focus:outline-none ${
+                errors.phoneNumber ? "border-red-500" : "border-gray-300"
               }`}
               value={phoneNumber}
               onChange={(e) => {
@@ -134,72 +138,113 @@ export default function KonfirmasiPembayaran() {
               }}
             />
             {errors.phoneNumber && (
-              <p className="text-red-500">Nomor Handphone wajib diisi</p>
+              <p className="text-red-500 text-sm mt-1">
+                Nomor Handphone wajib diisi
+              </p>
             )}
           </div>
-          <div className="space-y-1">
-            <h1 className="font-semibold text-gray-600 text-lg">
+
+          <div>
+            <h1 className="font-semibold text-gray-600 text-lg mb-2">
               Alamat Email
             </h1>
             <input
               type="text"
-              className="w-full rounded-xl border border-gray-600 p-2"
+              className="w-full rounded-xl border border-gray-300 p-3 focus:ring focus:ring-primary focus:outline-none"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
+
           <div className="flex justify-between items-center">
             <div>
               <h1 className="font-semibold text-gray-600 text-lg">
                 Samarkan nama pengirim
               </h1>
-              <p>(Hamba Allah)</p>
+              <p className="text-sm text-gray-500">(Hamba Allah)</p>
             </div>
             <button
               onClick={() => setIsOn(!isOn)}
-              className={`rounded-full flex w-1/12 p-2 ${
+              className={`w-16 h-8 flex items-center rounded-full p-1 border transition-colors ${
                 isOn
-                  ? "bg-white border border-primary justify-end"
-                  : "justify-start bg-white-500 border border-gray-600"
-              } text-white`}
+                  ? "bg-primary border-primary"
+                  : "bg-gray-300 border-gray-400"
+              }`}
             >
-              <p
-                className={`${
-                  isOn ? "bg-primary" : "bg-gray-400"
-                } rounded-full h-4 w-4`}
-              ></p>
+              <div
+                className={`h-6 w-6 rounded-full bg-white shadow transform transition-transform ${
+                  isOn ? "translate-x-8" : "translate-x-0"
+                }`}
+              ></div>
             </button>
           </div>
-          <div>
-            <p className="font-[100]">
-              Apakah anda berkenan mendapatkan laporan secara berkala dari Lazis
+
+          {/* <div>
+            <p className="font-light text-gray-600">
+              Apakah Anda berkenan mendapatkan laporan secara berkala dari Lazis
               SA?
             </p>
-            <div className="flex gap-2">
-              <input type="checkbox" />
-              <p>Berkenan</p>
+            <div className="flex gap-4 mt-2">
+              <label className="flex items-center gap-2">
+                <input type="checkbox" className="rounded border-gray-300" />
+                <span>Berkenan</span>
+              </label>
+              <label className="flex items-center gap-2">
+                <input type="checkbox" className="rounded border-gray-300" />
+                <span>Tidak Berkenan</span>
+              </label>
             </div>
-            <div className="flex gap-2">
-              <input type="checkbox" />
-              <p>Tidak Berkenan</p>
-            </div>
-          </div>
+          </div> */}
+
           <div>
-            <p className="block text-lg text-gray-600 font-semibold mb-1">
+            <p className="font-semibold text-gray-600 text-lg mb-2">
               Pesan Anda
             </p>
             <textarea
-              className="w-full border border-gray-600 rounded-xl p-2 text-lg outline-primary"
+              className="w-full border border-gray-300 rounded-xl p-3 focus:ring focus:ring-primary focus:outline-none"
               placeholder="Tuliskan doa atau dukungan untuk donasi ini"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             ></textarea>
           </div>
+
+          {/* Tombol Lanjut Pembayaran */}
           <button
             onClick={handlePayment}
-            className="w-full bg-primary font-bold text-lg rounded-xl shadow shadow-lg  text-white p-2 active:translate-y-[-5px] duration-300"
+            disabled={isLoading} // Nonaktifkan tombol saat loading
+            className={`w-full text-white font-bold text-lg rounded-xl py-3 shadow-lg transition-colors ${
+              isLoading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-primary hover:bg-primary-dark"
+            }`}
           >
-            Lanjut Pembayaran
+            {isLoading ? (
+              <div className="flex items-center justify-center gap-2">
+                <svg
+                  className="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                Loading...
+              </div>
+            ) : (
+              "Lanjut Pembayaran"
+            )}
           </button>
         </div>
       </div>

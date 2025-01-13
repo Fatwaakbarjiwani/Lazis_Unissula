@@ -9,6 +9,8 @@ import Card from "../../components/card/Card";
 import { setButtonPage } from "../../redux/reducers/pageReducer";
 import Footer from "../../components/navbar&footer/Footer";
 import { BiSolidArrowToRight } from "react-icons/bi";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode } from "swiper/modules";
 
 export default function SearchCampaign() {
   const { name } = useParams();
@@ -28,11 +30,22 @@ export default function SearchCampaign() {
         <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold font-Inter text-gray-600">
           Hasil Pencarian <span className="text-primary">{`"${name}"`}</span>
         </h1>
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-y-4 sm:gap-6 mt-2 sm:mt-4">
-          {campaignBySearch.map((item) => (
-            <Card key={item.campaignCode} item={item} m={"0vh"} />
+        <Swiper
+          loop={true}
+          grabCursor={true}
+          slidesPerView={1.5}
+          modules={[FreeMode]}
+        >
+          {(campaignBySearch || []).map((item) => (
+            <SwiperSlide key={item?.campaignId || `slide-${Math.random()}`}>
+              <Card
+                key={item.campaignCode}
+                item={item}
+                h="min-h-[44vh] sm:min-h-[58vh]"
+              />
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
         <div>
           <div className="flex flex-col mt-8 sm:gap-1"></div>
           <div className="flex justify-between items-end text-xl font-Inter sm:text-2xl my-2 sm:my-3">
@@ -40,7 +53,7 @@ export default function SearchCampaign() {
               <p className=" xl:text-3xl text-xl sm:text-2xl font-bold text-fourth">
                 Bantu Mereka
               </p>
-              <div className="md:text-lg xl:text-xl text-base text-gray-600">
+              <div className="hidden sm:block md:text-lg xl:text-xl text-base text-gray-600">
                 <p>
                   Mereka butuh uluran tangan kita, Sedikit bantuan kita sangat
                   berarti bagi mereka
@@ -49,17 +62,23 @@ export default function SearchCampaign() {
             </div>
             <Link
               to={`/daftarCampaign/Campaign/1`}
-              className="text-xs text-primary -500 sm:text-base font-bold flex gap-2 items-center"
+              className="text-xs text-primary -500 sm:text-base font-bold flex gap-2 items-center text-nowrap"
             >
               Lihat semua <BiSolidArrowToRight className="text-2xl" />
             </Link>
           </div>
-
-          <div className="justify-between grid md:grid-cols-3 grid-cols-2 mb-8 md:gap-6 sm:gap-5 gap-y-2">
-            {allCampaign.slice(0, 6).map((item) => (
-              <Card key={item.campaignName} item={item} />
+          <Swiper
+            loop={true}
+            grabCursor={true}
+            slidesPerView={1.5}
+            modules={[FreeMode]}
+          >
+            {(allCampaign || []).slice(0, 6).map((item) => (
+              <SwiperSlide key={item?.campaignId || `slide-${Math.random()}`}>
+                <Card item={item} h="min-h-[42vh] sm:min-h-[58vh]" />
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
         </div>
       </div>
       <Footer />

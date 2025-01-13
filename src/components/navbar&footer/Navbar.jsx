@@ -95,7 +95,7 @@ function Navbar() {
             className="sm:flex hidden"
           >
             <img src={logo} alt="Logo" className="h-12" />
-            <img src={logo2 } alt="Logo" className="h-12" />
+            <img src={logo2} alt="Logo" className="h-12" />
           </Link>
         </div>
 

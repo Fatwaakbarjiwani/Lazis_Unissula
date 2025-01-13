@@ -8,65 +8,72 @@ export default function MetodePembayaran() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
+
   return (
-    <div className="flex flex-col gap-10 items-center mt-4 sm:mt-10 font-Inter">
-      <h1 className="font-bold text-gray-500 text-center text-3xl">
-        Metode <span className="text-primary">Pembayaran</span>
+    <div className="flex flex-col items-center mt-8 px-4 sm:px-8 font-Inter">
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-700 mb-6">
+        METODE <span className="text-primary">PEMBAYARAN</span>
       </h1>
-      <div className="sm:w-3/6 w-full bg-white px-2 sm:px-8">
+
+      <div className="w-full sm:w-3/5 bg-white rounded-xl shadow-md px-6 py-8">
+        {/* Tombol Kembali */}
         <Link
           to={`/konfirmasiPembayaran/${id}`}
-          className="flex w-3/12 items-center gap-1 font-semibold text-gray-500 hover:translate-y-[-5px] duration-200"
-          >
-          Kembali
-          <div>
-            <TbArrowBack className="w-6 h-6" />
-          </div>
-        </Link>
-        <div className="mb-2 sm:mb-2 mt-2">
-          <p className="text-lg font-bold">Dompet Digital</p>
-          <p>Pembayaran dengan dompet digital</p>
-        </div>
-        <button
-          onClick={() => {
-            navigate(`/konfirmasiPembayaran/${id}`);
-            dispatch(setMethode("qris"));
-          }}
-          className="duration-300 active:scale-105 hover:scale-105 flex gap-5 w-full border-2 border-gray-300 rounded-2xl p-1 mb-6 hover:border-primary focus-within:border-primary"
+          className="flex items-center gap-2 text-gray-500 font-semibold hover:text-gray-700 hover:translate-y-[-2px] duration-200 mb-6"
         >
-          <img src={qris} className="w-14" alt="QR Code" />
-          <div className="text-left">
-            <p className="font-bold text-lg">Pembayaran QR</p>
-            <p className="text-sm">
-              Bayar dengan aplikasi pembayaran pilihan Anda
-            </p>
-          </div>
-        </button>
-        <div className="mb-2 sm:mb-2">
-          <p className="text-lg font-bold">Virtual Account</p>
-          <p>Pembayaran di ATM atau Internet Banking</p>
+          <TbArrowBack className="w-5 h-5" />
+          <span>Kembali</span>
+        </Link>
+
+        {/* Dompet Digital Section */}
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-gray-800 mb-2">
+            Dompet Digital
+          </h2>
+          <p className="text-sm text-gray-600">
+            Pembayaran dengan dompet digital seperti GoPay, OVO, dan lainnya.
+          </p>
+          <button
+            onClick={() => {
+              navigate(`/konfirmasiPembayaran/${id}`);
+              dispatch(setMethode("qris"));
+            }}
+            className="flex items-center gap-4 w-full border border-gray-300 rounded-lg p-4 mt-4 hover:shadow-md hover:border-gray-500 duration-300"
+          >
+            <img src={qris} alt="QRIS" className="w-12 h-12" />
+            <div className="text-left">
+              <p className="font-semibold text-gray-800">Pembayaran QR</p>
+              <p className="text-sm text-gray-600">
+                Bayar dengan aplikasi pembayaran pilihan Anda.
+              </p>
+            </div>
+          </button>
         </div>
-        <div className="mt-2 space-y-4">
+
+        {/* Virtual Account Section */}
+        <div>
+          <h2 className="text-lg font-semibold text-gray-800 mb-2">
+            Virtual Account
+          </h2>
+          <p className="text-sm text-gray-600">
+            Pembayaran melalui ATM atau Internet Banking.
+          </p>
           <button
             onClick={() => {
               dispatch(setMethode("va"));
               navigate(`/konfirmasiPembayaran/${id}`);
             }}
-            className="duration-300 items-center active:scale-105 hover:scale-105 flex gap-5 w-full border-2 border-gray-300 rounded-2xl p-1 hover:border-primary focus-within:border-primary"
+            className="flex items-center gap-4 w-full border border-gray-300 rounded-lg p-4 mt-4 hover:shadow-md hover:border-gray-500 duration-300"
           >
-            <div>
-              <img
-                src={
-                  "https://static.vecteezy.com/system/resources/previews/026/702/784/non_2x/illustration-of-virtual-account-icon-in-dark-color-and-white-background-vector.jpg"
-                }
-                className="w-14"
-                alt={"VA"}
-              />
-            </div>
+            <img
+              src="https://static.vecteezy.com/system/resources/previews/026/702/784/non_2x/illustration-of-virtual-account-icon-in-dark-color-and-white-background-vector.jpg"
+              alt="Virtual Account"
+              className="w-12 h-12"
+            />
             <div className="text-left">
-              <p className="font-bold text-lg">Virtual Account</p>
-              <p className="text-sm">
-                Transfer ke nomor virtual account Bank Anda
+              <p className="font-semibold text-gray-800">Virtual Account</p>
+              <p className="text-sm text-gray-600">
+                Transfer ke nomor virtual account bank Anda.
               </p>
             </div>
           </button>

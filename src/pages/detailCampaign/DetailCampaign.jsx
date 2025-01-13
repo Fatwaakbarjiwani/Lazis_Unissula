@@ -96,7 +96,7 @@ export default function CampaignDetail() {
               {loading ? (
                 <Skeleton count={2} height={50} />
               ) : (
-                <p className="font-extrabold md:font-bold lg:text-4xl md:text-3xl xl:text-5xl text-3xl text-gray-600 text-left md:text-end">
+                <p className="font-bold md:font-bold lg:text-4xl md:text-3xl xl:text-5xl text-3xl text-gray-600 text-left md:text-end">
                   Salurkan Donasi Kamu Dengan Mudah
                 </p>
               )}

@@ -8,6 +8,7 @@ import {
 } from "../reducers/pembayaranReducer";
 
 export const API_URL = import.meta.env.VITE_API_URL;
+export const API_URL_PAYMENT = import.meta.env.VITE_API_URL_PAYMENT;
 
 export const transaksi =
   (
@@ -44,6 +45,9 @@ export const transaksi =
         const data = response.data;
 
         dispatch(setVa(data.vaNumber));
+        if (type !== "qris") {
+          dispatch(getTransaction(data.vaNumber));
+        }
       }
     } catch (error) {
       console.error("Error fetching campaign data:", error);
@@ -63,19 +67,40 @@ export const getTransactionUser = () => async (dispatch, getState) => {
     return;
   }
 };
-export const getTransaction = (va) => async (dispatch) => {
+export const getTransaction = (va) => async (dispatch, getState) => {
   try {
+    const { token2 } = getState().pembayaran;
     const response = await axios.post(
-      `https://donasi.lazisybwsa.cloudsmartech.com/billing`,
+      `${API_URL_PAYMENT}/billing`,
       {
-        // Body JSON yang dikirim
         vaNumber: va,
         prefix: "02029",
       },
       {
         headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsYXppc3N1bHRhbmFndW5nIiwiaWF0IjoxNzM2MjM3MTI3LCJleHAiOjE3MzYyNDA3Mjd9.lKMM-1Py6F3y00fl_IvZBLLQRmKXRKEbxlzSV-qQxU4`,
-          "Content-Type": "application/json", // Pastikan content-type JSON
+          Authorization: `Bearer ${token2}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const data = response.data;
+    dispatch(setBilling(data.data));
+  } catch (error) {
+    console.error("Error fetching transaction:", error.message);
+  }
+};
+export const getToken2 = () => async (dispatch) => {
+  try {
+    const response = await axios.post(
+      `${API_URL_PAYMENT}/getToken`,
+      {
+        username: "lazissultanagung",
+        password: "sultanagung123",
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
         },
       }
     );

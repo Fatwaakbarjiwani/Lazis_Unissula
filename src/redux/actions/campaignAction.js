@@ -66,7 +66,7 @@ export const getDetailCampaign = (id) => async (dispatch) => {
     const data = response.data;
     dispatch(setDetailCampaign(data));
   } catch (error) {
-    console.error("Error fetching detail campaign", error);
+    return;
   }
 };
 

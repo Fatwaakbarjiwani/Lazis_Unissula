@@ -96,18 +96,18 @@ export default function Berita() {
               <SwiperSlide key={item?.id || `slide-${Math.random()}`}>
                 <Link
                   to={`/detailBerita/${item?.id}`}
-                  className="h-[50vh] sm:h-[60vh] md:h-[70vh] relative flex items-end"
+                  className="h-[30vh] w-full sm:h-[60vh] md:h-[70vh] relative flex items-end"
                   style={{
                     backgroundImage: `url(${item?.newsImage})`,
                     backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
+                    backgroundSize: "contain",
                     backgroundPosition: "center",
                   }}
                 >
-                  <div className="absolute bottom-0 bg-gradient-to-t from-black via-black/30 to-transparent h-[50vh] w-full"></div>
-                  <h1 className="relative font-bold text-white text-2xl sm:text-3xl md:text-4xl mb-10 sm:mb-16 md:mb-20 mx-6 sm:mx-12 md:mx-20">
+                  <div className="absolute bottom-0 bg-gradient-to-t from-black via-black/30 to-transparent h-[30vh] w-full"></div>
+                  <h1 className="relative font-bold text-white text-base sm:text-2xl sm:text-3xl md:text-4xl mb-10 sm:mb-16 md:mb-20 mx-6 sm:mx-12 md:mx-20">
                     <p className="relative z-40">{item?.title}</p>
-                    <div className="z-0 absolute top-0 w-3/6 sm:w-2/6 h-8 sm:h-10 bg-gradient-to-r from-primary to-transparent"></div>
+                    <div className="z-0 absolute top-0 w-3/6 sm:w-2/6 h-6 sm:h-8 sm:h-10 bg-gradient-to-r from-primary to-transparent"></div>
                   </h1>
                 </Link>
               </SwiperSlide>

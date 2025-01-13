@@ -127,9 +127,7 @@ export const getMe2 = () => async (dispatch) => {
 
     if (response) {
       const data = response.data;
-      console.log(data);
-      // Dispatch to Redux store or handle response here
-      // dispatch({ type: "SET_AUTH_DATA", payload: data });
+      dispatch(setToken2(data["x-api-key"]));
     }
   } catch (error) {
     console.error(
