@@ -121,7 +121,7 @@ export default function PembayaranCampaign() {
           {/*  */}
           <div className="w-full sm:w-5/6 mt-2">
             <p className="text-green-500 font-semibold">Noted :</p>
-            <p>Jumlah harus lebih besar dari Rp 10.000,-</p>
+            <p>Jumlah harus lebih besar dari Rp 1.000,-</p>
           </div>
           {/*  */}
           <div className="w-full sm:w-5/6 mt-5 mb-20">

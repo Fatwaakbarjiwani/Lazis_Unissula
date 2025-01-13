@@ -136,7 +136,7 @@ export default function PembayaranVa() {
               <img
                 src={detailCampaign?.campaignImage}
                 alt={detailCampaign?.campaignName}
-                className="w-full sm:w-3/4 rounded-md object-cover shadow-sm"
+                className="w-full sm:w-2/4 rounded-md object-cover shadow-sm"
               />
               <p className="text-gray-800 font-semibold">
                 {detailCampaign?.campaignName}
