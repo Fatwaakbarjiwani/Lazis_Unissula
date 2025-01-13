@@ -77,7 +77,7 @@ export default function Card2({ item, h }) {
           <div className="flex justify-between items-end">
             <button
               onClick={() => handleDetail(item?.campaignId)}
-              className="rounded-xl w-1/2 lg:px-5 md:px-4 sm:px-3 px-1 xl:px-6 py-2 lg:py-1 bg-fourth xl:text-base lg:text-sm sm:text-xs text-[10px] text-white font-semibold mt-2 hover:scale-105 hover:bg-thirt"
+              className="rounded-xl w-1/2 lg:px-5 md:px-4 sm:px-3 px-1 xl:px-6 py-2 lg:py-1 bg-fourth xl:text-base lg:text-sm sm:text-xs text-sm text-white font-semibold mt-2 hover:scale-105 hover:bg-thirt"
             >
               Ikut Donasi
             </button>
