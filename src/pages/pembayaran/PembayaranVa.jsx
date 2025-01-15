@@ -3,10 +3,10 @@ import { MdContentCopy } from "react-icons/md";
 import { FaCheckCircle, FaSpinner } from "react-icons/fa"; // Ikon tambahan
 import { BsArrowLeft, BsCheckCircleFill, BsClockHistory } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { getTransaction } from "../../redux/actions/transaksiAction";
 import { getDetailCampaign } from "../../redux/actions/campaignAction";
 import { Link, useParams } from "react-router-dom";
 import { getDetailZiswaf } from "../../redux/actions/ziswafAction";
+import { getTransaction } from "../../redux/actions/transaksiAction";
 
 export default function PembayaranVa() {
   const [isCopied, setIsCopied] = useState(false);

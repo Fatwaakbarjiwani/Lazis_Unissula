@@ -45,9 +45,6 @@ export const transaksi =
         const data = response.data;
 
         dispatch(setVa(data.vaNumber));
-        if (type !== "qris") {
-          dispatch(getTransaction(data.vaNumber));
-        }
       }
     } catch (error) {
       console.error("Error fetching campaign data:", error);
@@ -69,6 +66,8 @@ export const getTransactionUser = () => async (dispatch, getState) => {
 };
 export const getTransaction = (va) => async (dispatch, getState) => {
   try {
+    // console.log(API_URL_PAYMENT);
+    
     const { token2 } = getState().pembayaran;
     const response = await axios.post(
       `${API_URL_PAYMENT}/billing`,
