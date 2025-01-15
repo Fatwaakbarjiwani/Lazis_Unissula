@@ -13,7 +13,6 @@ import { setToken2 } from "../reducers/pembayaranReducer";
 export const API_URL = import.meta.env.VITE_API_URL;
 export const API_URL_PAYMENT = import.meta.env.VITE_API_URL_PAYMENT;
 
-
 export const register =
   (username, phoneNumber, email, password) => async (dispatch) => {
     try {
@@ -108,39 +107,40 @@ export const getMe = () => async (dispatch, getState) => {
     error;
   }
 };
+// export const getMe2 = () => async (dispatch) => {
+//   try {
+//     const response = await axios.get(
+//       `${API_URL_PAYMENT}/auth`,
+//       { username: "lazissultanagung", password: "sultanagung123" },
+//       {
+//         headers: {
+//           username: "lazissultanagung",
+//           password: "sultanagung123",
+//           "Content-Type": "application/json",
+//         },
+//         data: {
+//           username: "lazissultanagung",
+//           password: "sultanagung123",
+//         },
+//       }
+//     );
+
+//     if (response) {
+//       const data = response.data;
+//       dispatch(setToken2(data["x-api-key"]));
+//     }
+//   } catch (error) {
+//     console.error(
+//       "Error fetching data:",
+//       error.response?.data || error.message
+//     );
+//   }
+// };
+
 export const getMe2 = () => async (dispatch) => {
   try {
-    const response = await axios.get(
-      `${API_URL_PAYMENT}/auth`,
-      {
-        headers: {
-          username: "lazissultanagung",
-          password: "sultanagung123",
-          "Content-Type": "application/json",
-        },
-        data: {
-          username: "lazissultanagung",
-          password: "sultanagung123",
-        },
-      }
-    );
-
-    if (response) {
-      const data = response.data;
-      dispatch(setToken2(data["x-api-key"]));
-    }
-  } catch (error) {
-    console.error(
-      "Error fetching data:",
-      error.response?.data || error.message
-    );
-  }
-};
-
-export const getToken2 = () => async (dispatch) => {
-  try {
     const response = await axios.post(
-      `${API_URL_PAYMENT}/getToken`,
+      `${API_URL_PAYMENT}/getToken`, // Ensure API_URL_PAYMENT is correctly defined
       {
         username: "lazissultanagung",
         password: "sultanagung123",
@@ -157,10 +157,36 @@ export const getToken2 = () => async (dispatch) => {
       dispatch(setToken2(data["x-api-key"]));
     }
   } catch (error) {
-    // Log error agar lebih mudah debug
-    console.error("Error fetching transaction:", error.message);
+    console.error(
+      "Error fetching data:",
+      error.response?.data || error.message
+    );
   }
 };
+// export const getToken2 = () => async (dispatch) => {
+//   try {
+//     const response = await axios.post(
+//       `${API_URL_PAYMENT}/getToken`,
+//       {
+//         username: "lazissultanagung",
+//         password: "sultanagung123",
+//       },
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+
+//     if (response) {
+//       const data = response.data;
+//       dispatch(setToken2(data["x-api-key"]));
+//     }
+//   } catch (error) {
+//     // Log error agar lebih mudah debug
+//     console.error("Error fetching transaction:", error.message);
+//   }
+// };
 export const getSummary = () => async (dispatch) => {
   try {
     const response = await axios.get(`${API_URL}/summary`);
