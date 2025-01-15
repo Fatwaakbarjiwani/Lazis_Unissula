@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import bunga from "../../assets/bunga.svg";
+import bunga from "../../assets/logo3.jpg";
 import donasi from "../../assets/donasi.svg";
 import { Link, useParams } from "react-router-dom";
 import Footer from "../../components/navbar&footer/Footer";
@@ -70,7 +70,7 @@ export default function Ziswaf() {
         </div>
         <div className="border-y-8 sm:border-y-0 py-2 sm:py-0 border-gray-50 flex flex-col sm:flex-row justify-between gap-4 items-center">
           <img
-            className="w-1/2 sm:w-[500px] sm:h-[255px] object-cover rounded-2xl"
+            className="w-1/2 sm:w-1/2 sm:h-auto object-contain rounded-2xl"
             src={bunga}
             alt="Bunga"
           />
@@ -114,7 +114,7 @@ export default function Ziswaf() {
           </h1>
           <Link to={`/penjelasan/${button}`}>
             <button className=" bg-fourth text-white font-bold px-5 py-2 rounded-lg sm:rounded-xl hover:scale-105 transition-transform">
-              Lihat Selengkapnya
+              LIHAT SELENGKAPNYA
             </button>
           </Link>
         </div>
@@ -129,8 +129,8 @@ export default function Ziswaf() {
               penting kepada mereka yang sangat membutuhkannya.
             </p>
             <Link to="/daftarCampaign/Campaign/1">
-              <button className="bg-fourth text-white font-bold px-5 py-1 mt-2 rounded-lg sm:rounded-xl hover:scale-105">
-                Donasi Sekarang
+              <button className="bg-fourth text-white font-bold px-5 py-2 mt-2 rounded-lg sm:rounded-xl hover:scale-105">
+                DONASI SEKARANG
               </button>
             </Link>
           </div>

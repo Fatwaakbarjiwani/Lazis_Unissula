@@ -11,6 +11,8 @@ import Swal from "sweetalert2";
 import { setSlides, setSummary } from "../reducers/pageReducer";
 import { setToken2 } from "../reducers/pembayaranReducer";
 export const API_URL = import.meta.env.VITE_API_URL;
+export const API_URL_PAYMENT = import.meta.env.VITE_API_URL_PAYMENT;
+
 
 export const register =
   (username, phoneNumber, email, password) => async (dispatch) => {
@@ -106,26 +108,54 @@ export const getMe = () => async (dispatch, getState) => {
     error;
   }
 };
+// export const getMe2 = () => async (dispatch) => {
+//   try {
+//     const response = await axios.get(
+//       `${API_URL_PAYMENT}/auth`,
+//       {
+//         headers: {
+//           username: "lazissultanagung",
+//           password: "sultanagung123",
+//           "Content-Type": "application/json",
+//         },
+//         data: {
+//           username: "lazissultanagung",
+//           password: "sultanagung123",
+//         },
+//       }
+//     );
+
+//     if (response) {
+//       const data = response.data;
+//       dispatch(setToken2(data["x-api-key"]));
+//     }
+//   } catch (error) {
+//     console.error(
+//       "Error fetching data:",
+//       error.response?.data || error.message
+//     );
+//   }
+// };
+
 export const getMe2 = () => async (dispatch) => {
   try {
-    const response = await axios.get(
-      "https://donasi.lazisybwsa.cloudsmartech.com/auth",
-      {
-        headers: {
-          username: "lazissultanagung",
-          password: "sultanagung123",
-          "Content-Type": "application/json",
-        },
-        data: {
-          username: "lazissultanagung",
-          password: "sultanagung123",
-        },
-      }
-    );
+    const response = await axios.get(`${API_URL_PAYMENT}/auth`, {
+      headers: {
+        username: "lazissultanagung",
+        password: "sultanagung123",
+        "Content-Type": "application/json",
+      },
+      params: {
+        username: "lazissultanagung",
+        password: "sultanagung123",
+      },
+    });
 
     if (response) {
       const data = response.data;
-      dispatch(setToken2(data["x-api-key"]));
+      console.log(data);
+      // Dispatch or handle response data
+      // dispatch({ type: "SET_AUTH_DATA", payload: data });
     }
   } catch (error) {
     console.error(
@@ -134,6 +164,7 @@ export const getMe2 = () => async (dispatch) => {
     );
   }
 };
+
 export const getSummary = () => async (dispatch) => {
   try {
     const response = await axios.get(`${API_URL}/summary`);
