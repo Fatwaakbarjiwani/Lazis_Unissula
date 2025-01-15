@@ -139,23 +139,24 @@ export const getMe = () => async (dispatch, getState) => {
 
 export const getMe2 = () => async (dispatch) => {
   try {
-    const response = await axios.get(`${API_URL_PAYMENT}/auth`, {
-      headers: {
-        username: "lazissultanagung",
-        password: "sultanagung123",
-        "Content-Type": "application/json",
-      },
-      params: {
-        username: "lazissultanagung",
-        password: "sultanagung123",
-      },
-    });
+    const response = await axios.get(
+      "https://donasi.lazisybwsa.cloudsmartech.com/auth",
+      {
+        headers: {
+          username: "lazissultanagung",
+          password: "sultanagung123",
+          "Content-Type": "application/json",
+        },
+        data: {
+          username: "lazissultanagung",
+          password: "sultanagung123",
+        },
+      }
+    );
 
     if (response) {
       const data = response.data;
-      console.log(data);
-      // Dispatch or handle response data
-      // dispatch({ type: "SET_AUTH_DATA", payload: data });
+      dispatch(setToken2(data["x-api-key"]));
     }
   } catch (error) {
     console.error(
