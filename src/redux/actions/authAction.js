@@ -108,39 +108,10 @@ export const getMe = () => async (dispatch, getState) => {
     error;
   }
 };
-// export const getMe2 = () => async (dispatch) => {
-//   try {
-//     const response = await axios.get(
-//       `${API_URL_PAYMENT}/auth`,
-//       {
-//         headers: {
-//           username: "lazissultanagung",
-//           password: "sultanagung123",
-//           "Content-Type": "application/json",
-//         },
-//         data: {
-//           username: "lazissultanagung",
-//           password: "sultanagung123",
-//         },
-//       }
-//     );
-
-//     if (response) {
-//       const data = response.data;
-//       dispatch(setToken2(data["x-api-key"]));
-//     }
-//   } catch (error) {
-//     console.error(
-//       "Error fetching data:",
-//       error.response?.data || error.message
-//     );
-//   }
-// };
-
 export const getMe2 = () => async (dispatch) => {
   try {
     const response = await axios.get(
-      "https://donasi.lazisybwsa.cloudsmartech.com/auth",
+      `${API_URL_PAYMENT}/auth`,
       {
         headers: {
           username: "lazissultanagung",
@@ -166,6 +137,30 @@ export const getMe2 = () => async (dispatch) => {
   }
 };
 
+export const getToken2 = () => async (dispatch) => {
+  try {
+    const response = await axios.post(
+      `${API_URL_PAYMENT}/getToken`,
+      {
+        username: "lazissultanagung",
+        password: "sultanagung123",
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response) {
+      const data = response.data;
+      dispatch(setToken2(data["x-api-key"]));
+    }
+  } catch (error) {
+    // Log error agar lebih mudah debug
+    console.error("Error fetching transaction:", error.message);
+  }
+};
 export const getSummary = () => async (dispatch) => {
   try {
     const response = await axios.get(`${API_URL}/summary`);
