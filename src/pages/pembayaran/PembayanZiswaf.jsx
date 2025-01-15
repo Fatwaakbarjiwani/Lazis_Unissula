@@ -26,13 +26,15 @@ export default function PembayaranZiswaf() {
     return nmlTanpaTitik;
   }
 
-  dispatch(setNml(hapusTitik(selectedTotal)));
   useEffect(() => {
+    if (selectedTotal) {
+      dispatch(setNml(hapusTitik(selectedTotal)));
+    }
     if (id) {
       dispatch(setButtonPage(category));
       dispatch(getDetailZiswaf(category, id));
     }
-  }, [id, category, dispatch]);
+  }, [id, category, dispatch,selectedTotal]);
   const formatNumber = (value) => {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };

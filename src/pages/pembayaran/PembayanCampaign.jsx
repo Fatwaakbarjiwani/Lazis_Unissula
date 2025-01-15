@@ -24,12 +24,14 @@ export default function PembayaranCampaign() {
     return nmlTanpaTitik;
   }
 
-  dispatch(setNml(hapusTitik(selectedTotal)));
   useEffect(() => {
+       if (selectedTotal) {
+      dispatch(setNml(hapusTitik(selectedTotal)));
+    }
     if (id) {
       dispatch(getDetailCampaign(id));
     }
-  }, [id, dispatch]);
+  }, [id, dispatch,selectedTotal]);
   const formatNumber = (value) => {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };

@@ -186,7 +186,7 @@ export default function CampaignDetail() {
                   <Link
                     to={`/pembayaranCampaign/${detailCampaign?.campaignId}`}
                   >
-                    <button className="w-full bg-fourth font-bold md:text-base text-sm md:text-base lg:text-lg rounded-sm md:rounded-full text-white p-1 lg:p-2 hover:translate-y-[-5px] duration-300">
+                    <button className="w-full bg-fourth font-bold md:text-base text-sm md:text-base lg:text-lg rounded-sm md:rounded-full text-white p-2 lg:p-2 hover:translate-y-[-5px] duration-300">
                       Donasi Sekarang
                     </button>
                   </Link>
