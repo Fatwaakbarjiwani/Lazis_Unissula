@@ -70,7 +70,7 @@ export default function Ziswaf() {
         </div>
         <div className="border-y-8 sm:border-y-0 py-2 sm:py-0 border-gray-50 flex flex-col sm:flex-row justify-between gap-4 items-center">
           <img
-            className="w-1/2 sm:w-1/2 sm:h-auto object-contain rounded-2xl"
+            className="w-full sm:w-1/2 sm:h-auto object-contain rounded-2xl"
             src={bunga}
             alt="Bunga"
           />
