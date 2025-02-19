@@ -32,8 +32,8 @@ export default function Ziswaf() {
         return "Salurkan Infak/Sedekah";
       case "dskl":
         return "Salurkan DSKL";
-      case "wakaf":
-        return "Salurkan Wakaf";
+      // case "wakaf":
+      //   return "Salurkan Wakaf";
       default:
         return "";
     }
@@ -52,7 +52,7 @@ export default function Ziswaf() {
     <div>
       <div className="px-2 sm:px-8 lg:px-[80px] pb-6 bg-primary/10 border-b border-primary/50 shadow">
         <div className="grid grid-cols-2 sm:flex gap-3 sm:gap-5 justify-center items-center py-4 sm:py-6">
-          {["zakat", "infak", "dskl", "wakaf"].map((item) => (
+          {["zakat", "infak", "dskl"].map((item) => (
             <button
               key={item}
               onClick={() => {

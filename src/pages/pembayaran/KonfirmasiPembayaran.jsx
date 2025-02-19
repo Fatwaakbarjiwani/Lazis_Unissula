@@ -145,8 +145,8 @@ export default function KonfirmasiPembayaran() {
           </div>
 
           <div>
-            <h1 className="font-semibold text-gray-600 text-lg mb-2">
-              Alamat Email
+            <h1 className="font-semibold text-gray-600 text-lg mb-2 flex items-center gap-2">
+              Alamat Email <span className="text-gray-400 font-thin">(opsional)</span>
             </h1>
             <input
               type="text"
