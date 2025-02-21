@@ -205,7 +205,7 @@ export default function PembayaranVa() {
                 <li>{`Pilih menu "Transaksi Lainnya".`}</li>
                 <li>{`Pilih menu "Transfer".`}</li>
                 <li>{`Pilih menu "Ke Rek Bank Lain / Antar Bank Online".`}</li>
-                <li>Masukkan kode Bank Jateng (44027)</li>
+                <li>Masukkan kode Bank Jateng (113)</li>
                 <li>
                   Masukkan juga nomor VA: <strong>{vaNumber}</strong>.
                 </li>
