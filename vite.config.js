@@ -5,6 +5,17 @@ import react from "@vitejs/plugin-react-swc";
 export default defineConfig({
   plugins: [react()],
   server: {
+    proxy: {
+      "/auth": {
+        target: "https://donasi.lazis-sa.org",
+        changeOrigin: true,
+      },
+      "/billing": {
+        target: "https://donasi.lazis-sa.org",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/billing/, "/billing"),
+      },
+    },
     host: true,
     port: 5173,
     strictPort: true,

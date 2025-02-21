@@ -58,7 +58,7 @@ export default function PembayaranVa() {
     }
   };
 
-  useEffect(() => {
+  useEffect(() => {    
     dispatch(getTransaction(va));
     if (typePembayaran === "campaign" && id) {
       dispatch(getDetailCampaign(id));

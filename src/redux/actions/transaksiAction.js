@@ -23,7 +23,7 @@ export const transaksi =
     navigate
   ) =>
   async (dispatch) => {
-    try {
+    try {      
       const response = await axios.post(
         `${API_URL}/billing/${type}/${campaignId}`,
         {
@@ -66,11 +66,9 @@ export const getTransactionUser = () => async (dispatch, getState) => {
 };
 export const getTransaction = (va) => async (dispatch, getState) => {
   try {
-    // console.log(API_URL_PAYMENT);
-    
     const { token2 } = getState().pembayaran;
     const response = await axios.post(
-      `${API_URL_PAYMENT}/billing`,
+      "/billing",
       {
         vaNumber: va,
         prefix: "02029",
@@ -89,6 +87,7 @@ export const getTransaction = (va) => async (dispatch, getState) => {
     console.error("Error fetching transaction:", error.message);
   }
 };
+
 export const getToken2 = () => async (dispatch) => {
   try {
     const response = await axios.post(
