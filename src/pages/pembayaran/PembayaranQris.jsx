@@ -1,5 +1,5 @@
 import { HiOutlineDownload } from "react-icons/hi";
-import { QRCodeCanvas } from "qrcode.react";
+// import { QRCodeCanvas } from "qrcode.react";
 import html2canvas from "html2canvas";
 import { useDispatch, useSelector } from "react-redux";
 import { BsArrowLeft } from "react-icons/bs";
@@ -7,9 +7,14 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { getDetailCampaign } from "../../redux/actions/campaignAction";
 import { getDetailZiswaf } from "../../redux/actions/ziswafAction";
+import { getQr } from "../../redux/actions/transaksiAction";
 
 export default function PembayaranQris() {
-  const { nml, typePembayaran } = useSelector((state) => state.pembayaran);
+  const { nml, typePembayaran, qris } = useSelector(
+    (state) => state.pembayaran
+  );
+  console.log(qris);
+  
   const { id } = useParams();
   const { detailCampaign } = useSelector((state) => state.campaign);
   const { detailZiswaf } = useSelector((state) => state.ziswaf);
@@ -17,8 +22,8 @@ export default function PembayaranQris() {
   const nominal = new Intl.NumberFormat("id-ID", {
     style: "decimal",
   }).format(nml);
-  const QRdata =
-    "00020101021226770025ID.CO.BIMAQRIS.BANKJATENG011893600113000000049502150000000000004950303UM151410014ID.CO.QRIS.WWW02121D20241219110303UMI5204571353033605405200005802ID5918LAZIS SULTAN AGUNG6013KOTASEMARANG61055012362370114020295678910120515202412311400532630445FB";
+  // const QRdata =
+  //   "00020101021226770025ID.CO.BIMAQRIS.BANKJATENG011893600113000000049502150000000000004950303UM151410014ID.CO.QRIS.WWW02121D20241219110303UMI5204571353033605405200005802ID5918LAZIS SULTAN AGUNG6013KOTASEMARANG61055012362370114020295678910120515202412311400532630445FB";
 
   const downloadQR = async () => {
     const qrElement = document.getElementById("qr-section");
@@ -41,6 +46,7 @@ export default function PembayaranQris() {
     if (typePembayaran !== "campaign" && id) {
       dispatch(getDetailZiswaf(typePembayaran, id));
     }
+    dispatch(getQr());
   }, [dispatch, typePembayaran, id]);
   return (
     <div className="min-h-screen bg-white flex justify-center items-center sm:px-4 sm:py-8">
@@ -72,13 +78,17 @@ export default function PembayaranQris() {
           </p>
           <div className="bg-gray-100 border border-gray-300 p-6 rounded-xl shadow-md">
             {/* Generate QR Code */}
-            <QRCodeCanvas
+            {/* <QRCodeCanvas
               value={QRdata}
               size={180}
               bgColor="#ffffff"
               fgColor="#2d3748"
               level="H"
               includeMargin={true}
+            /> */}
+            <img
+              src="https://bimaqr.bankjateng.co.id/api/qris/lqtS6ZgmpRx6AgBdRYYjOA==:YmFua2phdGVuZ1FScHNhcg==X_X"
+              alt="QRIS"
             />
           </div>
 

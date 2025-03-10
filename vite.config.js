@@ -15,6 +15,12 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/billing/, "/billing"),
       },
+      "/api-bima": {
+        target: "https://bimaqr.bankjateng.co.id",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api-bima/, ""),
+      },
     },
     host: true,
     port: 5173,

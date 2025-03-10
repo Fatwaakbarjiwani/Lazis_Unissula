@@ -1,11 +1,13 @@
 import axios from "axios";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 import {
   setBilling,
   setSummary,
   setTransactionUser,
   setVa,
 } from "../reducers/pembayaranReducer";
+import { getMe3 } from "./authAction";
 
 export const API_URL = import.meta.env.VITE_API_URL;
 export const API_URL_PAYMENT = import.meta.env.VITE_API_URL_PAYMENT;
@@ -23,7 +25,7 @@ export const transaksi =
     navigate
   ) =>
   async (dispatch) => {
-    try {      
+    try {
       const response = await axios.post(
         `${API_URL}/billing/${type}/${campaignId}`,
         {
@@ -35,16 +37,14 @@ export const transaksi =
         }
       );
       if (response) {
-        toast.success("Proses transaksi berhasil");
-        navigate(
-          `/${
-            methode === "qris" ? "pembayaranQris" : "pembayaranVa"
-          }/${campaignId}`
-        );
-        // dispatch(setBilling(response.data));
         const data = response.data;
-
         dispatch(setVa(data.vaNumber));
+        if (methode === "qris") {
+          await dispatch(getMe3(data.vaNumber)); 
+          dispatch(getQr());
+        } else {
+          navigate(`/pembayaranVa/${campaignId}`);
+        }
       }
     } catch (error) {
       console.error("Error fetching campaign data:", error);
@@ -88,28 +88,43 @@ export const getTransaction = (va) => async (dispatch, getState) => {
   }
 };
 
-export const getToken2 = () => async (dispatch) => {
+export const getQr = () => async (dispatch, getState) => {
   try {
+    const username = "bimaqris";
+    const password = "jatengQr1$4j1b";
+    const basicAuth = `Basic ${btoa(`${username}:${password}`)}`;
+    const { token3 } = getState().pembayaran;
+
     const response = await axios.post(
-      `${API_URL_PAYMENT}/getToken`,
+      "/api-bima/getLink",
       {
-        username: "lazissultanagung",
-        password: "sultanagung123",
+        token: token3,
       },
       {
         headers: {
+          Authorization: basicAuth,
           "Content-Type": "application/json",
         },
       }
     );
 
-    const data = response.data;
-
-    // Dispatch hasil ke Redux
-    dispatch(setBilling(data));
+    if (response) {
+      const data = response.data;
+      window.location.href = data["data"];
+      console.log(data["data"]);
+    } else {
+      Swal.fire({
+        title: response.data["message"],
+        text: "GAGAL",
+        icon: "error",
+      });
+    }
   } catch (error) {
-    // Log error agar lebih mudah debug
-    console.error("Error fetching transaction:", error.message);
+    Swal.fire({
+      title: error.response.data.message,
+      text: "GAGAL",
+      icon: "error",
+    });
   }
 };
 

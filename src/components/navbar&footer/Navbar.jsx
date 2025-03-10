@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalLogin } from "../../redux/reducers/authReducer";
 import { setButtonPage } from "../../redux/reducers/pageReducer";
-import { getMe,getMe2, logout } from "../../redux/actions/authAction";
+import { getMe, getMe2, logout } from "../../redux/actions/authAction";
 import {
   setPageNumber,
   setSearchCampaign,
@@ -19,7 +19,6 @@ import { Box, ClickAwayListener } from "@mui/material";
 import { dataLayanan, dataProfile } from "../data/dropDown";
 import { BiUser } from "react-icons/bi";
 import { BsArrowDown } from "react-icons/bs";
-import { getToken2 } from "../../redux/actions/transaksiAction";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -52,8 +51,7 @@ function Navbar() {
     if (token) {
       dispatch(getMe());
     }
-    dispatch(getMe2())
-    // dispatch(getToken2())
+    dispatch(getMe2());
   }, [dispatch, token]);
 
   return (

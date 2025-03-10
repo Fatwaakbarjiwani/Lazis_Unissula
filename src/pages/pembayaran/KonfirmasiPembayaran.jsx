@@ -179,23 +179,6 @@ export default function KonfirmasiPembayaran() {
             </button>
           </div>
 
-          {/* <div>
-            <p className="font-light text-gray-600">
-              Apakah Anda berkenan mendapatkan laporan secara berkala dari Lazis
-              SA?
-            </p>
-            <div className="flex gap-4 mt-2">
-              <label className="flex items-center gap-2">
-                <input type="checkbox" className="rounded border-gray-300" />
-                <span>Berkenan</span>
-              </label>
-              <label className="flex items-center gap-2">
-                <input type="checkbox" className="rounded border-gray-300" />
-                <span>Tidak Berkenan</span>
-              </label>
-            </div>
-          </div> */}
-
           <div>
             <p className="font-semibold text-gray-600 text-lg mb-2">
               Pesan Anda

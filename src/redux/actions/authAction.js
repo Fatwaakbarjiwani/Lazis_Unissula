@@ -9,9 +9,10 @@ import {
 } from "../reducers/authReducer";
 import Swal from "sweetalert2";
 import { setSlides, setSummary } from "../reducers/pageReducer";
-import { setToken2 } from "../reducers/pembayaranReducer";
+import { setToken2, setToken3 } from "../reducers/pembayaranReducer";
 export const API_URL = import.meta.env.VITE_API_URL;
 export const API_URL_PAYMENT = import.meta.env.VITE_API_URL_PAYMENT;
+export const API_URL_PAYMENT2 = import.meta.env.VITE_API_URL_PAYMENT2;
 
 export const register =
   (username, phoneNumber, email, password) => async (dispatch) => {
@@ -129,32 +130,6 @@ export const getMe2 = () => async (dispatch) => {
   }
 };
 
-// export const getMe2 = () => async (dispatch) => {
-//   try {
-//     const response = await axios.get(`${API_URL_PAYMENT}/auth`, {
-//       headers: {
-//         username: "lazissultanagung",
-//         password: "sultanagung123",
-//         "Content-Type": "application/json",
-//       },
-//       data: {
-//         username: "lazissultanagung",
-//         password: "sultanagung123",
-//       },
-//     });
-
-//     if (response) {
-//       const data = response.data;
-//       dispatch(setToken2(data["x-api-key"]));
-//     }
-//   } catch (error) {
-//     console.error(
-//       "Error fetching data:",
-//       error.response?.data || error.message
-//     );
-//   }
-// };
-
 export const getToken2 = () => async (dispatch) => {
   try {
     const response = await axios.post(
@@ -179,6 +154,38 @@ export const getToken2 = () => async (dispatch) => {
     console.error("Error fetching transaction:", error.message);
   }
 };
+
+export const getMe3 = (va) => async (dispatch) => {
+  try {
+    const username = "bimaqris";
+    const password = "jatengQr1$4j1b";
+    const basicAuth = `Basic ${btoa(`${username}:${password}`)}`;
+
+    const response = await axios.post(
+      "/api-bima/getToken", // Gunakan proxy untuk bypass CORS
+      {
+        key: "xp98Tqz2G1pReB5NZU",
+        idBilling: va,
+      },
+      {
+        headers: {
+          Authorization: basicAuth,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.status === 200) {
+      const data = response.data;
+      dispatch(setToken3(data["token"]));
+    } else {
+      console.error("Gagal mendapatkan token:", response.data);
+    }
+  } catch (error) {
+    console.error("Error fetching token:", error.message);
+  }
+};
+
 export const getSummary = () => async (dispatch) => {
   try {
     const response = await axios.get(`${API_URL}/summary`);
