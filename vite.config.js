@@ -21,6 +21,11 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/api-bima/, ""),
       },
+      "/auth/google": {
+        target: "https://skyconnect.lazis-sa.org",
+        changeOrigin: true,
+        secure: false,
+      },
     },
     host: true,
     port: 5173,

@@ -40,7 +40,7 @@ export const transaksi =
         const data = response.data;
         dispatch(setVa(data.vaNumber));
         if (methode === "qris") {
-          await dispatch(getMe3(data.vaNumber)); 
+          await dispatch(getMe3(data.vaNumber));
           dispatch(getQr());
         } else {
           navigate(`/pembayaranVa/${campaignId}`);
@@ -110,8 +110,10 @@ export const getQr = () => async (dispatch, getState) => {
 
     if (response) {
       const data = response.data;
-      window.location.href = data["data"];
-      console.log(data["data"]);
+      // window.location.href = data["data"];
+      window.open(data["data"], "_blank" );
+
+      // console.log(data["data"]);
     } else {
       Swal.fire({
         title: response.data["message"],
