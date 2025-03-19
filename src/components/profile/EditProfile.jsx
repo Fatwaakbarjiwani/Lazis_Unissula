@@ -108,7 +108,7 @@ export default function EditProfile() {
             src={
               profilePicture ? URL.createObjectURL(profilePicture) : user?.image
             }
-            className="bg-gray-200 rounded-full w-32 h-32 md:w-full md:h-20 object-cover border-2 border-gray-300"
+            className="bg-gray-200 rounded-full w-32 h-32 md:w-[100%] md:h-[100%] object-cover border-2 border-gray-300"
             alt=""
           />
           {edit && (
@@ -246,7 +246,7 @@ export default function EditProfile() {
       ) : (
         <button
           onClick={() => setEdit(true)}
-          className="rounded-full border-2 p-2 w-full border-primary font-bold text-white bg-primary outline-none mt-4 shadow hover:-translate-y-1 duration-300"
+          className="rounded-lg border-2 mb-6 p-2 w-full border-primary font-bold text-white bg-primary outline-none mt-4 shadow hover:-translate-y-1 duration-300"
         >
           Edit
         </button>

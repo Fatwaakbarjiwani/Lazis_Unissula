@@ -32,6 +32,7 @@ import Hotline from "./components/navbar&footer/Hotline";
 import PembayaranZiswaf from "./pages/pembayaran/PembayanZiswaf";
 import PembayaranVa from "./pages/pembayaran/PembayaranVa";
 import PembayaranQris from "./pages/pembayaran/PembayaranQris";
+import Protected from "./components/oauth/Protected";
 function App() {
   return (
     <Router>
@@ -49,7 +50,14 @@ function App() {
             element={<DaftarCampaign />}
           />
           <Route path="/fiqihZiswaf/:page" element={<FiqihZiswaf />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/profile"
+            element={
+              <Protected>
+                <Profile />
+              </Protected>
+            }
+          />
           <Route
             path="/pembayaranCampaign/:id"
             element={<PembayaranCampaign />}
@@ -58,14 +66,8 @@ function App() {
             path="/pembayaranZiswaf/:category/:id"
             element={<PembayaranZiswaf />}
           />
-          <Route
-            path="/pembayaranVa/:id"
-            element={<PembayaranVa />}
-          />
-          <Route
-            path="/pembayaranQris/:id"
-            element={<PembayaranQris />}
-          />
+          <Route path="/pembayaranVa/:id" element={<PembayaranVa />} />
+          <Route path="/pembayaranQris/:id" element={<PembayaranQris />} />
           <Route
             path="/konfirmasiPembayaran/:id"
             element={<KonfirmasiPembayaran />}

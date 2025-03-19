@@ -2,13 +2,16 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
 import { BsGoogle } from "react-icons/bs";
 import { registerWithGoogle } from "../../redux/actions/authAction";
+import { useNavigate } from "react-router-dom";
 
 function GoogleLogin() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const loginWithGoogle = useGoogleLogin({
     onSuccess: (responseGoogle) =>
-      dispatch(registerWithGoogle(responseGoogle.access_token)),
+      dispatch(registerWithGoogle(responseGoogle.access_token, navigate)),
+
     onError: (errorResponse) => {
       alert(errorResponse.error_description);
     },

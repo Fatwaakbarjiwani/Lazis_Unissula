@@ -8,14 +8,19 @@ import { useEffect, useState } from "react";
 import Transaksi from "../../components/profile/Transaksi";
 import Laporan from "../../components/profile/Laporan";
 import { setButtonPage } from "../../redux/reducers/pageReducer";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const { user } = useSelector((state) => state.auth);
   const [button, setButton] = useState("editProfile");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(setButtonPage("Profile"));
-  }, []);
+    if (user === null) {
+      navigate("/");
+    }
+  }, [user]);
   return (
     <>
       <div className="flex justify-center font-Inter px-2 md:px-0 min-h-svh">
