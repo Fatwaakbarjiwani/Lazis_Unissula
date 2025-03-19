@@ -16,7 +16,7 @@ import { Pagination } from "@mui/material";
 import { Commet } from "react-loading-indicators";
 import "swiper/css";
 import "swiper/css/pagination";
-import { FreeMode } from "swiper/modules";
+import { Autoplay, FreeMode } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Berita() {
@@ -86,10 +86,10 @@ export default function Berita() {
             speed={2000}
             grabCursor={true}
             slidesPerView={1}
-            modules={[FreeMode]}
+            modules={[FreeMode, Autoplay]} // Tambahkan Autoplay ke modules
             autoplay={{
-              delay: 3000, // Auto slide every 3 seconds
-              disableOnInteraction: false, // Keep autoplay even after user interaction
+              delay: 3000, // Auto slide every 3 detik
+              disableOnInteraction: false, // Tetap autoplay meskipun ada interaksi pengguna
             }}
           >
             {topBerita?.slice(0, 5).map((item) => (

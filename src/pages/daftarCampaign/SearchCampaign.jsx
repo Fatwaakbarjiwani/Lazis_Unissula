@@ -11,6 +11,7 @@ import Footer from "../../components/navbar&footer/Footer";
 import { BiSolidArrowToRight } from "react-icons/bi";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
+import Card3 from "../../components/card/Card3";
 
 export default function SearchCampaign() {
   const { name } = useParams();
@@ -33,11 +34,11 @@ export default function SearchCampaign() {
         <Swiper
           loop={true}
           grabCursor={true}
-          slidesPerView={1.5}
+          slidesPerView={4}
           modules={[FreeMode]}
         >
           {(campaignBySearch || []).map((item) => (
-            <SwiperSlide key={item?.campaignId || `slide-${Math.random()}`}>
+            <SwiperSlide className="p-2" key={item?.campaignId || `slide-${Math.random()}`}>
               <Card
                 key={item.campaignCode}
                 item={item}
@@ -70,12 +71,12 @@ export default function SearchCampaign() {
           <Swiper
             loop={true}
             grabCursor={true}
-            slidesPerView={1.5}
+            slidesPerView={4}
             modules={[FreeMode]}
           >
             {(allCampaign || []).slice(0, 6).map((item) => (
-              <SwiperSlide key={item?.campaignId || `slide-${Math.random()}`}>
-                <Card item={item} h="min-h-[42vh] sm:min-h-[58vh]" />
+              <SwiperSlide className="p-2" key={item?.campaignId || `slide-${Math.random()}`}>
+                <Card3 key={item?.campaignCode} item={item} h={"h-full"} />
               </SwiperSlide>
             ))}
           </Swiper>

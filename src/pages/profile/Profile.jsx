@@ -12,15 +12,16 @@ import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const { user } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
   const [button, setButton] = useState("editProfile");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(setButtonPage("Profile"));
-    if (user === null) {
+    if (token === null) {
       navigate("/");
     }
-  }, [user]);
+  }, [token]);
   return (
     <>
       <div className="flex justify-center font-Inter px-2 md:px-0 min-h-svh">

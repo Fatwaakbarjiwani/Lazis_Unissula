@@ -103,12 +103,12 @@ export default function EditProfile() {
     <div className="w-full md:w-5/6 lg:w-4/6 flex flex-col gap-4">
       <h1 className="font-bold text-xl text-gray-600">Ubah Profil</h1>
       <div className="flex flex-col md:flex-row gap-4 items-center">
-        <div className="relative md:w-1/6">
+        <div className="md:w-1/6">
           <img
             src={
               profilePicture ? URL.createObjectURL(profilePicture) : user?.image
             }
-            className="bg-gray-200 rounded-full w-32 h-32 md:w-[100%] md:h-[100%] object-cover border-2 border-gray-300"
+            className="bg-gray-200 rounded-full w-32 h-32 md:w-[100%] md:h-20 object-cover border-2 border-gray-300"
             alt=""
           />
           {edit && (

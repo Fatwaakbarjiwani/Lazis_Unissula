@@ -36,7 +36,7 @@ export const register =
       });
     }
   };
-export const login = (acount, password) => async (dispatch) => {
+export const login = (acount, password, navigate) => async (dispatch) => {
   try {
     const response = await axios.post(`${API_URL}/auth/signin/donatur`, {
       emailOrPhoneNumber: acount,
@@ -51,6 +51,7 @@ export const login = (acount, password) => async (dispatch) => {
       });
       setTimeout(() => {
         dispatch(setModalLogin(false));
+        navigate("/profile");
       }, 2000);
       dispatch(setToken(data.token));
       try {
@@ -96,33 +97,20 @@ export const registerWithGoogle =
     }
   };
 
-export const getMe =
-  (navigate, navigatePathSuccess, navigatePathError) =>
-  async (dispatch, getState) => {
-    try {
-      const { token } = getState().auth;
-      const response = await axios.get(`${API_URL}/donatur/profile`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = response.data;
-      dispatch(setUser(data));
-      if (navigatePathSuccess) navigate(navigatePathSuccess);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response.status === 400) {
-          logout();
-          if (navigatePathError) navigate(navigatePathError);
-          return;
-        }
-
-        toast.error(error?.response?.data?.message);
-        return;
-      }
-      return;
-    }
-  };
+export const getMe = () => async (dispatch, getState) => {
+  try {
+    const { token } = getState().auth;
+    const response = await axios.get(`${API_URL}/donatur/profile`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = response.data;
+    dispatch(setUser(data));
+  } catch (error) {
+    return;
+  }
+};
 export const getMe2 = () => async (dispatch) => {
   try {
     const response = await axios.get("/auth", {

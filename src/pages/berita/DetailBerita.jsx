@@ -102,7 +102,7 @@ export default function DetailBerita() {
               </a>
 
               <p className="flex items-center ml-2 font-semibold text-teal-800">
-                {loading ? <Skeleton width={80} /> : "24/12/2023"}
+                {loading ? <Skeleton width={80} /> : detailBerita?.date}
               </p>
             </div>
           )}
@@ -112,7 +112,11 @@ export default function DetailBerita() {
               <Skeleton count={3} />
             ) : (
               <p className="text-justify font-Inter text-gray-600">
-                {detailBerita?.content}
+                {detailBerita?.content.split("\n").map((paragraph, index) => (
+                  <span key={index} className="block mb-4">
+                    {paragraph}
+                  </span>
+                ))}
               </p>
             )}
           </div>

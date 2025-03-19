@@ -49,7 +49,7 @@ function Navbar() {
 
   useEffect(() => {
     if (token) {
-      dispatch(getMe(navigate, "/profile", null));
+      dispatch(getMe());
     }
     dispatch(getMe2());
   }, [dispatch, token]);

@@ -13,6 +13,7 @@ import { login } from "../../redux/actions/authAction";
 import { PiEye, PiEyeClosed } from "react-icons/pi";
 import { OrbitProgress } from "react-loading-indicators";
 import GoogleLogin from "../oauth/GoogleLogin";
+import { useNavigate } from "react-router-dom";
 
 export default function ModalLogin() {
   const { modalLogin } = useSelector((state) => state.auth);
@@ -22,6 +23,7 @@ export default function ModalLogin() {
   const [isLoading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false); // Added state to toggle password visibility
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (modalLogin) {
@@ -34,7 +36,9 @@ export default function ModalLogin() {
 
   const handleLogin = () => {
     setLoading(true);
-    dispatch(login(acount, password)).finally(() => setLoading(false));
+    dispatch(login(acount, password, navigate)).finally(() =>
+      setLoading(false)
+    );
     dispatch(setPs(password));
   };
 
@@ -150,7 +154,7 @@ export default function ModalLogin() {
                   Masuk
                 </button>
               )}
-              <GoogleLogin/>
+              <GoogleLogin />
               <div className="flex justify-center mt-3 active:scale-105 duration-75">
                 <p>Belum punya akun?</p>
               </div>
