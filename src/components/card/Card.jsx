@@ -50,7 +50,7 @@ export default function Card({ item, h }) {
           </div>
           <div className="flex flex-col gap-1 mt-1 justify-between sm:hidden">
             <div className="flex justify-between">
-              <p className="xl:text-base md:text-sm text-xs">Terkumpul</p>
+              <p className="xl:text-base md:text-sm text-xs">Target</p>
               <p className="xl:text-base md:text-sm text-sm font-semibold text-primary">
                 Rp {formatNumber(item.targetAmount || 0)}
               </p>
