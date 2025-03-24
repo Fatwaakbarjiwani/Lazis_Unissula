@@ -1,43 +1,40 @@
-import { HiOutlineDownload } from "react-icons/hi";
-// import { QRCodeCanvas } from "qrcode.react";
-import html2canvas from "html2canvas";
+// import html2canvas from "html2canvas";
 import { useDispatch, useSelector } from "react-redux";
-import { BsArrowLeft } from "react-icons/bs";
+import { BsArrowLeft, BsCheckCircleFill, BsClockHistory } from "react-icons/bs";
 import { Link, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getDetailCampaign } from "../../redux/actions/campaignAction";
 import { getDetailZiswaf } from "../../redux/actions/ziswafAction";
-import { getQr } from "../../redux/actions/transaksiAction";
+import { getQr, getTransaction } from "../../redux/actions/transaksiAction";
+import { FaSpinner } from "react-icons/fa";
 
 export default function PembayaranQris() {
-  const { nml, typePembayaran, qris } = useSelector(
+  const { nml, typePembayaran, va, billing } = useSelector(
     (state) => state.pembayaran
   );
-  console.log(qris);
-  
   const { id } = useParams();
   const { detailCampaign } = useSelector((state) => state.campaign);
   const { detailZiswaf } = useSelector((state) => state.ziswaf);
+  const [statusMessage, setStatusMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const nominal = new Intl.NumberFormat("id-ID", {
     style: "decimal",
   }).format(nml);
-  // const QRdata =
-  //   "00020101021226770025ID.CO.BIMAQRIS.BANKJATENG011893600113000000049502150000000000004950303UM151410014ID.CO.QRIS.WWW02121D20241219110303UMI5204571353033605405200005802ID5918LAZIS SULTAN AGUNG6013KOTASEMARANG61055012362370114020295678910120515202412311400532630445FB";
 
-  const downloadQR = async () => {
-    const qrElement = document.getElementById("qr-section");
-    const canvas = await html2canvas(qrElement, { scale: 2 });
-    const pngUrl = canvas
-      .toDataURL("image/png")
-      .replace("image/png", "image/octet-stream");
-    const downloadLink = document.createElement("a");
-    downloadLink.href = pngUrl;
-    downloadLink.download = "qris_with_details.png";
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-  };
+  // const downloadQR = async () => {
+  //   const qrElement = document.getElementById("qr-section");
+  //   const canvas = await html2canvas(qrElement, { scale: 2 });
+  //   const pngUrl = canvas
+  //     .toDataURL("image/png")
+  //     .replace("image/png", "image/octet-stream");
+  //   const downloadLink = document.createElement("a");
+  //   downloadLink.href = pngUrl;
+  //   downloadLink.download = "qris_with_details.png";
+  //   document.body.appendChild(downloadLink);
+  //   downloadLink.click();
+  //   document.body.removeChild(downloadLink);
+  // };
 
   useEffect(() => {
     if (typePembayaran === "campaign" && id) {
@@ -47,7 +44,29 @@ export default function PembayaranQris() {
       dispatch(getDetailZiswaf(typePembayaran, id));
     }
     dispatch(getQr());
+    dispatch(getTransaction(va));
   }, [dispatch, typePembayaran, id]);
+
+  const checkStatus = async () => {
+    setIsLoading(true);
+    try {
+      await dispatch(getTransaction(va));
+      const paymentStatus = billing[0]?.success;
+      if (paymentStatus === "1") {
+        setStatusMessage("Pembayaran berhasil! Terima kasih.");
+      } else if (paymentStatus === "0") {
+        setStatusMessage(
+          "Pembayaran belum selesai. Silakan cek kembali nanti."
+        );
+      } else {
+        setStatusMessage("Terjadi kesalahan. Silakan cek kembali nanti.");
+      }
+    } catch (error) {
+      setStatusMessage("Terjadi kesalahan saat memeriksa status pembayaran.");
+    } finally {
+      setIsLoading(false); // Selesai loading
+    }
+  };
   return (
     <div className="min-h-screen bg-white flex justify-center items-center sm:px-4 sm:py-8">
       <div className="bg-gray-50 rounded-xl shadow-lg max-w-xl w-full p-2 sm:p-6">
@@ -70,33 +89,11 @@ export default function PembayaranQris() {
           className="bg-white border border-gray-200 rounded-xl p-8 mb-4 shadow-md flex flex-col gap-6 items-center"
         >
           <h2 className="text-xl font-semibold text-gray-800">
-            QRIS LAZIS SULTAN AGUNG
+            DETAIL PEMBAYARAN
           </h2>
-          <p className="text-sm text-gray-600 text-center">
-            Silakan scan QR Code di bawah menggunakan aplikasi mobile banking
-            atau dompet digital.
-          </p>
-          <div className="bg-gray-100 border border-gray-300 p-6 rounded-xl shadow-md">
-            {/* Generate QR Code */}
-            {/* <QRCodeCanvas
-              value={QRdata}
-              size={180}
-              bgColor="#ffffff"
-              fgColor="#2d3748"
-              level="H"
-              includeMargin={true}
-            /> */}
-            <img
-              src="https://bimaqr.bankjateng.co.id/api/qris/lqtS6ZgmpRx6AgBdRYYjOA==:YmFua2phdGVuZ1FScHNhcg==X_X"
-              alt="QRIS"
-            />
-          </div>
 
           {/* Payment Information */}
           <div className="w-full space-y-4">
-            <h3 className="text-sm text-center text-gray-700 font-semibold text-left">
-              DETAIL TRANSAKSI
-            </h3>
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 mb-2">
               <div className="p-4 bg-gray-100 rounded-lg">
                 <h3 className="text-sm text-gray-700 font-semibold">
@@ -148,12 +145,37 @@ export default function PembayaranQris() {
           </div>
         )}
         <button
-          onClick={downloadQR}
-          className="bg-gray-700 active:bg-gray-800 text-white text-sm font-medium px-6 py-3 rounded-xl flex items-center gap-3 shadow-lg transform transition-all duration-300 active:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+          onClick={checkStatus}
+          disabled={isLoading} // Tombol disable saat loading
+          className={`w-full flex items-center justify-center gap-2 px-5 py-3 font-bold rounded-lg shadow-lg transition duration-300 ${
+            isLoading
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-green-600 text-white active:bg-green-700"
+          }`}
         >
-          <HiOutlineDownload className="text-lg" />
-          Download QRIS dengan Detail
+          {isLoading ? (
+            <FaSpinner className="text-xl animate-spin" />
+          ) : (
+            <BsClockHistory className="text-xl" />
+          )}
+          {isLoading ? "Memproses..." : "Cek Status Pembayaran"}
         </button>
+        {statusMessage && (
+          <div
+            className={`mt-4 flex items-center gap-2 p-4 rounded-lg shadow ${
+              statusMessage.includes("berhasil")
+                ? "bg-green-100 text-green-800"
+                : "bg-yellow-100 text-yellow-800"
+            }`}
+          >
+            {statusMessage.includes("berhasil") ? (
+              <BsCheckCircleFill className="text-2xl" />
+            ) : (
+              <BsClockHistory className="text-2xl" />
+            )}
+            <span>{statusMessage}</span>
+          </div>
+        )}
 
         {/* Payment Instructions */}
         <div className="bg-gray-100 border border-gray-200 rounded-lg p-6 shadow-md mt-8">
@@ -163,7 +185,7 @@ export default function PembayaranQris() {
           <ul className="list-decimal list-inside text-gray-700 space-y-4">
             <li className="flex items-start gap-4">
               <span className="text-gray-500">1.</span>
-              Scan atau screenshot QR Code di atas.
+              Scan atau screenshot QR Code.
             </li>
             <li className="flex items-start gap-4">
               <span className="text-gray-500">2.</span>
@@ -172,10 +194,7 @@ export default function PembayaranQris() {
             </li>
             <li className="flex items-start gap-4">
               <span className="text-gray-500">3.</span>
-              Pilih menu <span className="font-medium text-gray-800">
-                Pay
-              </span>{" "}
-              atau <span className="font-medium text-gray-800">Scan</span>.
+              Pilih menu PAY atau SCAN
             </li>
             <li className="flex items-start gap-4">
               <span className="text-gray-500">4.</span>

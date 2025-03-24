@@ -3,6 +3,7 @@ import qris from "../../assets/qris.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { transaksi } from "../../redux/actions/transaksiAction";
+import { BsInfo } from "react-icons/bs";
 
 export default function KonfirmasiPembayaran() {
   const [isOn, setIsOn] = useState(false);
@@ -137,6 +138,10 @@ export default function KonfirmasiPembayaran() {
                   setErrors((prev) => ({ ...prev, phoneNumber: false }));
               }}
             />
+            <p className="text-gray-500 text-sm mt-1 flex items-center gap-2">
+              <BsInfo className="bg-gray-400 text-lg text-white rounded-full" />
+              Kami tidak akan mengirim pesan spam
+            </p>
             {errors.phoneNumber && (
               <p className="text-red-500 text-sm mt-1">
                 Nomor Handphone wajib diisi
@@ -146,7 +151,8 @@ export default function KonfirmasiPembayaran() {
 
           <div>
             <h1 className="font-semibold text-gray-600 text-lg mb-2 flex items-center gap-2">
-              Alamat Email <span className="text-gray-400 font-thin">(opsional)</span>
+              Alamat Email{" "}
+              <span className="text-gray-400 font-thin">(opsional)</span>
             </h1>
             <input
               type="text"

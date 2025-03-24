@@ -10,8 +10,8 @@ import { getTransaction } from "../../redux/actions/transaksiAction";
 
 export default function PembayaranVa() {
   const [isCopied, setIsCopied] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // State loading
-  const [statusMessage, setStatusMessage] = useState(""); // Menyimpan pesan status
+  const [isLoading, setIsLoading] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
   const { va } = useSelector((state) => state.pembayaran);
   const { billing, typePembayaran } = useSelector((state) => state.pembayaran);
   const { detailCampaign } = useSelector((state) => state.campaign);
@@ -46,10 +46,12 @@ export default function PembayaranVa() {
       const paymentStatus = billing[0]?.success;
       if (paymentStatus === "1") {
         setStatusMessage("Pembayaran berhasil! Terima kasih.");
-      } else {
+      } else if (paymentStatus === "0") {
         setStatusMessage(
           "Pembayaran belum selesai. Silakan cek kembali nanti."
         );
+      } else {
+        setStatusMessage("Terjadi Kesalahan. Silakan cek kembali nanti.");
       }
     } catch (error) {
       setStatusMessage("Terjadi kesalahan saat memeriksa status pembayaran.");
@@ -58,7 +60,7 @@ export default function PembayaranVa() {
     }
   };
 
-  useEffect(() => {    
+  useEffect(() => {
     dispatch(getTransaction(va));
     if (typePembayaran === "campaign" && id) {
       dispatch(getDetailCampaign(id));
@@ -66,6 +68,7 @@ export default function PembayaranVa() {
     if (typePembayaran !== "campaign" && id) {
       dispatch(getDetailZiswaf(typePembayaran, id));
     }
+    dispatch(getTransaction(va));
   }, [dispatch, typePembayaran, va, id]);
 
   return (
@@ -73,10 +76,7 @@ export default function PembayaranVa() {
       <div className="bg-white sm:rounded-xl shadow-lg max-w-xl w-full p-4 sm:p-6">
         {/* Header */}
         <div className="relative text-center mb-6">
-          <Link
-            to={`/konfirmasiPembayaran/${id}`}
-            className="left-2 top-2"
-          >
+          <Link to={`/konfirmasiPembayaran/${id}`} className="left-2 top-2">
             <BsArrowLeft />
           </Link>
           <h1 className="text-2xl font-bold text-gray-800">

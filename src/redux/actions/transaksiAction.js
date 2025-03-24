@@ -42,6 +42,7 @@ export const transaksi =
         if (methode === "qris") {
           await dispatch(getMe3(data.vaNumber));
           dispatch(getQr());
+          navigate(`/pembayaranQris/${campaignId}`);
         } else {
           navigate(`/pembayaranVa/${campaignId}`);
         }
