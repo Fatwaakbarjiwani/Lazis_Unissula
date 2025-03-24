@@ -37,8 +37,34 @@ export default function KonfirmasiPembayaran() {
       });
       return;
     }
-    const currentDateTime = new Date().toLocaleString();
-    dispatch(setWaktu(currentDateTime));
+    function getFormattedDate() {
+      const months = [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember",
+      ];
+
+      const dateObj = new Date();
+
+      const day = dateObj.getDate().toString().padStart(2, "0"); // Selalu 2 digit
+      const month = months[dateObj.getMonth()]; // Nama bulan
+      const year = dateObj.getFullYear(); // Tahun 4 digit
+
+      return `${day} ${month} ${year}`;
+    }
+
+    // Gunakan hasil format di Redux Dispatch
+    const formattedDate = getFormattedDate();
+    dispatch(setWaktu(formattedDate));
 
     setLoading(true);
     dispatch(

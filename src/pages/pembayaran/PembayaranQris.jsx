@@ -21,28 +21,7 @@ export default function PembayaranQris() {
   const nominal = new Intl.NumberFormat("id-ID", {
     style: "decimal",
   }).format(nml);
-  const formattedDate = formatDate(waktu);
-  function formatDate(dateString) {
-    const months = [
-      "Januari",
-      "Februari",
-      "Maret",
-      "April",
-      "Mei",
-      "Juni",
-      "Juli",
-      "Agustus",
-      "September",
-      "Oktober",
-      "November",
-      "Desember",
-    ];
-    // Pisahkan tanggal dan waktu
-    const [datePart] = dateString.split(",");
-    const [day, month, year] = datePart.split("/");
-
-    return `${parseInt(day)} ${months[parseInt(month) - 1]} ${year}`;
-  }
+  const formattedDate = waktu;
 
   // const downloadQR = async () => {
   //   const qrElement = document.getElementById("qr-section");

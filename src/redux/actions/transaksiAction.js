@@ -34,12 +34,10 @@ export const transaksi =
           email: email,
           transactionAmount: transactionAmount,
           message: message,
-          methode: methode === "qris" ? "QRIS" : "VA",
+          method: methode === "qris" ? "QRIS" : "VA",
         }
       );
       if (response) {
-        console.log(response);
-        
         const data = response.data;
         dispatch(setVa(data.vaNumber));
         if (methode === "qris") {
