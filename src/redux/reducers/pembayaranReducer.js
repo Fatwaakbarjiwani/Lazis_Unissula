@@ -14,6 +14,7 @@ const initialState = {
   vaNumber: [],
   typePembayaran: localStorage.getItem("type") || null,
   qris: [],
+  waktu: localStorage.getItem("time") || null,
 };
 function getNmlFromLocalStorage() {
   const encryptedNml = localStorage.getItem("nml");
@@ -68,6 +69,14 @@ const authSlice = createSlice({
       }
       state.token3 = action.payload;
     },
+    setWaktu: (state, action) => {
+      if (action.payload) {
+        localStorage.setItem("time", action.payload);
+      } else {
+        localStorage.removeItem("time");
+      }
+      state.waktu = action.payload;
+    },
     setNml: (state, action) => {
       if (action.payload) {
         // Enkripsi nilai nml sebelum menyimpannya
@@ -114,6 +123,7 @@ export const {
   setToken2,
   setToken3,
   setTypePembayaran,
+  setWaktu,
 } = authSlice.actions;
 
 export default authSlice.reducer;

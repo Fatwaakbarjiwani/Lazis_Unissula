@@ -34,9 +34,12 @@ export const transaksi =
           email: email,
           transactionAmount: transactionAmount,
           message: message,
+          methode: methode === "qris" ? "QRIS" : "VA",
         }
       );
       if (response) {
+        console.log(response);
+        
         const data = response.data;
         dispatch(setVa(data.vaNumber));
         if (methode === "qris") {
@@ -83,7 +86,8 @@ export const getTransaction = (va) => async (dispatch, getState) => {
     );
 
     const data = response.data;
-    dispatch(setBilling(data.data));
+    // console.log(data);
+    dispatch(setBilling(data));
   } catch (error) {
     console.error("Error fetching transaction:", error.message);
   }
@@ -112,7 +116,7 @@ export const getQr = () => async (dispatch, getState) => {
     if (response) {
       const data = response.data;
       // window.location.href = data["data"];
-      window.open(data["data"], "_blank" );
+      window.open(data["data"], "_blank");
 
       // console.log(data["data"]);
     } else {

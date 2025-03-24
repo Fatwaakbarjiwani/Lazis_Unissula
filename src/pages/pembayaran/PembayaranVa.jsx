@@ -13,7 +13,9 @@ export default function PembayaranVa() {
   const [isLoading, setIsLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
   const { va } = useSelector((state) => state.pembayaran);
-  const { billing, typePembayaran } = useSelector((state) => state.pembayaran);
+  const { billing, typePembayaran, nml, waktu } = useSelector(
+    (state) => state.pembayaran
+  );
   const { detailCampaign } = useSelector((state) => state.campaign);
   const dispatch = useDispatch();
   const { detailZiswaf } = useSelector((state) => state.ziswaf);
@@ -22,15 +24,38 @@ export default function PembayaranVa() {
   const vaNumber = va;
   const nominal = new Intl.NumberFormat("id-ID", {
     style: "decimal",
-  }).format(billing[0]?.billing_amount);
-  const dueDate = billing[0]?.billing_date;
+  }).format(billing?.data?.[0]?.billing_amount || nml);
+  const dueDate = billing?.data?.[0]?.billing_date;
   const date = new Date(dueDate);
 
-  const formattedDate = date.toLocaleDateString("id-ID", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
+  const formattedDate =
+    date.toLocaleDateString("id-ID", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }) || formatDate(waktu);
+  function formatDate(dateString) {
+    const months = [
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember",
+    ];
+
+    // Pisahkan tanggal dan waktu
+    const [datePart] = dateString.split(",");
+    const [day, month, year] = datePart.split("/");
+
+    return `${parseInt(day)} ${months[parseInt(month) - 1]} ${year}`;
+  }
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(vaNumber).then(() => {
@@ -40,13 +65,13 @@ export default function PembayaranVa() {
   };
 
   const checkStatus = async () => {
-    setIsLoading(true); // Set loading state
+    setIsLoading(true);
     try {
-      await dispatch(getTransaction(va)); // Memanggil aksi untuk mendapatkan data transaksi
-      const paymentStatus = billing[0]?.success;
-      if (paymentStatus === "1") {
+      await dispatch(getTransaction(va));
+      const paymentStatus = billing["response_code"];
+      if (paymentStatus === "01") {
         setStatusMessage("Pembayaran berhasil! Terima kasih.");
-      } else if (paymentStatus === "0") {
+      } else if (paymentStatus === "00") {
         setStatusMessage(
           "Pembayaran belum selesai. Silakan cek kembali nanti."
         );

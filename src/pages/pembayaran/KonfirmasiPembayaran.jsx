@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { transaksi } from "../../redux/actions/transaksiAction";
 import { BsInfo } from "react-icons/bs";
+import { setWaktu } from "../../redux/reducers/pembayaranReducer";
 
 export default function KonfirmasiPembayaran() {
   const [isOn, setIsOn] = useState(false);
@@ -36,6 +37,8 @@ export default function KonfirmasiPembayaran() {
       });
       return;
     }
+    const currentDateTime = new Date().toLocaleString();
+    dispatch(setWaktu(currentDateTime));
 
     setLoading(true);
     dispatch(

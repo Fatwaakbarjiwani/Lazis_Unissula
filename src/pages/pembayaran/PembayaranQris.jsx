@@ -9,7 +9,7 @@ import { getQr, getTransaction } from "../../redux/actions/transaksiAction";
 import { FaSpinner } from "react-icons/fa";
 
 export default function PembayaranQris() {
-  const { nml, typePembayaran, va, billing } = useSelector(
+  const { nml, typePembayaran, va, billing, waktu } = useSelector(
     (state) => state.pembayaran
   );
   const { id } = useParams();
@@ -21,6 +21,28 @@ export default function PembayaranQris() {
   const nominal = new Intl.NumberFormat("id-ID", {
     style: "decimal",
   }).format(nml);
+  const formattedDate = formatDate(waktu);
+  function formatDate(dateString) {
+    const months = [
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember",
+    ];
+    // Pisahkan tanggal dan waktu
+    const [datePart] = dateString.split(",");
+    const [day, month, year] = datePart.split("/");
+
+    return `${parseInt(day)} ${months[parseInt(month) - 1]} ${year}`;
+  }
 
   // const downloadQR = async () => {
   //   const qrElement = document.getElementById("qr-section");
@@ -51,10 +73,10 @@ export default function PembayaranQris() {
     setIsLoading(true);
     try {
       await dispatch(getTransaction(va));
-      const paymentStatus = billing[0]?.success;
-      if (paymentStatus === "1") {
+      const paymentStatus = billing["response_code"];
+      if (paymentStatus === "01") {
         setStatusMessage("Pembayaran berhasil! Terima kasih.");
-      } else if (paymentStatus === "0") {
+      } else if (paymentStatus === "00") {
         setStatusMessage(
           "Pembayaran belum selesai. Silakan cek kembali nanti."
         );
@@ -108,7 +130,7 @@ export default function PembayaranQris() {
                   Tanggal Transaksi
                 </h3>
                 <p className="text-lg font-bold text-gray-800 mt-2">
-                  13/01/2025
+                  {formattedDate}
                 </p>
               </div>
             </div>
