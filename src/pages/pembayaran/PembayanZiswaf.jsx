@@ -111,7 +111,7 @@ export default function PembayaranZiswaf() {
                   }`}
                   onClick={() =>
                     setSelectedTotal(
-                      formatNumber(item.id * nominalFitrah.nomZakat || 45000)
+                      formatNumber(item.id * nominalFitrah.nomZakat || 0)
                     )
                   }
                 >
@@ -140,28 +140,59 @@ export default function PembayaranZiswaf() {
             </div>
           </div>
           {/*  */}
-          <div className="w-full sm:w-5/6 mt-4 bg-white p-4 shadow-md rounded-lg border border-gray-200">
-            <div className="flex items-center gap-2 text-green-600 font-semibold text-lg">
-              <FaInfoCircle className="text-xl" />
-              <p>Noted :</p>
+          <div className="w-full sm:w-5/6 mt-4 p-4 shadow-md rounded-lg border border-gray-200 bg-white">
+            {/* Noted Section */}
+            <div className="flex items-center gap-2 bg-green-50 p-3 rounded-md border-l-4 border-green-500">
+              <FaInfoCircle className="text-green-600 text-xl" />
+              <p className="text-green-700 font-semibold">Noted:</p>
             </div>
 
-            <div className="mt-2 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-              <p className="text-gray-700">
-                Jumlah harus lebih besar dari Rp 1.000,-
-              </p>
-              <p className="text-lg text-gray-800">
-                <span className="font-bold text-orange-600">
-                  {detailFitrah.total_zakat_fitrah}
-                </span>{" "}
-                dana terkumpul dari{" "}
-                <span className="font-bold text-orange-600">
-                  {detailFitrah.jumlah_donatur}
-                </span>{" "}
-                donatur
-              </p>
-            </div>
+            <p className="text-gray-700 mt-2 text-sm sm:text-base">
+              Jumlah harus lebih besar dari{" "}
+              <span className="font-semibold">Rp 1.000,-</span>
+            </p>
+
+            {/* Informasi Zakat Fitrah */}
+            {detailZiswaf.categoryName === "Zakat Fitrah" && (
+              <div className="bg-white mt-4 p-5 rounded-xl shadow-md border border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-700 text-center">
+                  Informasi Zakat Fitrah
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-4 text-center">
+                  {/* Dana Terkumpul */}
+                  <div className="flex flex-col items-center">
+                    <span className="text-orange-500 text-2xl sm:text-3xl font-bold">
+                      {formatNumber(detailFitrah.total_zakat_fitrah || 0)}
+                    </span>
+                    <span className="text-gray-500 text-sm">
+                      Dana Terkumpul
+                    </span>
+                  </div>
+
+                  {/* Jumlah Donatur */}
+                  <div className="flex flex-col items-center">
+                    <span className="text-blue-500 text-2xl sm:text-3xl font-bold">
+                      {formatNumber(detailFitrah.jumlah_donatur || 0)}
+                    </span>
+                    <span className="text-gray-500 text-sm">
+                      Jumlah Donatur
+                    </span>
+                  </div>
+
+                  {/* Nominal Zakat */}
+                  <div className="flex flex-col items-center">
+                    <span className="text-green-500 text-2xl sm:text-3xl font-bold">
+                      {formatNumber(nominalFitrah.nomZakat || 0)}
+                    </span>
+                    <span className="text-gray-500 text-sm">
+                      Nominal Zakat Perorang
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
+
           {/*  */}
           <div className="w-full sm:w-5/6 mt-5 mb-20">
             <button
