@@ -60,8 +60,8 @@ export default function PembayaranZiswaf() {
   };
 
   const handleClick = () => {
-    if (nml === "" || parseFloat(nml) <= 0 || parseFloat(nml) < 10000) {
-      toast.error("Masukkan nml dengan benar (0 < nml <= 10000)");
+    if (nml === "" || parseFloat(nml) <= 0 || parseFloat(nml) < 1000) {
+      toast.error("Masukkan nml dengan benar (0 < nml <= 1000)");
     } else {
       dispatch(setTypePembayaran(category));
       navigate(`/konfirmasiPembayaran/${id}`);
