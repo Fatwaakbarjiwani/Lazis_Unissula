@@ -162,7 +162,7 @@ export default function PembayaranZiswaf() {
                   {/* Dana Terkumpul */}
                   <div className="flex flex-col items-center">
                     <span className="text-orange-500 text-2xl sm:text-3xl font-bold">
-                      Rp {formatNumber(detailFitrah.total_zakat_fitrah || 0)}
+                      {formatNumber(detailFitrah.total_zakat_fitrah || 0)}
                     </span>
                     <span className="text-gray-500 text-sm">
                       Dana Terkumpul
