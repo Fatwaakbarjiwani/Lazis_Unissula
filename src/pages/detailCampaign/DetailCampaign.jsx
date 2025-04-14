@@ -239,17 +239,11 @@ export default function CampaignDetail() {
             {/* 3 button */}
             {button == "Detail" && (
               <div className="sm:flex my-2 sm:my-5 justify-center sm:px-20">
-                <div className="flex flex-col gap-2 lg:gap-2 text-Inter lg:text-lg md:text-base text-xs text-NEUTRAL04 w-[100%] bg-white ring-NEUTRAL04 shadow sm:drop-shadow-lg p-4 sm:px-10 text-justify rounded-3xl">
+                <div className="flex flex-col gap-2 lg:gap-2 text-Inter lg:text-base md:text-base text-xs text-NEUTRAL04 sm:w-3/4 sm:bg-white ring-NEUTRAL04 shadow sm:drop-shadow-lg p-4 sm:px-10 text-justify sm:rounded-3xl">
                   <h3>
-                    {detailCampaign?.description
-                      ? detailCampaign.description
-                          .split("\n")
-                          .map((line, index) => (
-                            <p key={index} style={{ textIndent: "20px" }}>
-                              {line}
-                            </p>
-                          ))
-                      : null}
+                    <p style={{ textIndent: "20px" }}>
+                      {detailCampaign?.description?.replace(/\n/g, " ")}
+                    </p>
                   </h3>
 
                   {/* <p className="font-bold">Dapat disalurkan dengan cara :</p>

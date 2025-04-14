@@ -145,6 +145,8 @@ export default function PembayaranQris() {
             </div>
           </div>
         )}
+
+        {billing["response_code"] === "00" && (
         <button
           onClick={checkStatus}
           disabled={isLoading} // Tombol disable saat loading
@@ -160,7 +162,7 @@ export default function PembayaranQris() {
             <BsClockHistory className="text-xl" />
           )}
           {isLoading ? "Memproses..." : "Cek Status Pembayaran"}
-        </button>
+        </button>)}
         {statusMessage && (
           <div
             className={`mt-4 flex items-center gap-2 p-4 rounded-lg flex flex-col shadow ${

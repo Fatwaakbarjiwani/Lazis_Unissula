@@ -183,36 +183,38 @@ export default function PembayaranVa() {
 
         {/* Payment Status */}
         <div className="mb-8">
-          <button
-            onClick={checkStatus}
-            disabled={isLoading} // Tombol disable saat loading
-            className={`w-full flex items-center justify-center gap-2 px-5 py-3 font-bold rounded-lg shadow-lg transition duration-300 ${
-              isLoading
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-green-600 text-white active:bg-green-700"
-            }`}
-          >
-            {isLoading ? (
-              <FaSpinner className="text-xl animate-spin" />
-            ) : (
-              <BsClockHistory className="text-xl" />
-            )}
-            {isLoading ? "Memproses..." : "Cek Status Pembayaran"}
-          </button>
+          {billing["response_code"] === "00" && (
+            <button
+              onClick={checkStatus}
+              disabled={isLoading} // Tombol disable saat loading
+              className={`w-full flex items-center justify-center gap-2 px-5 py-3 font-bold rounded-lg shadow-lg transition duration-300 ${
+                isLoading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-green-600 text-white active:bg-green-700"
+              }`}
+            >
+              {isLoading ? (
+                <FaSpinner className="text-xl animate-spin" />
+              ) : (
+                <BsClockHistory className="text-xl" />
+              )}
+              {isLoading ? "Memproses..." : "Cek Status Pembayaran"}
+            </button>
+          )}
           {statusMessage && (
             <div
-              className={`mt-4 flex items-center gap-2 p-4 rounded-lg shadow ${
+              className={`mt-4 flex flex-col items-center gap-2 p-4 rounded-lg shadow ${
                 statusMessage.includes("berhasil")
                   ? "bg-green-100 text-green-800"
                   : "bg-yellow-100 text-yellow-800"
               }`}
             >
               {statusMessage.includes("berhasil") ? (
-                <BsCheckCircleFill className="text-2xl" />
+                <BsCheckCircleFill className="text-4xl" />
               ) : (
-                <BsClockHistory className="text-2xl" />
+                <BsClockHistory className="text-4xl" />
               )}
-              <span>{statusMessage}</span>
+              <span className="text-base">{statusMessage}</span>
             </div>
           )}
         </div>
