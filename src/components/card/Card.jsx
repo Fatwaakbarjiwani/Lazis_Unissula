@@ -15,7 +15,7 @@ export default function Card({ item, h }) {
   };
 
   return (
-    <div>
+    <a href={`/detailCampaign/${item?.campaignId}`}>
       <div
         className={`relative ${h} justify-between m-1 md:m-0 card-wrapper md:h-full shadow sm:drop-shadow-lg bg-second rounded-xl md:rounded-xl xl:rounded-3xl flex flex-col font-Inter cursor-pointer md:hover:scale-105 transition delay-150 duration-300 ease-in-out`}
       >
@@ -113,7 +113,7 @@ export default function Card({ item, h }) {
           </div>
         </div>
       </div>
-    </div>
+    </a>
   );
 }
 
