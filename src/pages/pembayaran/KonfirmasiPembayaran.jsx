@@ -226,6 +226,20 @@ export default function KonfirmasiPembayaran() {
             ></textarea>
           </div>
 
+          {methode === "qris" && (
+            <div className="max-w-xl mx-auto mt-2 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-lg shadow-md flex items-start space-x-3 animate-pulse">
+              <div className="text-2xl">📢</div>
+              <div>
+                <p className="font-semibold text-sm md:text-base mb-1">
+                  Izinkan Pop-up untuk Pengalaman Lebih Baik!
+                </p>
+                <p className="text-xs md:text-sm leading-snug">
+                  Beberapa fitur membutuhkan jendela baru. Harap izinkan pop-up
+                  di browser Anda agar aplikasi dapat berjalan dengan optimal.
+                </p>
+              </div>
+            </div>
+          )}
           {/* Tombol Lanjut Pembayaran */}
           <button
             onClick={handlePayment}

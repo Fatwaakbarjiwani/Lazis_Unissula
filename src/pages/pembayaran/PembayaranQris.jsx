@@ -126,7 +126,7 @@ export default function PembayaranQris() {
               <img
                 src={detailCampaign?.campaignImage}
                 alt={detailCampaign?.campaignName}
-                className="w-full sm:w-3/4 rounded-md object-cover shadow-sm"
+                className="w-full sm:w-2/4 rounded-md object-cover shadow-sm"
               />
               <p className="text-gray-800 font-semibold">
                 {detailCampaign?.campaignName}
@@ -163,21 +163,33 @@ export default function PembayaranQris() {
         </button>
         {statusMessage && (
           <div
-            className={`mt-4 flex items-center gap-2 p-4 rounded-lg shadow ${
+            className={`mt-4 flex items-center gap-2 p-4 rounded-lg flex flex-col shadow ${
               statusMessage.includes("berhasil")
                 ? "bg-green-100 text-green-800"
                 : "bg-yellow-100 text-yellow-800"
             }`}
           >
             {statusMessage.includes("berhasil") ? (
-              <BsCheckCircleFill className="text-2xl" />
+              <BsCheckCircleFill className="text-5xl" />
             ) : (
-              <BsClockHistory className="text-2xl" />
+              <BsClockHistory className="text-5xl" />
             )}
-            <span>{statusMessage}</span>
+            <span className="text-base font-semibold">{statusMessage}</span>
           </div>
         )}
 
+        <div className="max-w-xl mx-auto mt-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-lg shadow-md flex items-start space-x-3 animate-pulse">
+          <div className="text-2xl">📢</div>
+          <div>
+            <p className="font-semibold text-sm md:text-base mb-1">
+              Izinkan Pop-up untuk Pengalaman Lebih Baik!
+            </p>
+            <p className="text-xs md:text-sm leading-snug">
+              Beberapa fitur membutuhkan jendela baru. Harap izinkan pop-up di
+              browser Anda agar aplikasi dapat berjalan dengan optimal.
+            </p>
+          </div>
+        </div>
         {/* Payment Instructions */}
         <div className="bg-gray-100 border border-gray-200 rounded-lg p-6 shadow-md mt-8">
           <h2 className="text-xl font-semibold text-gray-800 mb-6">
