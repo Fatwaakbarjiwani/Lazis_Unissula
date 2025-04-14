@@ -62,7 +62,7 @@ export default function CampaignDetail() {
       navigator
         .share({
           title: document.title,
-          url: `https://ruangberbagi.org/lazismu/detailCampaign/${detailCampaign?.campaignCode}`,
+          url: `https://campaign.lazis-sa.org/detailCampaign/${detailCampaign?.campaignCode}`,
         })
         .then(() => console.log("Berbagi berhasil"))
         .catch((error) => console.error("Kesalahan saat berbagi:", error));
