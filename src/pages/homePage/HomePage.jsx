@@ -44,7 +44,7 @@ export default function HomePage() {
         </div>
         {/* Campaign */}
         <div className="mx-4 md:mx-8 lg:mx-16 xl:mx-20 2xl:mx-32">
-          <h1 className="font-sans 2xl:mx-32 hidden md:block font-extrabold text-2xl sm:text-2xl md:text-4xl text-gray-600 mt-8 sm:mb-4">
+          <h1 className="font-sans hidden md:block font-extrabold text-2xl sm:text-2xl md:text-4xl text-gray-600 mt-8 sm:mb-4">
             REKOMENDASI DONASI
           </h1>
           <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
