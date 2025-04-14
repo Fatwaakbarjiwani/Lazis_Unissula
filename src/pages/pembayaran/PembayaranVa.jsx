@@ -183,7 +183,7 @@ export default function PembayaranVa() {
 
         {/* Payment Status */}
         <div className="mb-8">
-          {billing["response_code"] === "00" && (
+          {billing["response_code"] === "00" ? (
             <button
               onClick={checkStatus}
               disabled={isLoading} // Tombol disable saat loading
@@ -200,8 +200,17 @@ export default function PembayaranVa() {
               )}
               {isLoading ? "Memproses..." : "Cek Status Pembayaran"}
             </button>
+          ) : (
+            <div
+              className={`mt-4 flex items-center gap-2 p-4 rounded-lg flex flex-col shadow bg-green-100 text-green-800`}
+            >
+              <BsCheckCircleFill className="text-5xl" />
+              <span className="text-base font-semibold">
+                Pembayaran berhasil! Terima kasih.
+              </span>
+            </div>
           )}
-          {statusMessage && (
+          {statusMessage && billing["response_code"] === "00" && (
             <div
               className={`mt-4 flex flex-col items-center gap-2 p-4 rounded-lg shadow ${
                 statusMessage.includes("berhasil")

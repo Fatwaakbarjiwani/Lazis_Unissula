@@ -146,24 +146,34 @@ export default function PembayaranQris() {
           </div>
         )}
 
-        {billing["response_code"] === "00" && (
-        <button
-          onClick={checkStatus}
-          disabled={isLoading} // Tombol disable saat loading
-          className={`w-full flex items-center justify-center gap-2 px-5 py-3 font-bold rounded-lg shadow-lg transition duration-300 ${
-            isLoading
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-green-600 text-white active:bg-green-700"
-          }`}
-        >
-          {isLoading ? (
-            <FaSpinner className="text-xl animate-spin" />
-          ) : (
-            <BsClockHistory className="text-xl" />
-          )}
-          {isLoading ? "Memproses..." : "Cek Status Pembayaran"}
-        </button>)}
-        {statusMessage && (
+        {billing["response_code"] === "00" ? (
+          <button
+            onClick={checkStatus}
+            disabled={isLoading} // Tombol disable saat loading
+            className={`w-full flex items-center justify-center gap-2 px-5 py-3 font-bold rounded-lg shadow-lg transition duration-300 ${
+              isLoading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-green-600 text-white active:bg-green-700"
+            }`}
+          >
+            {isLoading ? (
+              <FaSpinner className="text-xl animate-spin" />
+            ) : (
+              <BsClockHistory className="text-xl" />
+            )}
+            {isLoading ? "Memproses..." : "Cek Status Pembayaran"}
+          </button>
+        ) : (
+          <div
+            className={`mt-4 flex items-center gap-2 p-4 rounded-lg flex flex-col shadow bg-green-100 text-green-800`}
+          >
+            <BsCheckCircleFill className="text-5xl" />
+            <span className="text-base font-semibold">
+              Pembayaran berhasil! Terima kasih.
+            </span>
+          </div>
+        )}
+        {statusMessage && billing["response_code"] === "00" && (
           <div
             className={`mt-4 flex items-center gap-2 p-4 rounded-lg flex flex-col shadow ${
               statusMessage.includes("berhasil")
