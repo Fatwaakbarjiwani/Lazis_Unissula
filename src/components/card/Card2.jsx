@@ -2,7 +2,7 @@ import { FaExclamationTriangle } from "react-icons/fa"; // Importing a warning i
 import location from "../../assets/location.svg";
 import time from "../../assets/time.svg";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Target from "./Target";
 
 export default function Card2({ item, h }) {
@@ -15,7 +15,7 @@ export default function Card2({ item, h }) {
   };
 
   return (
-    <a href={`/detailCampaign/${item?.campaignId}`}>
+    <Link to={`/detailCampaign/${item?.campaignId}`}>
       <div
         className={`relative ${h} justify-between m-1 md:m-0 card-wrapper md:h-full shadow sm:drop-shadow-lg bg-second
         rounded-xl md:rounded-xl xl:rounded-3xl flex flex-col font-Inter cursor-pointer md:hover:scale-105 transition
@@ -92,7 +92,7 @@ export default function Card2({ item, h }) {
           </div>
         </div>
       </div>
-    </a>
+    </Link>
   );
 }
 
