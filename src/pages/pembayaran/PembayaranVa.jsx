@@ -262,11 +262,8 @@ export default function PembayaranVa() {
                 <li>{`Pilih Menu "Ke Rek Bank Lain / Realtime Transfer".`}</li>
                 <li>{`Pilih “Seluruh Channel Bank” sebagai rekening Bank Tujuan.`}</li>
                 <li>
-                  Masukkan nomor VA: <strong>{vaNumber}</strong> dari aplikasi
-                  lazis.
-                </li>
-                <li>
-                  Masukkan nominal: <strong>Rp {nominal}</strong>.
+                  Masukkan nomor VA LazisSA : <strong>{vaNumber}</strong> dari
+                  aplikasi lazis.
                 </li>
                 <li>Simpan Bukti Struk sebagai bukti pembayaran yang Sah.</li>
                 <li>Ikuti instruksi hingga transaksi selesai.</li>
