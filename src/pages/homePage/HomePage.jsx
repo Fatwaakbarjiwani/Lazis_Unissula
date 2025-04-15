@@ -43,7 +43,7 @@ export default function HomePage() {
   return (
     <div>
       {loading ? (
-        <div className="col-span-2 lg:col-span-3 flex justify-center mt-8">
+        <div className="col-span-2 lg:col-span-3 flex justify-center h-[80vh] items-center">
           <div className="loader">
             <Commet
               color="#69C53E"
