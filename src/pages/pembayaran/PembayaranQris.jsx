@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getDetailCampaign } from "../../redux/actions/campaignAction";
 import { getDetailZiswaf } from "../../redux/actions/ziswafAction";
-import { getQr, getTransaction } from "../../redux/actions/transaksiAction";
+import { getTransaction } from "../../redux/actions/transaksiAction";
 import { FaSpinner } from "react-icons/fa";
 
 export default function PembayaranQris() {
@@ -44,7 +44,7 @@ export default function PembayaranQris() {
     if (typePembayaran !== "campaign" && id) {
       dispatch(getDetailZiswaf(typePembayaran, id));
     }
-    dispatch(getQr());
+    // dispatch(getQr());
     dispatch(getTransaction(va));
   }, [dispatch, typePembayaran, id]);
 
