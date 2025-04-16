@@ -33,7 +33,9 @@ const DonasiDarurat = () => {
         <SwiperSlide key={item?.campaignId}>
           <div className="flex justify-center">
             <div className="relative w-full md:w-10/12 lg:h-[75vh]">
-              <Link to={`/detailCampaign/${item?.campaignId}`}>
+              <Link
+                to={`/detailCampaign/${item?.campaignName}/${item?.campaignId}`}
+              >
                 <img
                   src={item?.campaignImage}
                   className="h-52 sm:h-60 md:h-72 lg:h-[75vh] object-cover w-full md:rounded-3xl"

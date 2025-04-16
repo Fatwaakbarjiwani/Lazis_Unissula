@@ -21,6 +21,7 @@ import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 
 export default function CampaignDetail() {
   const { id } = useParams();
+  const { campaignName } = useParams();
   const { rincian } = useSelector((state) => state.campaign);
   const { allCampaign } = useSelector((state) => state.campaign);
   const { totalPageNumberMessage } = useSelector((state) => state.campaign);
@@ -62,7 +63,7 @@ export default function CampaignDetail() {
       navigator
         .share({
           title: document.title,
-          url: `https://lazis-sa.org/detailCampaign/${id}`,
+          url: `https://lazis-sa.org/detailCampaign/${campaignName}/${id}`,
         })
         .then(() => console.log("Berbagi berhasil"))
         .catch((error) => console.error("Kesalahan saat berbagi:", error));

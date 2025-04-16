@@ -10,12 +10,12 @@ export default function Card({ item, h }) {
   const formatNumber = (value) => {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
-  const handleDetail = (item) => {
-    navigate(`/detailCampaign/${item}`);
+  const handleDetail = (id,name) => {
+    navigate(`/detailCampaign/${name}/${id}`);
   };
 
   return (
-    <Link to={`/detailCampaign/${item?.campaignId}`}>
+    <Link to={`/detailCampaign/${item?.campaignName}/${item?.campaignId}`}>
       <div
         className={`relative ${h} justify-between m-1 md:m-0 card-wrapper md:h-full shadow sm:drop-shadow-lg bg-second rounded-xl md:rounded-xl xl:rounded-3xl flex flex-col font-Inter cursor-pointer md:hover:scale-105 transition delay-150 duration-300 ease-in-out`}
       >
@@ -91,7 +91,7 @@ export default function Card({ item, h }) {
               </p>
             </div>
             <button
-              onClick={() => handleDetail(item?.campaignId)}
+              onClick={() => handleDetail(item?.campaignId, item?.campaignName)}
               className="mt-1 w-full rounded-lg lg:px-5 md:px-4 sm:px-3 px-1 xl:px-6 py-1 lg:py-1 bg-fourth lg:text-base md:text-sm sm:text-xs text-[10px] text-white font-semibold mt-2 md:hover:scale-105 md:hover:bg-thirt"
             >
               Ikut Donasi
@@ -99,7 +99,7 @@ export default function Card({ item, h }) {
           </div>
           <div className="sm:flex hidden justify-between items-end">
             <button
-              onClick={() => handleDetail(item?.campaignId)}
+              onClick={() => handleDetail(item?.campaignId, item?.campaignName)}
               className="rounded-full lg:px-5 md:px-4 sm:px-3 px-1 xl:px-6 py-1 lg:py-1 bg-fourth xl:text-base lg:text-sm sm:text-xs text-[10px] text-white font-semibold mt-2 hover:scale-105 hover:bg-thirt"
             >
               Ikut Donasi
