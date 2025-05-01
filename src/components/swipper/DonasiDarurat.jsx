@@ -9,9 +9,8 @@ import { useSelector } from "react-redux";
 const DonasiDarurat = () => {
   const { allCampaignEmergency } = useSelector((state) => state.campaign);
 
-  // Tampilkan loading atau placeholder jika data belum ada
   if (!allCampaignEmergency || allCampaignEmergency.length === 0) {
-    return; 
+    return null; // hindari render Swiper sebelum data siap
   }
 
   return (
@@ -38,8 +37,9 @@ const DonasiDarurat = () => {
               >
                 <img
                   src={item?.campaignImage}
+                  loading="lazy"
                   className="h-52 sm:h-60 md:h-72 lg:h-[75vh] object-cover w-full md:rounded-3xl"
-                  alt=""
+                  alt={item?.campaignName || "Campaign image"}
                   style={{ backgroundRepeat: "no-repeat" }}
                 />
               </Link>

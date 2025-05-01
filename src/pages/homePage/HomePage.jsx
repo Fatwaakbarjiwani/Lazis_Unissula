@@ -1,4 +1,3 @@
-// import header from "../../assets/landingPage.jpg";
 import Information from "../../components/bar/Information";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -14,7 +13,6 @@ import {
 import DoaList from "../../components/card/CardDoa";
 import DonasiDarurat from "../../components/swipper/DonasiDarurat";
 import Header from "../../components/navbar&footer/Header";
-// import Video from "./Video";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
 import Card3 from "../../components/card/Card3";
@@ -54,11 +52,11 @@ export default function HomePage() {
           </div>
         </div>
       ) : (
-        <div className="font-Inter">
+        <div className="font-Inter z-10">
           {/* Header */}
           <Header />
           {/* information */}
-          <div className="relative">
+          <div className="relative z-20">
             <Information />
           </div>
           <div>
@@ -105,10 +103,6 @@ export default function HomePage() {
               </h1>
               <DoaList allMessage={allMessage} />
             </div>
-            {/* Video */}
-            {/* <div className="sm:border-b-0 pt-2 border-gray-200">
-          <Video />
-        </div> */}
           </div>
           <Footer />
         </div>

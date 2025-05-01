@@ -2,7 +2,6 @@ import search from "../../assets/search.svg";
 import logo from "../../assets/logoYBWSA.png";
 import logo2 from "../../assets/logo2.png";
 import down from "../../assets/down.svg";
-import { MdMenu } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { setModalRegister } from "../../redux/reducers/authReducer";
 import acount from "../../assets/acount.svg";
@@ -17,8 +16,6 @@ import {
 } from "../../redux/reducers/campaignReducer";
 import { Box, ClickAwayListener } from "@mui/material";
 import { dataLayanan, dataProfile } from "../data/dropDown";
-import { BiUser } from "react-icons/bi";
-import { BsArrowDown } from "react-icons/bs";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -48,11 +45,12 @@ function Navbar() {
   };
 
   useEffect(() => {
-    if (token) {
-      dispatch(getMe());
-    }
-    dispatch(getMe2());
+    if (token) dispatch(getMe());
   }, [dispatch, token]);
+
+  useEffect(() => {
+    dispatch(getMe2());
+  }, [dispatch]);
 
   return (
     <div className="fixed top-0 w-full font-Inter z-50 shadow-md bg-white/80 backdrop-blur-md">
@@ -83,8 +81,8 @@ function Navbar() {
               }}
               className="flex sm:hidden"
             >
-              <img src={logo} alt="Logo" className="h-12" />
-              <img src={logo2} alt="Logo" className="h-12" />
+              <img loading="lazy" src={logo} alt="Logo" className="h-12" />
+              <img loading="lazy" src={logo2} alt="Logo" className="h-12" />
             </Link>
           )}
           <Link
@@ -94,8 +92,8 @@ function Navbar() {
             }}
             className="sm:flex hidden"
           >
-            <img src={logo} alt="Logo" className="h-12" />
-            <img src={logo2} alt="Logo" className="h-12" />
+            <img loading="lazy" src={logo} alt="Logo" className="h-12" />
+            <img loading="lazy" src={logo2} alt="Logo" className="h-12" />
           </Link>
         </div>
 
@@ -182,7 +180,7 @@ function Navbar() {
                 >
                   Layanan <img src={down} alt="" />
                 </button>
-                {isDropdownLVisible ? (
+                {isDropdownLVisible && (
                   <Box className="absolute bg-white rounded-b p-2 space-y-1">
                     {dataLayanan.map((item) => (
                       <button
@@ -194,7 +192,7 @@ function Navbar() {
                       </button>
                     ))}
                   </Box>
-                ) : null}
+                )}
               </Box>
             </ClickAwayListener>
             <ClickAwayListener onClickAway={() => setDropdownPVisible(false)}>
@@ -205,7 +203,7 @@ function Navbar() {
                 >
                   Profile <img src={down} alt="" />
                 </button>
-                {isDropdownPVisible ? (
+                {isDropdownPVisible && (
                   <Box className="absolute bg-white rounded-b p-2">
                     {dataProfile.map((item) => (
                       <button
@@ -217,7 +215,7 @@ function Navbar() {
                       </button>
                     ))}
                   </Box>
-                ) : null}
+                )}
               </Box>
             </ClickAwayListener>
           </div>
@@ -225,7 +223,14 @@ function Navbar() {
             onClick={() => setMenuVisible(!isMenuVisible)}
             className="block ds:hidden hover:scale-105 duration-150 font-semibold text-gray-600"
           >
-            <MdMenu className="w-6 h-6" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-6 h-6"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z" />
+            </svg>
           </button>
           {user !== null ? (
             <div className="space-x-4 hidden ds:flex items-center xl:w-2/6 justify-center">
@@ -329,9 +334,20 @@ function Navbar() {
                 onClick={() => setDropdownPMVisible(!isDropdownPMVisible)}
                 className="flex items-center text-center gap-1 hover:scale-105 duration-150 font-semibold text-gray-600"
               >
-                Profile <BsArrowDown />
+                Profile
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-4 h-4 inline-block ml-1"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                  />
+                </svg>
               </button>
-              {isDropdownPMVisible ? (
+              {isDropdownPMVisible && (
                 <Box className="p-2 space-y-3 flex flex-col">
                   {dataProfile.map((item) => (
                     <button
@@ -346,7 +362,7 @@ function Navbar() {
                     </button>
                   ))}
                 </Box>
-              ) : null}
+              )}
             </Box>
           </ClickAwayListener>
           <ClickAwayListener onClickAway={() => setDropdownLMVisible(false)}>
@@ -357,9 +373,20 @@ function Navbar() {
                 }}
                 className="flex items-center gap-1 hover:scale-105 duration-150 font-semibold text-gray-600"
               >
-                Layanan <BsArrowDown />
+                Layanan
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-4 h-4 inline-block ml-1"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                  />
+                </svg>
               </button>
-              {isDropdownLMVisible ? (
+              {isDropdownLMVisible && (
                 <Box className=" p-2 space-y-3 flex flex-col">
                   {dataLayanan.map((item) => (
                     <button
@@ -374,7 +401,7 @@ function Navbar() {
                     </button>
                   ))}
                 </Box>
-              ) : null}
+              )}
             </Box>
           </ClickAwayListener>
         </div>
@@ -382,7 +409,15 @@ function Navbar() {
           <div className="xl:hidden space-y-2 w-full mt-6">
             <Link to={"/profile"}>
               <button className="gap-2 w-full flex items-center bg-primary p-1 text-white gap-1 hover:scale-105 rounded duration-150 font-semibold text-gray-600">
-                <BiUser className="text-2xl" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="text-sm w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                </svg>
+
                 <p className="line-clamp-1 text-left">{user?.username}</p>
               </button>
             </Link>
@@ -399,7 +434,15 @@ function Navbar() {
               onClick={() => dispatch(setModalLogin(true))}
               className="rounded-md flex items-center border-2 text-primary border-primary gap-1 hover:scale-105 duration-150 font-semibold text-gray-600 w-full"
             >
-              <BiUser className="text-2xl text-primary" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="text-sm w-6 h-6"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+              </svg>
+
               <p>Masuk</p>
             </button>
             <button

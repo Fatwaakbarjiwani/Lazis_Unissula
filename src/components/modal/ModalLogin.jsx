@@ -10,7 +10,8 @@ import {
   setPs,
 } from "../../redux/reducers/authReducer";
 import { login } from "../../redux/actions/authAction";
-import { PiEye, PiEyeClosed } from "react-icons/pi";
+// import { PiEye } from "react-icons/pi";
+// import { PiEyeClosed } from "react-icons/pi";
 import { OrbitProgress } from "react-loading-indicators";
 import GoogleLogin from "../oauth/GoogleLogin";
 import { useNavigate } from "react-router-dom";
@@ -116,9 +117,41 @@ export default function ModalLogin() {
                       className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600"
                     >
                       {showPassword ? (
-                        <PiEye className="text-xl" />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-6 h-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                          />
+                        </svg>
                       ) : (
-                        <PiEyeClosed className="text-xl" />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-6 h-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.964 9.964 0 012.501-4.245M15 12a3 3 0 00-3-3m0 0a3 3 0 013 3m0 0a3 3 0 01-3 3m0 0a3 3 0 01-3-3m0 0a3 3 0 013-3m0 0L4.121 4.121M20 20L4 4"
+                          />
+                        </svg>
                       )}
                     </button>
                   </div>
