@@ -7,7 +7,7 @@ const initialState = {
   va: localStorage.getItem("va") || null,
   token2: localStorage.getItem("sgh") || null,
   token3: localStorage.getItem("qc") || null,
-  methode: "",
+  methode: "qris",
   transactionUser: [],
   summary: [],
   billing: [],

@@ -18,6 +18,8 @@ import { setButtonPage } from "../../redux/reducers/pageReducer";
 import { Pagination } from "@mui/material";
 import Skeleton from "react-loading-skeleton";
 import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
+import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 export default function CampaignDetail() {
   const { id } = useParams();
@@ -58,19 +60,48 @@ export default function CampaignDetail() {
   const formatNumber = (value) => {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
-  const handleShareLink = () => {
+
+  const handleShareLink = async () => {
+    const shareUrl = `https://lazis-sa.org/detailCampaign/${campaignName}/${id}`;
+
     if (navigator.share) {
-      navigator
-        .share({
+      try {
+        await navigator.share({
           title: document.title,
-          url: `https://lazis-sa.org/detailCampaign/${campaignName}/${id}`,
-        })
-        .then(() => console.log("Berbagi berhasil"))
-        .catch((error) => console.error("Kesalahan saat berbagi:", error));
+          url: shareUrl,
+        });
+        console.log("Berbagi berhasil");
+      } catch (error) {
+        console.error("Kesalahan saat berbagi:", error);
+      }
     } else {
-      alert("Maaf, fitur berbagi tidak didukung di perangkat Anda.");
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        Swal.fire({
+          icon: "success",
+          title: "Tautan Disalin",
+          text: "Tautan berhasil disalin ke clipboard",
+          timer: 3000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+          toast: true,
+          position: "top-end",
+        });
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: "Gagal menyalin tautan ke clipboard.",
+          timer: 3000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+          toast: true,
+          position: "top-end",
+        });
+      }
     }
   };
+
   const handleButton = (event, value) => {
     event.preventDefault();
     setPage(value);
@@ -78,6 +109,23 @@ export default function CampaignDetail() {
 
   return (
     <div>
+      <Helmet>
+        <title>{detailCampaign?.campaignName}</title>
+        <meta property="og:title" content={detailCampaign?.campaignName} />
+        <meta property="og:description" content={detailCampaign?.description} />
+        <meta property="og:image" content={detailCampaign?.campaignImage} />
+        <meta
+          property="og:url"
+          content={`https://lazis-sa.org/detailCampaign/${campaignName}/${id}`}
+        />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={detailCampaign?.campaignName} />
+        <meta name="twitter:description" content={detailCampaign?.description} />
+        <meta name="twitter:image" content={detailCampaign?.campaignImage} />
+      </Helmet>
       {/* content */}
       <div className="font-Inter">
         <div className="pb-4 border-b-2 border-gray-200">
@@ -244,29 +292,6 @@ export default function CampaignDetail() {
                   <p style={{ textIndent: "20px" }}>
                     {detailCampaign?.description?.replace(/\n/g, " ")}
                   </p>
-
-                  {/* <p className="font-bold">Dapat disalurkan dengan cara :</p>
-                  <ul>
-                    <h3 className="font-semibold text-gray-900">
-                      1. {`Klik tombol "Donasi Sekarang"`}
-                    </h3>
-                    <h3 className="font-semibold text-gray-900">
-                      2. Masukkan nominal donasi
-                    </h3>
-                    <h3 className="font-semibold text-gray-900">
-                      3. Isi data diri
-                    </h3>
-                    <h3 className="font-semibold text-gray-900">
-                      4. Pilih metode pembayaran
-                    </h3>
-                    <h3 className="font-semibold text-gray-900">
-                      5.{" "}
-                      {` Klik "Lanjutkan Pembayaran" dan ikuti langkah selanjutnya`}
-                    </h3>
-                    <h3 className="font-semibold text-gray-900">
-                      6. Dapatkan laporan via email
-                    </h3>
-                  </ul> */}
                 </div>
               </div>
             )}
