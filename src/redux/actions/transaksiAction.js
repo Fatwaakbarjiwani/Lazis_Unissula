@@ -113,8 +113,9 @@ export const getQr = () => async (dispatch, getState) => {
 
     if (response) {
       const data = response.data;
-      // window.location.href = data["data"];
-      window.open(data["data"]);
+      // console.log(data["data"]);
+
+      window.open(data["data"], "_blank");
       // console.log(data["data"], "_blank");
     } else {
       Swal.fire({

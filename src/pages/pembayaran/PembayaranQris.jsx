@@ -23,20 +23,6 @@ export default function PembayaranQris() {
   }).format(nml);
   const formattedDate = waktu;
 
-  // const downloadQR = async () => {
-  //   const qrElement = document.getElementById("qr-section");
-  //   const canvas = await html2canvas(qrElement, { scale: 2 });
-  //   const pngUrl = canvas
-  //     .toDataURL("image/png")
-  //     .replace("image/png", "image/octet-stream");
-  //   const downloadLink = document.createElement("a");
-  //   downloadLink.href = pngUrl;
-  //   downloadLink.download = "qris_with_details.png";
-  //   document.body.appendChild(downloadLink);
-  //   downloadLink.click();
-  //   document.body.removeChild(downloadLink);
-  // };
-
   useEffect(() => {
     if (typePembayaran === "campaign" && id) {
       dispatch(getDetailCampaign(id));
@@ -44,7 +30,6 @@ export default function PembayaranQris() {
     if (typePembayaran !== "campaign" && id) {
       dispatch(getDetailZiswaf(typePembayaran, id));
     }
-    // dispatch(getQr());
     dispatch(getTransaction(va));
   }, [dispatch, typePembayaran, id]);
 
