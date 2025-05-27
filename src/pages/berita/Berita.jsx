@@ -98,7 +98,7 @@ export default function Berita() {
                   to={`/detailBerita/${item?.id}`}
                   className="h-[40vh] w-full sm:h-[60vh] md:h-[75vh] relative flex items-end"
                   style={{
-                    backgroundImage: `url(${item?.newsImage})`,
+                    backgroundImage: `url(${encodeURI(item?.newsImage)})`,
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
                     backgroundPosition: "center",
@@ -113,7 +113,6 @@ export default function Berita() {
               </SwiperSlide>
             ))}
           </Swiper>
-
           <div className="mx-4 sm:mx-8 md:mx-20 mt-4">
             <div className="shadow border-2 border-gray-300 rounded-xl flex px-4 sm:px-8">
               <img src={search} alt="search icon" className="w-4 sm:w-6" />
@@ -126,7 +125,6 @@ export default function Berita() {
               />
             </div>
           </div>
-
           <div className="py-5 px-4 sm:px-8 lg:px-[80px]">
             <div className="flex flex-wrap justify-between items-center font-Inter font-semibold text-base sm:text-lg md:text-xl">
               {/* Dropdown for smaller screens */}

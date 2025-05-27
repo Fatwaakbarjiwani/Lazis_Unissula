@@ -6,7 +6,7 @@ export default function CardBerita({ image, tanggal, judul, content }) {
   return (
     <div
       style={{
-        backgroundImage: `url(${image})`,
+        backgroundImage: `url(${encodeURI(image)})`,
         backgroundRepeat: "no-repeat",
         width: "100%",
         backgroundSize: "cover",
@@ -24,7 +24,9 @@ export default function CardBerita({ image, tanggal, judul, content }) {
             <p className="font-semibold line-clamp-3 duration-300 text-xs sm:text-base">
               {judul}
             </p>
-            <p className="line-clamp-4 sm:line-clamp-3 text-xs sm:text-base">{content}</p>
+            <p className="line-clamp-4 sm:line-clamp-3 text-xs sm:text-base">
+              {content}
+            </p>
             {/* <img className="bg-white rounded-full" src={rightrow} alt="" /> */}
           </div>
         </div>
