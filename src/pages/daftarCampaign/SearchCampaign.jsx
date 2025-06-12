@@ -34,11 +34,19 @@ export default function SearchCampaign() {
         <Swiper
           loop={true}
           grabCursor={true}
-          slidesPerView={3.5}
+          breakpoints={{
+            0: { slidesPerView: 1.2 },
+            480: { slidesPerView: 1.5 },
+            640: { slidesPerView: 2.5 },
+            1024: { slidesPerView: 3.5 },
+          }}
           modules={[FreeMode]}
         >
           {(campaignBySearch || []).map((item) => (
-            <SwiperSlide className="p-2" key={item?.campaignId || `slide-${Math.random()}`}>
+            <SwiperSlide
+              className="p-2"
+              key={item?.campaignId || `slide-${Math.random()}`}
+            >
               <Card
                 key={item.campaignCode}
                 item={item}
@@ -71,11 +79,19 @@ export default function SearchCampaign() {
           <Swiper
             loop={true}
             grabCursor={true}
-            slidesPerView={3.5}
+            breakpoints={{
+              0: { slidesPerView: 1.2 },
+              480: { slidesPerView: 1.5 },
+              640: { slidesPerView: 2.5 },
+              1024: { slidesPerView: 3.5 },
+            }}
             modules={[FreeMode]}
           >
             {(allCampaign || []).slice(0, 6).map((item) => (
-              <SwiperSlide className="p-2" key={item?.campaignId || `slide-${Math.random()}`}>
+              <SwiperSlide
+                className="p-2"
+                key={item?.campaignId || `slide-${Math.random()}`}
+              >
                 <Card3 key={item?.campaignCode} item={item} h={"h-full"} />
               </SwiperSlide>
             ))}
@@ -89,7 +105,12 @@ export default function SearchCampaign() {
         <Swiper
           loop={true}
           grabCursor={true}
-          slidesPerView={1.5}
+          breakpoints={{
+            0: { slidesPerView: 1.2 },
+            480: { slidesPerView: 1.5 },
+            640: { slidesPerView: 2.5 },
+            1024: { slidesPerView: 3.5 },
+          }}
           modules={[FreeMode]}
         >
           {(campaignBySearch || []).map((item) => (
@@ -126,7 +147,12 @@ export default function SearchCampaign() {
           <Swiper
             loop={true}
             grabCursor={true}
-            slidesPerView={1.5}
+            breakpoints={{
+              0: { slidesPerView: 1.2 },
+              480: { slidesPerView: 1.5 },
+              640: { slidesPerView: 2.5 },
+              1024: { slidesPerView: 3.5 },
+            }}
             modules={[FreeMode]}
           >
             {(allCampaign || []).slice(0, 6).map((item) => (
