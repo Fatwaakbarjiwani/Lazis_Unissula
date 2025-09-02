@@ -29,6 +29,10 @@ export default function Header() {
     <div>
       <Swiper
         pagination={{ clickable: true }}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
         loop={true}
         speed={2000}
         grabCursor={true}

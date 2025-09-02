@@ -17,27 +17,32 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
 import Card3 from "../../components/card/Card3";
 import { Commet } from "react-loading-indicators";
+import { Link } from "react-router-dom";
+import CardBerita from "../../components/card/CardBerita";
+import { getAllBerita } from "../../redux/actions/beritaAction";
 
 export default function HomePage() {
   const { allCampaign } = useSelector((state) => state.campaign);
   const { allMessage } = useSelector((state) => state.campaign);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const { allBerita } = useSelector((state) => state.berita);
 
-   useEffect(() => {
-     const fetchData = async () => {
-       try {
-         setLoading(true);
-         await dispatch(getAllCampaign(0));
-         await dispatch(getAllMessage());
-         await dispatch(getAllCampaignEmergency());
-       } finally {
-         setLoading(false);
-       }
-     };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        await dispatch(getAllCampaign(0));
+        await dispatch(getAllMessage());
+        await dispatch(getAllCampaignEmergency());
+        await dispatch(getAllBerita(0));
+      } finally {
+        setLoading(false);
+      }
+    };
 
-     fetchData();
-   }, [dispatch]);
+    fetchData();
+  }, [dispatch]);
   return (
     <div>
       {loading ? (
@@ -95,6 +100,24 @@ export default function HomePage() {
                   </SwiperSlide>
                 ))}
               </Swiper>
+            </div>
+            {/* berita  */}
+            <div className="px-2 md:px-8 lg:px-16 xl:px-20 2xl:px-32 py-2">
+              <h1 className="font-sans font-extrabold text-2xl sm:text-4xl text-gray-600 sm:mt-8 text-left">
+                BERITA TERBARU
+              </h1>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-6 mt-4">
+                {allBerita.slice(0, 4).map((item) => (
+                  <Link to={`/detailBerita/${item?.id}`} key={item?.id}>
+                    <CardBerita
+                      image={item?.newsImage}
+                      judul={item?.title}
+                      tanggal={item?.date}
+                      content={item?.content}
+                    />
+                  </Link>
+                ))}
+              </div>
             </div>
             {/* doa doa */}
             <div className="px-2 md:px-8 lg:px-16 xl:px-20 2xl:px-32 py-2">

@@ -2,32 +2,32 @@ export const dataLayanan = [
   {
     id: 1,
     name: "Khidmah Dakwah",
-    code: "KhidmahDakwah",
+    code: "khidmah-dakwah",
   },
   {
     id: 2,
     name: "Khidmah Ekonomi",
-    code: "KhidmahEkonomi",
+    code: "khidmah-ekonomi",
   },
   {
     id: 3,
     name: "Khidmah Kesehatan",
-    code: "KhidmahKesehatan",
+    code: "khidmah-kesehatan",
   },
   {
     id: 4,
     name: "Khidmah Lingkungan",
-    code: "KhidmahLingkungan",
+    code: "khidmah-lingkungan",
   },
   {
     id: 5,
     name: "Khidmah Pendidikan",
-    code: "KhidmahPendidikan",
+    code: "khidmah-pendidikan",
   },
   {
     id: 6,
     name: "Khidmah Sosial",
-    code: "KhidmahSosial",
+    code: "khidmah-sosial",
   },
 ];
 export const dataProfile = [
@@ -39,16 +39,16 @@ export const dataProfile = [
   {
     id: 2,
     name: "Visi Misi",
-    code: "VisiMisi",
+    code: "Visi-Misi",
   },
   {
     id: 3,
     name: "Tentang Kami",
-    code: "TentangKami",
+    code: "Tentang-Kami",
   },
   {
     id: 4,
     name: "Khidmah Organisasi",
-    code: "KhidmahOrganisasi",
+    code: "khidmah-organisasi",
   },
 ];

@@ -162,7 +162,7 @@ function App() {
               element={<KhidmahSosial />}
             />
             <Route
-              path="/penjelasan/struktur-organisasi"
+              path="/penjelasan/khidmah-organisasi"
               element={<StrukturOrganisasi />}
             />
             <Route path="*" element={<PageNotFound />} />

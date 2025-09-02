@@ -1,14 +1,13 @@
 import fb from "../../assets/facebook.svg";
 import twit from "../../assets/twitter.svg";
 import ig from "../../assets/instagram.svg";
-import li from "../../assets/linkedin.svg";
+// import li from "../../assets/linkedin.svg";
 import pesan from "../../assets/pesan.svg";
 import browser from "../../assets/browser.svg";
 import footer from "../../assets/footer.svg";
 import logo from "../../assets/logoYBWSA.png";
 import logo2 from "../../assets/logo2.png";
 import { Link } from "react-router-dom";
-
 
 export default function Footer() {
   return (
@@ -26,18 +25,38 @@ export default function Footer() {
           Semarang,Jawa Tengah 50112
         </p>
         <div className="flex gap-2 md:gap-4">
-          <button className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-10 md:h-10 flex justify-center items-center hover:scale-110">
+          <a
+            href="https://web.facebook.com/lazissultanagungsemarang"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-10 md:h-10 flex justify-center items-center hover:scale-110"
+          >
             <img src={fb} alt="Facebook" />
-          </button>
-          <button className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-10 md:h-10 flex justify-center items-center hover:scale-110">
+          </a>
+          <a
+            href="https://x.com/lazissultanagu1"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-10 md:h-10 flex justify-center items-center hover:scale-110"
+          >
             <img src={twit} alt="Twitter" />
-          </button>
-          <button className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-10 md:h-10 flex justify-center items-center hover:scale-110">
+          </a>
+          <a
+            href="https://www.instagram.com/lazissultanagung/?hl=id"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-10 md:h-10 flex justify-center items-center hover:scale-110"
+          >
             <img src={ig} alt="Instagram" />
-          </button>
-          <button className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-10 md:h-10 flex justify-center items-center hover:scale-110">
+          </a>
+          {/* <a
+            href="https://linkedin.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-10 md:h-10 flex justify-center items-center hover:scale-110"
+          >
             <img src={li} alt="LinkedIn" />
-          </button>
+          </a> */}
         </div>
       </div>
 
@@ -45,16 +64,28 @@ export default function Footer() {
         <p className="font-bold text-lg md:text-xl">Program</p>
         <div className="text-sm md:text-base w-1/2 sm:w-full">
           <div className="flex justify-between gap-2">
-            <p>Zakat</p>
-            <p>Campaign</p>
+            <Link to="/fiqihZiswaf/Ziswaf" className="hover:underline">
+              Zakat
+            </Link>
+            <Link to="/daftarCampaign/Campaign/1" className="hover:underline">
+              Campaign
+            </Link>
           </div>
           <div className="flex justify-between gap-2">
-            <p>Ziswaf</p>
-            <p>Berita</p>
+            <Link to="/fiqihZiswaf/Ziswaf" className="hover:underline">
+              Ziswaf
+            </Link>
+            <Link to="/berita/Berita/1" className="hover:underline">
+              Berita
+            </Link>
           </div>
           <div className="flex justify-between gap-2">
-            <p>Donasi</p>
-            <p>Infak</p>
+            <Link to="/daftarCampaign/Campaign/1" className="hover:underline">
+              Donasi
+            </Link>
+            <Link to="/fiqihZiswaf/Ziswaf" className="hover:underline">
+              Infak
+            </Link>
           </div>
         </div>
       </div>
@@ -62,29 +93,49 @@ export default function Footer() {
       <div className="md:w-1/6 w-full flex flex-col gap-2 md:gap-4">
         <p className="font-bold text-lg md:text-xl">Lainnya</p>
         <div className="flex flex-col gap-1 text-sm md:text-base">
-          <p>Zakat</p>
-          <p>Apa itu Ziswaf?</p>
-          <p>Privacy Policy</p>
-          <p>Syarat dan Ketentuan</p>
-          <p>Refund Policy</p>
+          <Link to="/fiqihZiswaf/Ziswaf" className="hover:underline">
+            Zakat
+          </Link>
+          <Link to="/fiqihZiswaf/Ziswaf" className="hover:underline">
+            Apa itu Ziswaf?
+          </Link>
+          <Link to="/penjelasan/Tujuan" className="hover:underline">
+            Tujuan
+          </Link>
+          <Link to="/penjelasan/Tentang-Kami" className="hover:underline">
+            Tentang Kami
+          </Link>
+          {/* <Link to="/refund-policy" className="hover:underline">
+            Refund Policy
+          </Link> */}
         </div>
       </div>
 
       <div className="md:w-1/6 w-full flex flex-col gap-2 md:gap-4">
         <p className="font-bold text-lg md:text-xl">Tentang Kami</p>
         <div className="flex flex-col gap-2 text-sm md:text-base">
-          <Link to={"https://ybw-sa.org/"}>
+          <a
+            href="https://ybw-sa.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline"
+          >
             <div className="flex gap-2 items-center">
               <img src={browser} className="w-5 md:w-6" alt="Website" />
               <p>https://ybw-sa.org/</p>
             </div>
-          </Link>
-          <Link to>
+          </a>
+          <a
+            href="https://lazis-ds.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline"
+          >
             <div className="flex gap-2 items-center">
               <img src={pesan} className="w-5 md:w-6" alt="Contact" />
               <p>https://lazis-ds.org/</p>
             </div>
-          </Link>
+          </a>
         </div>
       </div>
     </div>
