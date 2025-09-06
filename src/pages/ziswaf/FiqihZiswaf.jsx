@@ -6,6 +6,7 @@ import Footer from "../../components/navbar&footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { setButtonPage } from "../../redux/reducers/pageReducer";
 import { getCategoryZiswaf } from "../../redux/actions/ziswafAction";
+import { getZiswafImages } from "../../redux/actions/ziswafImageAction";
 import Information2 from "../../components/bar/Information2";
 import { Commet } from "react-loading-indicators";
 import { BiCategory } from "react-icons/bi";
@@ -15,6 +16,9 @@ export default function Ziswaf() {
   const [button, setButton] = useState("zakat");
   const { page } = useParams();
   const { categoryZiswaf } = useSelector((state) => state.ziswaf);
+  const { images: ziswafImages, loading: imagesLoading } = useSelector(
+    (state) => state.ziswafImage
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -39,6 +43,12 @@ export default function Ziswaf() {
     }
   };
 
+  // Function to get image based on category
+  const getImageByCategory = (category) => {
+    const imageData = ziswafImages.find((img) => img.category === category);
+    return imageData ? imageData.image : bunga; // fallback to default image
+  };
+
   useEffect(() => {
     if (page) {
       dispatch(setButtonPage(page));
@@ -47,6 +57,11 @@ export default function Ziswaf() {
     dispatch(getCategoryZiswaf(button)).finally(() => setIsLoading(false));
     dispatch(getSummary(button));
   }, [page, dispatch, button]);
+
+  // Load ziswaf images on component mount
+  useEffect(() => {
+    dispatch(getZiswafImages());
+  }, [dispatch]);
 
   return (
     <div>
@@ -69,11 +84,24 @@ export default function Ziswaf() {
           ))}
         </div>
         <div className="border-y-8 sm:border-y-0 py-2 sm:py-0 border-gray-50 flex flex-col sm:flex-row justify-between gap-4 items-center">
-          <img
-            className="w-full sm:w-1/2 sm:h-auto object-contain rounded-2xl"
-            src={bunga}
-            alt="Bunga"
-          />
+          {imagesLoading ? (
+            <div className="w-full sm:w-1/2 flex justify-center items-center h-64">
+              <div className="loader">
+                <Commet
+                  color="#69C53E"
+                  size="small"
+                  text="Loading"
+                  textColor="#69C53E"
+                />
+              </div>
+            </div>
+          ) : (
+            <img
+              className="w-full sm:w-1/2 sm:h-auto object-contain rounded-2xl"
+              src={getImageByCategory(button)}
+              alt={`${button.charAt(0).toUpperCase() + button.slice(1)} Image`}
+            />
+          )}
           <div className="w-full sm:w-3/6">
             <div className="text-center sm:text-right text-3xl md:text-5xl font-bold text-gray-600">
               <h2>{getTitle()}</h2>

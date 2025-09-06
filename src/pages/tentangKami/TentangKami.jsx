@@ -1,46 +1,200 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setButtonPage } from "../../redux/reducers/pageReducer";
+import { getLiteraturByName } from "../../redux/actions/literaturAction";
+import { Commet } from "react-loading-indicators";
 
 export default function TentangKami() {
-   const dispatch = useDispatch();
-   useEffect(() => {
-     dispatch(setButtonPage("tentangkami"));
-   }, []);  
+  const dispatch = useDispatch();
+  const { data, loading, error } = useSelector((state) => state.literatur);
+
+  useEffect(() => {
+    dispatch(setButtonPage("tentangkami"));
+    dispatch(getLiteraturByName("tentang kami"));
+  }, [dispatch]);
+
+  // Ambil data pertama dari array response
+  const literaturData = data && data.length > 0 ? data[0] : null;
+
   return (
-    <>
-      <h1 className="font-bold text-3xl mt-10 text-gray-600 mb-6 text-center">
-        Tentang <span className="text-[#69C53E]">Kami</span>
-      </h1>
-      <div className="flex items-center justify-center sm:w-10/12 md:w-3/4 lg:w-4/5 mx-auto">
-        <p className="text-justify px-5 py-5 leading-8 font-Inter">
-          <span className="font-bold text-[#69C53E]">
-            Lembaga Amil Zakat Infaq Shadaqah Sultan Agung (LAZIS SA){" "}
-          </span>
-          yang nama sebelumnya Lembaga Pengembangan Dana Umat Sultan Agung
-          (LPDU-SA) adalah lembaga yang mengemban amanah sebagai LAZ atau
-          Lembaga Amil Zakat ditingkat provinsi, yang dirintis di bulan Ramadhan
-          1423 H (2002). LAZIS SA bernaung dibawah Yayasan Badan Wakaf Sultan
-          Agung (YBWSA), berkonsentrasi dalam program pengelolaan, pengembangan
-          dan pendayagunaan dana Zakat, Infak dan Sedekah melalui 6 Program
-          Utama untuk mencapai tujuan membangun kemandirian ummat. Keenam
-          program tersebut adalah Pelayanan Dakwah, Pengembangan Pendidikan,
-          Pembinaan Sosial Kemanusiaan, Kesehatan, Pembinaan Ekonomi dan
-          kelestarian lingkungan. LAZIS SA diresmikan oleh Menteri Sosial RI
-          pada tanggal 16 September 2002 M dan kemudian dikukuhkan sebagai LAZ
-          Provinsi Jawa Tengah oleh Gubernur dengan SK Gubernur No. 451/32/2005
-          pada tanggal 13 Mei 2005. Pada tanggal 13 September 2019, LAZIS SA
-          telah ditetapkan oleh Kementrian Agama sebagai LAZ Kota Semarang
-          sebagaimana surat keputusan Kepala Kantor Wilayah Kementrian Agama
-          Provinsi Jawa Tengah nomor 2804 tahun 2019. Ini semua hanyalah
-          perantara kecil dari Rahmat Allah SWT yang Maha luas melimpah,
-          mewujudkan kasih sayang-Nya dalam menjembatani kemurahan kaum agniya
-          dan menunaikan harapan kaum dhuafa. Semoga fungsi intermediet LAZIS SA
-          mampu memberikan dampak signifikan peningkatan kesejahteraan hidup
-          dhuafa dan membantu Pemerintah dalam menurunkan kemiskinan dan
-          kesenjangan.
-        </p>
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+      {/* Header Section */}
+      <div className="bg-white shadow-lg">
+        <div className="max-w-6xl mx-auto px-4 py-12">
+          <div className="text-center">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#69C53E] to-green-600 rounded-full mb-6">
+              <svg
+                className="w-10 h-10 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                />
+              </svg>
+            </div>
+            <h1 className="font-bold text-4xl md:text-5xl text-gray-800 mb-4">
+              <span className="text-gray-600">Tentang</span>{" "}
+              <span className="text-[#69C53E]">Kami</span>
+            </h1>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Mengenal lebih dekat LAZIS SA dan perjalanan organisasi kami
+            </p>
+          </div>
+        </div>
       </div>
-    </>
+
+      {/* Content Section */}
+      <div className="max-w-6xl mx-auto px-4 py-12">
+        {loading ? (
+          <div className="flex justify-center items-center py-16">
+            <div className="text-center">
+              <div className="loader mb-4">
+                <Commet
+                  color="#69C53E"
+                  size="medium"
+                  text="Memuat data..."
+                  textColor="#69C53E"
+                />
+              </div>
+              <p className="text-gray-600">
+                Sedang memuat informasi Tentang Kami...
+              </p>
+            </div>
+          </div>
+        ) : error ? (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-8 text-center">
+            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg
+                className="w-8 h-8 text-red-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-red-800 mb-2">
+              Terjadi Kesalahan
+            </h3>
+            <p className="text-red-600 mb-4">{error}</p>
+            <button
+              onClick={() => dispatch(getLiteraturByName("tentang kami"))}
+              className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors"
+            >
+              Coba Lagi
+            </button>
+          </div>
+        ) : literaturData ? (
+          <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+            {/* Content Header */}
+            <div className="bg-gradient-to-r from-[#69C53E] to-green-600 px-8 py-6">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                  <svg
+                    className="w-6 h-6 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-white">
+                    {literaturData.literaturName}
+                  </h2>
+                  <p className="text-green-100">Profil dan sejarah LAZIS SA</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Content Body */}
+            <div className="p-8">
+              <div
+                className="prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-700 prose-p:leading-relaxed prose-strong:text-[#69C53E] prose-ul:text-gray-700 prose-li:text-gray-700 prose-ol:text-gray-700"
+                dangerouslySetInnerHTML={{ __html: literaturData.text }}
+              />
+            </div>
+
+            {/* Footer */}
+            <div className="bg-gray-50 px-8 py-4 border-t">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  Terakhir diperbarui
+                </div>
+                <div className="flex items-center gap-2 text-sm text-[#69C53E] font-medium">
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                    />
+                  </svg>
+                  Profil Terverifikasi
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-8 text-center">
+            <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg
+                className="w-8 h-8 text-yellow-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+                />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-yellow-800 mb-2">
+              Data Tidak Tersedia
+            </h3>
+            <p className="text-yellow-600">
+              Informasi tentang Tentang Kami belum tersedia saat ini.
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }

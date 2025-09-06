@@ -123,7 +123,10 @@ export default function CampaignDetail() {
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={detailCampaign?.campaignName} />
-        <meta name="twitter:description" content={detailCampaign?.description} />
+        <meta
+          name="twitter:description"
+          content={detailCampaign?.description}
+        />
         <meta name="twitter:image" content={detailCampaign?.campaignImage} />
       </Helmet>
       {/* content */}
@@ -288,10 +291,62 @@ export default function CampaignDetail() {
             {/* 3 button */}
             {button == "Detail" && (
               <div className="sm:flex my-2 sm:my-5 justify-center sm:px-20">
-                <div className="flex flex-col gap-2 lg:gap-2 text-Inter lg:text-base md:text-base text-xs text-NEUTRAL04 sm:w-3/4 sm:bg-white ring-NEUTRAL04 shadow sm:drop-shadow-lg p-4 sm:px-10 text-justify sm:rounded-3xl">
-                  <p style={{ textIndent: "20px" }}>
-                    {detailCampaign?.description?.replace(/\n/g, " ")}
-                  </p>
+                <div className="flex flex-col gap-4 text-Inter lg:text-base md:text-base text-xs text-NEUTRAL04 sm:w-3/4 sm:bg-white ring-NEUTRAL04 shadow sm:drop-shadow-lg p-4 sm:px-10 text-justify sm:rounded-3xl">
+                  {/* Description */}
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                      Deskripsi Campaign
+                    </h3>
+                    <p
+                      style={{ textIndent: "20px" }}
+                      className="leading-relaxed text-gray-700"
+                    >
+                      {detailCampaign?.description?.replace(/\n/g, " ")}
+                    </p>
+                  </div>
+
+                  {/* Additional Images */}
+                  {(detailCampaign?.campaignImageDesc1 ||
+                    detailCampaign?.campaignImageDesc2 ||
+                    detailCampaign?.campaignImageDesc3) && (
+                    <div className="mt-4">
+                      <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                        Gambar Campaign
+                      </h3>
+                      <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory">
+                        {detailCampaign?.campaignImageDesc1 && (
+                          <div className="relative group flex-shrink-0 snap-center">
+                            <img
+                              src={detailCampaign.campaignImageDesc1}
+                              alt="Gambar Campaign 1"
+                              className="w-[calc(100vw-8rem)] sm:w-96 h-48 object-cover rounded-lg shadow-md group-hover:shadow-lg transition-shadow duration-300"
+                            />
+                            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 rounded-lg"></div>
+                          </div>
+                        )}
+                        {detailCampaign?.campaignImageDesc2 && (
+                          <div className="relative group flex-shrink-0 snap-center">
+                            <img
+                              src={detailCampaign.campaignImageDesc2}
+                              alt="Gambar Campaign 2"
+                              className="w-[calc(100vw-8rem)] sm:w-96 h-48 object-cover rounded-lg shadow-md group-hover:shadow-lg transition-shadow duration-300"
+                            />
+                            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 rounded-lg"></div>
+                          </div>
+                        )}
+                        {detailCampaign?.campaignImageDesc3 && (
+                          <div className="relative group flex-shrink-0 snap-center">
+                            <img
+                              src={detailCampaign.campaignImageDesc3}
+                              alt="Gambar Campaign 3"
+                              className="w-[calc(100vw-8rem)] sm:w-96 h-48 object-cover rounded-lg shadow-md group-hover:shadow-lg transition-shadow duration-300"
+                            />
+                            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 rounded-lg"></div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             )}

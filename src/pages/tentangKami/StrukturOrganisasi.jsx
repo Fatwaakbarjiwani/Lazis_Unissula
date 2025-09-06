@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import Struktur from "../../assets/struktur.svg";
+import Struktur from "../../assets/SOTK.jpg";
 import { useEffect } from "react";
 import { setButtonPage } from "../../redux/reducers/pageReducer";
 
@@ -15,7 +15,7 @@ export default function StrukturOrganisasi() {
       </h1>
       <div className="flex items-center justify-center">
         <img
-          className="cursor-pointer"
+          className="cursor-pointer w-[80%]"
           src={Struktur}
           alt="StrukturOrganisasi"
         />

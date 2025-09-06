@@ -48,6 +48,12 @@ const ZakatZiswaf = lazy(() => import("./pages/tentangKami/ZakatZiswaf"));
 const InfaqZiswaf = lazy(() => import("./pages/tentangKami/InfaqZiswaf"));
 const WakafZiswaf = lazy(() => import("./pages/tentangKami/WakafZiswaf"));
 
+// Informasi
+const PenerimaManfaat = lazy(() => import("./pages/informasi/PenerimaManfaat"));
+const Penghimpunan = lazy(() => import("./pages/informasi/Penghimpunan"));
+const Penyaluran = lazy(() => import("./pages/informasi/Penyaluran"));
+const Donatur = lazy(() => import("./pages/informasi/Donatur"));
+
 // Tentang Kami
 const Tujuan = lazy(() => import("./pages/tentangKami/Tujuan"));
 const VisiMisi = lazy(() => import("./pages/tentangKami/VisiMisi"));
@@ -112,6 +118,15 @@ function App() {
             <Route path="/penjelasan/zakat" element={<ZakatZiswaf />} />
             <Route path="/penjelasan/infak" element={<InfaqZiswaf />} />
             <Route path="/penjelasan/wakaf" element={<WakafZiswaf />} />
+
+            {/* Informasi */}
+            <Route
+              path="/informasi/penerima-manfaat"
+              element={<PenerimaManfaat />}
+            />
+            <Route path="/informasi/penghimpunan" element={<Penghimpunan />} />
+            <Route path="/informasi/penyaluran" element={<Penyaluran />} />
+            <Route path="/informasi/donatur" element={<Donatur />} />
 
             {/* Pembayaran */}
             <Route

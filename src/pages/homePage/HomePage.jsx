@@ -10,7 +10,7 @@ import {
   getAllCampaignEmergency,
   getAllMessage,
 } from "../../redux/actions/campaignAction";
-import DoaList from "../../components/card/CardDoa";
+// import DoaList from "../../components/card/CardDoa";
 import DonasiDarurat from "../../components/swipper/DonasiDarurat";
 import Header from "../../components/navbar&footer/Header";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,13 +20,20 @@ import { Commet } from "react-loading-indicators";
 import { Link } from "react-router-dom";
 import CardBerita from "../../components/card/CardBerita";
 import { getAllBerita } from "../../redux/actions/beritaAction";
+import BeritaRSS from "../../components/BeritaRSS";
+import { getMitra } from "../../redux/actions/mitraAction";
 
 export default function HomePage() {
   const { allCampaign } = useSelector((state) => state.campaign);
-  const { allMessage } = useSelector((state) => state.campaign);
+  // const { allMessage } = useSelector((state) => state.campaign);
+  const { allBerita } = useSelector((state) => state.berita);
+  const {
+    data: mitraData,
+    loading: mitraLoading,
+    error: mitraError,
+  } = useSelector((state) => state.mitra);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const { allBerita } = useSelector((state) => state.berita);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,6 +43,7 @@ export default function HomePage() {
         await dispatch(getAllMessage());
         await dispatch(getAllCampaignEmergency());
         await dispatch(getAllBerita(0));
+        await dispatch(getMitra());
       } finally {
         setLoading(false);
       }
@@ -119,12 +127,67 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
+            <BeritaRSS />
             {/* doa doa */}
-            <div className="px-2 md:px-8 lg:px-16 xl:px-20 2xl:px-32 py-2">
+            {/* <div className="px-2 md:px-8 lg:px-16 xl:px-20 2xl:px-32 py-2">
               <h1 className="font-sans font-extrabold text-2xl sm:text-4xl text-gray-600 sm:mt-8 text-left">
                 DOA DOA ORANG BAIK
               </h1>
               <DoaList allMessage={allMessage} />
+            </div> */}
+            <div className="px-2 md:px-8 lg:px-16 xl:px-20 2xl:px-32 py-2">
+              <h1 className="font-sans font-extrabold text-2xl sm:text-4xl text-gray-600 sm:mt-8 text-left">
+                MITRA
+              </h1>
+
+              {/* Mitra Section */}
+              {mitraLoading ? (
+                <div className="flex justify-center items-center py-8">
+                  <div className="loader">
+                    <Commet
+                      color="#69C53E"
+                      size="small"
+                      text="Loading"
+                      textColor="#69C53E"
+                    />
+                  </div>
+                </div>
+              ) : mitraError ? (
+                <div className="text-center py-8">
+                  <p className="text-red-600">Error: {mitraError}</p>
+                </div>
+              ) : mitraData && mitraData.length > 0 ? (
+                <div className="mt-6">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                    {mitraData.map((mitra) => (
+                      <div
+                        key={mitra.id}
+                        className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-300"
+                      >
+                        <div className="flex flex-col items-center">
+                          <div className="w-20 h-20 md:w-24 md:h-24 mb-3 overflow-hidden rounded-lg">
+                            <img
+                              src={mitra.image}
+                              alt={mitra.name}
+                              className="w-full h-full object-contain"
+                              onError={(e) => {
+                                e.target.src = "/placeholder-logo.png"; // fallback image
+                              }}
+                            />
+                          </div>
+                          <h3 className="text-sm md:text-base font-semibold text-gray-800 text-center">
+                            {mitra.name}
+                          </h3>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-gray-500">Belum ada data mitra</p>
+                </div>
+              )}
             </div>
           </div>
           <Footer />
