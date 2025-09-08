@@ -6,20 +6,32 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getSlides } from "../../redux/actions/authAction";
+import { getPriorityCampaigns } from "../../redux/actions/campaignAction";
 
 export default function Header() {
   const { slides } = useSelector((state) => state.page);
+  const { priorityCampaigns } = useSelector((state) => state.campaign);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getSlides());
+    dispatch(getPriorityCampaigns());
   }, [dispatch]);
 
-  const images = [
+  // Ambil gambar dari priority campaigns
+  const campaignImages =
+    priorityCampaigns
+      ?.map((campaign) => campaign.campaignImage)
+      .filter(Boolean) || [];
+
+  // Fallback ke slides jika tidak ada priority campaigns
+  const fallbackImages = [
     slides?.[0]?.image_1,
     slides?.[0]?.image_2,
     slides?.[0]?.image_3,
-  ].filter(Boolean); // pastikan hanya gambar yang tersedia
+  ].filter(Boolean);
+
+  const images = campaignImages.length > 0 ? campaignImages : fallbackImages;
 
   if (images.length === 0) {
     return null; // atau tambahkan loader jika ingin UX lebih baik

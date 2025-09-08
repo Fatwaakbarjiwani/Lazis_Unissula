@@ -200,7 +200,7 @@ export default function BeritaRSS() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="px-2 md:px-8 lg:px-16 xl:px-20 2xl:px-32 py-2">
       <div className="flex items-center justify-between">
         <div className="flex flex-col">
           <h1 className="font-sans font-extrabold text-2xl sm:text-4xl text-gray-600 sm:mt-8 text-left">

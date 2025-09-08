@@ -16,6 +16,7 @@ const initialState = {
   aamiinId: [],
   searchCampaign: "",
   distribution: [],
+  priorityCampaigns: [],
 };
 const authSlice = createSlice({
   name: "campaign",
@@ -69,6 +70,9 @@ const authSlice = createSlice({
     setDistribution: (state, action) => {
       state.distribution = action.payload;
     },
+    setPriorityCampaigns: (state, action) => {
+      state.priorityCampaigns = action.payload;
+    },
   },
 });
 
@@ -87,6 +91,7 @@ export const {
   setRincian,
   setSearchCampaign,
   setDistribution,
+  setPriorityCampaigns,
 } = authSlice.actions;
 
 export default authSlice.reducer;

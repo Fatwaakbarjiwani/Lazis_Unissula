@@ -11,6 +11,7 @@ import {
   setRincian,
   setTotalPageNumber,
   setTotalPageNumberMessage,
+  setPriorityCampaigns,
 } from "../reducers/campaignReducer";
 export const API_URL = import.meta.env.VITE_API_URL;
 
@@ -116,5 +117,15 @@ export const getRincian = (id) => async (dispatch) => {
     dispatch(setRincian(data));
   } catch (error) {
     console.error("Error fetching message data:", error);
+  }
+};
+
+export const getPriorityCampaigns = () => async (dispatch) => {
+  try {
+    const response = await axios.get(`${API_URL}/campaign/get-by-priority`);
+    const data = response.data;
+    dispatch(setPriorityCampaigns(data));
+  } catch (error) {
+    console.error("Error fetching priority campaigns:", error);
   }
 };

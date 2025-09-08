@@ -17,7 +17,7 @@ import {
 import { setButtonPage } from "../../redux/reducers/pageReducer";
 import { Pagination } from "@mui/material";
 import Skeleton from "react-loading-skeleton";
-import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
+// import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
 
@@ -34,7 +34,7 @@ export default function CampaignDetail() {
   const [button, setButton] = useState("Detail");
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-  const [dropdown, setDropdown] = useState(false);
+  // const [dropdown, setDropdown] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -351,178 +351,229 @@ export default function CampaignDetail() {
               </div>
             )}
             {button == "Update" && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-10 px-2 xl:px-20 lg:px-10 items-start sm:mt-4 sm:px-5">
-                {distribution.length > 0 ? (
-                  <div className="flex items-center gap-4">
-                    <div className="w-full">
-                      <h1 className="font-bold text-gray-800 text-2xl mb-4">
+              <div className="max-w-7xl mx-auto px-4 py-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {/* Left Section - Distribution Details */}
+                  <div className="space-y-6">
+                    <div className="bg-white rounded-2xl shadow-lg p-6">
+                      <h1 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <div className="w-8 h-8 bg-gradient-to-r from-[#69C53E] to-green-600 rounded-full flex items-center justify-center">
+                          <svg
+                            className="w-4 h-4 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                            />
+                          </svg>
+                        </div>
                         Rincian Penyaluran Dana
                       </h1>
-                      {distribution.map((item) => (
-                        <div
-                          className="flex justify-between w-full max-w-2xl gap-5 bg-white border-y border-gray-200 p-2"
-                          key={item.id}
-                        >
-                          <div className="w-full">
-                            <h1 className="text-start font-semibold text-gray-800 text-xs sm:text-base">
-                              {item.distributionDate}
-                            </h1>
-                            <h1 className="font-base text-sm sm:text-lg">
-                              {item.description}
-                            </h1>
-                            Kepada :
-                            <h1 className="text-primary font-bold text-sm sm:text-base">
-                              {item.receiver}
-                            </h1>
-                            Sebesar :
-                            <h1 className="text-primary font-bold text-sm sm:text-base">
-                              Rp {formatNumber(item.distributionAmount)}
-                            </h1>
-                            <img
-                              src={item.image}
-                              className="w-3/4 h-auto object-contain bg-gray-50"
-                              alt=""
-                            />
-                          </div>
+
+                      {distribution.length > 0 ? (
+                        <div className="space-y-4">
+                          {distribution.map((item) => (
+                            <div
+                              key={item.id}
+                              className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 border border-green-100"
+                            >
+                              <div className="flex items-start justify-between mb-4">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-3 h-3 bg-[#69C53E] rounded-full"></div>
+                                  <span className="text-sm font-semibold text-gray-600 bg-white px-3 py-1 rounded-full">
+                                    {item.distributionDate}
+                                  </span>
+                                </div>
+                                <div className="text-right">
+                                  <p className="text-2xl font-bold text-[#69C53E]">
+                                    Rp {formatNumber(item.distributionAmount)}
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div className="mb-4">
+                                <p className="text-gray-700 leading-relaxed mb-3">
+                                  {item.description}
+                                </p>
+                                <div className="flex items-center gap-2">
+                                  <span className="text-sm text-gray-500">
+                                    Kepada:
+                                  </span>
+                                  <span className="font-semibold text-[#69C53E]">
+                                    {item.receiver}
+                                  </span>
+                                </div>
+                              </div>
+
+                              {item.image && (
+                                <div className="mt-4">
+                                  <img
+                                    src={item.image}
+                                    className="w-full h-auto max-h-96 object-contain bg-gray-50 rounded-lg shadow-md"
+                                    alt="Bukti penyaluran"
+                                    style={{ objectFit: "contain" }}
+                                  />
+                                </div>
+                              )}
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex justify-center mt-4">
-                    <img src={image0} alt="" className="w-2/6" />
-                  </div>
-                )}
-                <div>
-                  <button
-                    onClick={() => setDropdown(!dropdown)}
-                    className="active:scale-105 duration-200 w-full shadow border border-gray-300 rounded flex justify-between p-2 items-center"
-                  >
-                    <div className="flex gap-4 items-center">
-                      <div className="font-bold p-1 text-nowrap rounded-full bg-primary text-white">
-                        100%
-                      </div>
-                      <h1 className="text-gray-800 text-left text-sm font-semibold">
-                        Dana yang sudah terkumpul
-                      </h1>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <p className="text-primary md:text-lg text-sm text-nowrap md:text-base lg:text-xl font-bold">
-                        Rp {formatNumber(detailCampaign?.currentAmount || 0)}
-                      </p>
-                      {dropdown ? (
-                        <MdArrowDropUp
-                          className="text-primary shadow border-2 border-primary rounded-full"
-                          size={25}
-                        />
                       ) : (
-                        <MdArrowDropDown
-                          className="text-primary shadow border-2 border-primary rounded-full"
-                          size={25}
-                        />
+                        <div className="text-center py-12">
+                          <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg
+                              className="w-12 h-12 text-gray-400"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                              />
+                            </svg>
+                          </div>
+                          <h3 className="text-lg font-semibold text-gray-600 mb-2">
+                            Belum Ada Penyaluran
+                          </h3>
+                          <p className="text-gray-500">
+                            Data penyaluran akan ditampilkan di sini
+                          </p>
+                        </div>
                       )}
                     </div>
-                  </button>
-                  {dropdown == true && (
-                    <div className="bg-primary/5 rounded-lg p-2 mt-2">
-                      <div className="flex justify-between items-start gap-2">
-                        <p className="bg-primary rounded-full text-nowrap text-white font-semibold p-1 px-2">
-                          {100 - rincian?.persentase?.persen_operasional || 0} %
-                        </p>
-                        <div className="space-y-2 w-10/12">
-                          <div className="flex justify-between w-full">
-                            <div className="flex gap-2 items-center">
-                              <h1 className="text-gray-800">
+                  </div>
+
+                  {/* Right Section - Financial Summary (Always Visible) */}
+                  <div className="space-y-6">
+                    {/* Total Funds Collected */}
+                    <div className="bg-white rounded-2xl shadow-lg p-6">
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-12 h-12 bg-gradient-to-r from-[#69C53E] to-green-600 rounded-full flex items-center justify-center">
+                          <span className="text-white font-bold text-sm">
+                            100%
+                          </span>
+                        </div>
+                        <div>
+                          <h2 className="text-lg font-semibold text-gray-800">
+                            Dana yang sudah terkumpul
+                          </h2>
+                          <p className="text-2xl font-bold text-[#69C53E]">
+                            Rp{" "}
+                            {formatNumber(detailCampaign?.currentAmount || 0)}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4 pt-4 border-t border-gray-100">
+                        {/* Fundraising Funds */}
+                        <div className="bg-green-50 rounded-xl p-4">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-2">
+                              <div className="w-8 h-8 bg-[#69C53E] rounded-full flex items-center justify-center">
+                                <span className="text-white font-bold text-xs">
+                                  {100 -
+                                    rincian?.persentase?.persen_operasional ||
+                                    0}
+                                  %
+                                </span>
+                              </div>
+                              <h3 className="font-semibold text-gray-800">
                                 Dana Untuk Penggalangan Dana
-                              </h1>
+                              </h3>
                             </div>
-                            <h1 className="font-semibold text-gray-800 text-nowrap text-sm">
-                              Rp
+                            <p className="font-bold text-[#69C53E]">
+                              Rp{" "}
                               {formatNumber(
                                 rincian?.dana_untuk_penggalangan_dana || 0
                               )}
-                            </h1>
+                            </p>
                           </div>
-                          <div className="flex justify-between w-full">
-                            <div className="flex gap-2 items-center">
-                              <h1 className="text-gray-800">
+
+                          <div className="space-y-2 ml-10">
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm text-gray-600">
                                 Biaya transaksi dan teknologi
-                              </h1>
+                              </span>
+                              <span className="text-sm font-medium text-gray-800">
+                                Rp{" "}
+                                {formatNumber(
+                                  rincian?.biaya_transaksi_dan_teknologi || 0
+                                )}
+                              </span>
                             </div>
-                            <h1 className="font-semibold text-gray-800 text-nowrap text-sm">
-                              Rp{" "}
-                              {formatNumber(
-                                rincian?.biaya_transaksi_dan_teknologi || 0
-                              )}
-                            </h1>
-                          </div>
-                          <div className="flex justify-between w-full">
-                            <div className="flex gap-2 items-center">
-                              <h1 className="text-gray-800">Sudah dicairkan</h1>
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm text-gray-600">
+                                Sudah dicairkan
+                              </span>
+                              <span className="text-sm font-medium text-gray-800">
+                                Rp{" "}
+                                {formatNumber(
+                                  rincian?.dana_sudah_disalurkan || 0
+                                )}
+                              </span>
                             </div>
-                            <h1 className="font-semibold text-gray-800 text-nowrap text-sm">
-                              Rp{" "}
-                              {formatNumber(
-                                rincian?.dana_sudah_disalurkan || 0
-                              )}
-                            </h1>
-                          </div>
-                          <div className="flex justify-between w-full">
-                            <div className="flex gap-2 items-center">
-                              <h1 className="text-primary">Belum dicairkan</h1>
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm text-[#69C53E] font-medium">
+                                Belum dicairkan
+                              </span>
+                              <span className="text-sm font-bold text-[#69C53E]">
+                                Rp{" "}
+                                {formatNumber(
+                                  rincian?.dana_belum_disalurkan || 0
+                                )}
+                              </span>
                             </div>
-                            <h1 className="font-semibold text-primary">
-                              Rp{" "}
-                              {formatNumber(
-                                rincian?.dana_belum_disalurkan || 0
-                              )}
-                            </h1>
                           </div>
                         </div>
-                        <MdArrowDropDown
-                          className="text-primary shadow border-2 border-primary rounded-full"
-                          size={25}
-                        />
-                      </div>
-                      <div className="flex justify-between items-start mt-4 gap-2">
-                        <p className="bg-primary rounded-full text-nowrap text-white font-semibold p-1 px-2">
-                          {rincian?.persentase?.persen_operasional} %
-                        </p>
-                        <div className="space-y-2 w-10/12">
-                          <div className="flex justify-between w-full">
-                            <div className="flex gap-2 items-center">
-                              <h1 className="text-gray-800">
+
+                        {/* Operational Donations */}
+                        <div className="bg-blue-50 rounded-xl p-4">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-2">
+                              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                                <span className="text-white font-bold text-xs">
+                                  {rincian?.persentase?.persen_operasional || 0}
+                                  %
+                                </span>
+                              </div>
+                              <h3 className="font-semibold text-gray-800">
                                 Donasi Operasional
-                              </h1>
+                              </h3>
                             </div>
                           </div>
-                          <div className="flex justify-between w-full">
-                            <div className="flex gap-2 items-center">
-                              <h1 className="text-primary">Sejumlah</h1>
+
+                          <div className="space-y-2 ml-10">
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm text-[#69C53E] font-medium">
+                                Sejumlah
+                              </span>
+                              <span className="text-sm font-bold text-[#69C53E]">
+                                Rp{" "}
+                                {formatNumber(rincian?.biaya_operasional || 0)}
+                              </span>
                             </div>
-                            <h1 className="font-semibold text-primary text-nowrap text-sm">
-                              Rp {formatNumber(rincian?.biaya_operasional || 0)}
-                            </h1>
-                          </div>
-                          <div className="flex justify-between w-full">
-                            <div>
-                              <h1 className="text-gray-800">
+                            <div className="mt-3 p-3 bg-white rounded-lg">
+                              <p className="text-xs text-gray-600 leading-relaxed">
                                 Donasi untuk operasional{" "}
-                                <span className="text-primary">
+                                <span className="text-[#69C53E] font-medium">
                                   Lazis Sultan Agung
                                 </span>{" "}
-                                agar donasi semakin aman,muadah dan transparant
-                              </h1>
+                                agar donasi semakin aman, mudah dan transparan
+                              </p>
                             </div>
                           </div>
                         </div>
-                        <MdArrowDropDown
-                          className="text-primary shadow border-2 border-primary rounded-full"
-                          size={25}
-                        />
                       </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
             )}
