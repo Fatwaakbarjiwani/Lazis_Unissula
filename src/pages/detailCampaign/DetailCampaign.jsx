@@ -397,9 +397,12 @@ export default function CampaignDetail() {
                               </div>
 
                               <div className="mb-4">
-                                <p className="text-gray-700 leading-relaxed mb-3">
-                                  {item.description}
-                                </p>
+                                <div
+                                  className="text-gray-700 leading-relaxed mb-3 prose prose-sm max-w-none prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-3 prose-strong:text-[#69C53E] prose-strong:font-semibold prose-ul:text-gray-700 prose-li:text-gray-700 prose-ol:text-gray-700 prose-li:leading-relaxed prose-li:mb-1 prose-ul:pl-4 prose-ol:pl-4 prose-ul:mb-3 prose-ol:mb-3"
+                                  dangerouslySetInnerHTML={{
+                                    __html: item.description,
+                                  }}
+                                />
                                 <div className="flex items-center gap-2">
                                   <span className="text-sm text-gray-500">
                                     Kepada:

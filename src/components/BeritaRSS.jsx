@@ -14,7 +14,7 @@ export default function BeritaRSS() {
 
   useEffect(() => {
     fetchRSSFeed();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchRSSFeed = async () => {
     try {
@@ -40,11 +40,18 @@ export default function BeritaRSS() {
               ? proxy + rssUrl
               : proxy + encodeURIComponent(rssUrl);
 
+          // Add timeout to prevent hanging
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
           response = await fetch(fullUrl, {
             headers: {
               Origin: window.location.origin,
             },
+            signal: controller.signal,
           });
+
+          clearTimeout(timeoutId);
 
           if (response.ok) {
             xmlText = await response.text();
@@ -148,22 +155,43 @@ export default function BeritaRSS() {
       // If it's a CORS or network error and we haven't retried too many times
       if (
         retryCount < 2 &&
-        (err.message.includes("CORS") || err.message.includes("fetch"))
+        (err.message.includes("CORS") ||
+          err.message.includes("fetch") ||
+          err.name === "AbortError")
       ) {
         setRetryCount((prev) => prev + 1);
-        setError("Gagal memuat berita. Mencoba lagi dalam 5 detik...");
+        setError(`Gagal memuat berita. Mencoba lagi... (${retryCount + 1}/3)`);
 
-        // Auto-retry after 5 seconds
+        // Auto-retry after 3 seconds (reduced from 5)
         setTimeout(() => {
           fetchRSSFeed();
-        }, 5000);
+        }, 3000);
 
         return;
       }
 
+      // If all retries failed, show fallback data and stop loading
       setError(err.message || "Gagal memuat berita. Silakan coba lagi nanti.");
-    } finally {
+
+      // Set fallback news data to prevent infinite loading
+      setNews([
+        {
+          id: 1,
+          title: "Berita tidak tersedia",
+          description:
+            "Tidak dapat memuat berita dari sumber eksternal. Silakan coba lagi nanti.",
+          link: "#",
+          pubDate: new Date().toLocaleDateString("id-ID"),
+          category: "Info",
+        },
+      ]);
+
       setLoading(false);
+    } finally {
+      // Only set loading to false if we're not retrying
+      if (retryCount >= 2 || !error) {
+        setLoading(false);
+      }
     }
   };
 
@@ -172,7 +200,7 @@ export default function BeritaRSS() {
     fetchRSSFeed();
   };
 
-  if (loading) {
+  if (loading && news.length === 0) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
