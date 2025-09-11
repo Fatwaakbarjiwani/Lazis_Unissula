@@ -1,5 +1,6 @@
 import fb from "../../assets/facebook.svg";
 import yt from "../../assets/youtube.png";
+import tt from "../../assets/tik-tok.png";
 import twit from "../../assets/twitter.svg";
 import ig from "../../assets/instagram.svg";
 // import li from "../../assets/linkedin.svg";
@@ -40,7 +41,15 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-10 md:h-10 flex justify-center items-center hover:scale-110"
           >
-            <img src={yt} alt="Facebook" />
+            <img src={yt} alt="Youtube" />
+          </a>
+          <a
+            href="https://www.tiktok.com/@lazissultanagung?_t=ZS-8zdEC18cV1T&_r=1"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-8 md:h-8 flex justify-center items-center hover:scale-110"
+          >
+            <img src={tt} alt="Tiktok" />
           </a>
           <a
             href="https://x.com/lazissultanagu1"

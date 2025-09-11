@@ -36,8 +36,8 @@ export default function Ziswaf() {
         return "Salurkan Infak/Sedekah";
       case "dskl":
         return "Salurkan DSKL";
-      // case "wakaf":
-      //   return "Salurkan Wakaf";
+      case "wakaf":
+        return "Salurkan Wakaf";
       default:
         return "";
     }
@@ -67,7 +67,7 @@ export default function Ziswaf() {
     <div>
       <div className="px-2 sm:px-8 lg:px-[80px] pb-6 bg-primary/10 border-b border-primary/50 shadow">
         <div className="grid grid-cols-2 sm:flex gap-3 sm:gap-5 justify-center items-center py-4 sm:py-6">
-          {["zakat", "infak", "dskl"].map((item) => (
+          {["zakat", "infak", "dskl", "wakaf"].map((item) => (
             <button
               key={item}
               onClick={() => {
@@ -128,6 +128,17 @@ export default function Ziswaf() {
                     </button>
                   </Link>
                 ))}
+                {button == "wakaf" && (
+                  <button className="hover:scale-105 duration-150 flex gap-2 items-center border bg-white border-primary rounded-xl p-2 drop-shadow-md text-lg text-gray-600 font-Inter">
+                    <div>
+                      Wakaf Melalui Uang
+                      <br />
+                      No Rekening : <span className="font-bold text-primary">6033015001</span>
+                      <br />
+                      (NAZHIR YBWSA)
+                    </div>
+                  </button>
+                )}
               </div>
             )}
           </div>

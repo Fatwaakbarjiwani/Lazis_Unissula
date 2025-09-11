@@ -10,7 +10,7 @@ export default function Hotline() {
         title="Hubungi via WhatsApp"
         className="group"
       >
-        <div className="w-12 h-12 rounded-full bg-white border border-gray-300 shadow-lg flex items-center justify-center hover:bg-green-100 transition-all duration-300">
+        <div className="w-16 h-16 p-2 rounded-full bg-white border-4 border-gray-300 shadow-2xl flex items-center justify-center hover:bg-green-100 transition-all duration-300">
           <img
             src={wa}
             alt="WhatsApp Icon"

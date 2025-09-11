@@ -144,7 +144,7 @@ function Navbar() {
                   : ""
               } hover:scale-105 duration-150 font-semibold text-gray-600`}
             >
-              ZIS
+              ZISWAF
             </Link>
             <Link
               to={"/daftarCampaign/Campaign/1"}
