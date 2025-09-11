@@ -1,4 +1,5 @@
 import fb from "../../assets/facebook.svg";
+import yt from "../../assets/youtube.png";
 import twit from "../../assets/twitter.svg";
 import ig from "../../assets/instagram.svg";
 // import li from "../../assets/linkedin.svg";
@@ -26,12 +27,20 @@ export default function Footer() {
         </p>
         <div className="flex gap-2 md:gap-4">
           <a
-            href="https://web.facebook.com/lazissultanagungsemarang"
+            href="https://web.facebook.com/lazissultanagung.agung"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-10 md:h-10 flex justify-center items-center hover:scale-110"
           >
             <img src={fb} alt="Facebook" />
+          </a>
+          <a
+            href="https://youtube.com/@lazissultanagung?si=807X3lYECMeMBOvr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-10 md:h-10 flex justify-center items-center hover:scale-110"
+          >
+            <img src={yt} alt="Facebook" />
           </a>
           <a
             href="https://x.com/lazissultanagu1"
