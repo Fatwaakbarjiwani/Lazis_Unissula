@@ -26,54 +26,78 @@ export default function Footer() {
           Jl.Raya Kaligawe,Km.4,Sambirejo,Genuk,Terboyo Wetan,Kec.Genuk,Kota
           Semarang,Jawa Tengah 50112
         </p>
-        <div className="flex gap-2 md:gap-4">
+        <div className="flex gap-3 md:gap-4">
           <a
             href="https://web.facebook.com/lazissultanagung.agung"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-10 md:h-10 flex justify-center items-center hover:scale-110"
+            className="w-10 h-10 md:w-12 md:h-12 flex justify-center items-center hover:scale-110 transition-transform duration-300 group"
           >
-            <img src={fb} alt="Facebook" />
+            <img
+              src={fb}
+              alt="Facebook"
+              className="w-6 h-6 md:w-7 md:h-7 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0 group-hover:drop-shadow-lg transition-all duration-300"
+            />
           </a>
           <a
             href="https://youtube.com/@lazissultanagung?si=807X3lYECMeMBOvr"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-10 md:h-10 flex justify-center items-center hover:scale-110"
+            className="w-10 h-10 md:w-12 md:h-12 flex justify-center items-center hover:scale-110 transition-transform duration-300 group"
           >
-            <img src={yt} alt="Youtube" />
+            <img
+              src={yt}
+              alt="Youtube"
+              className="w-6 h-6 md:w-7 md:h-7 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0 group-hover:drop-shadow-lg transition-all duration-300"
+            />
           </a>
           <a
             href="https://www.tiktok.com/@lazissultanagung?_t=ZS-8zdEC18cV1T&_r=1"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-8 md:h-8 flex justify-center items-center hover:scale-110"
+            className="w-10 h-10 md:w-12 md:h-12 flex justify-center items-center hover:scale-110 transition-transform duration-300 group"
           >
-            <img src={tt} alt="Tiktok" />
+            <img
+              src={tt}
+              alt="Tiktok"
+              className="w-6 h-6 md:w-7 md:h-7 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0 group-hover:drop-shadow-lg transition-all duration-300"
+            />
           </a>
           <a
             href="https://x.com/lazissultanagu1"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-10 md:h-10 flex justify-center items-center hover:scale-110"
+            className="w-10 h-10 md:w-12 md:h-12 flex justify-center items-center hover:scale-110 transition-transform duration-300 group"
           >
-            <img src={twit} alt="Twitter" />
+            <img
+              src={twit}
+              alt="Twitter"
+              className="w-6 h-6 md:w-7 md:h-7 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0 group-hover:drop-shadow-lg transition-all duration-300"
+            />
           </a>
           <a
             href="https://www.instagram.com/lazissultanagung/?hl=id"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-10 md:h-10 flex justify-center items-center hover:scale-110"
+            className="w-10 h-10 md:w-12 md:h-12 flex justify-center items-center hover:scale-110 transition-transform duration-300 group"
           >
-            <img src={ig} alt="Instagram" />
+            <img
+              src={ig}
+              alt="Instagram"
+              className="w-6 h-6 md:w-7 md:h-7 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0 group-hover:drop-shadow-lg transition-all duration-300"
+            />
           </a>
           {/* <a
             href="https://linkedin.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-GREENDARK2 rounded-full w-8 h-8 md:w-10 md:h-10 flex justify-center items-center hover:scale-110"
+            className="w-10 h-10 md:w-12 md:h-12 flex justify-center items-center hover:scale-110 transition-transform duration-300 group"
           >
-            <img src={li} alt="LinkedIn" />
+            <img 
+              src={li} 
+              alt="LinkedIn" 
+              className="w-6 h-6 md:w-7 md:h-7 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0 group-hover:drop-shadow-lg transition-all duration-300" 
+            />
           </a> */}
         </div>
       </div>

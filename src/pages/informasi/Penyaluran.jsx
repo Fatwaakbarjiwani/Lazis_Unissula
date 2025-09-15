@@ -188,9 +188,12 @@ export default function Penyaluran() {
                           <h3 className="text-xl font-semibold text-gray-800 mb-2">
                             {item.name}
                           </h3>
-                          <p className="text-gray-600 mb-4">
-                            {item.description}
-                          </p>
+                          <div
+                            className="text-gray-600 mb-4 prose prose-sm max-w-none prose-p:text-gray-600 prose-p:leading-relaxed prose-p:mb-3 prose-strong:text-blue-600 prose-strong:font-semibold prose-ul:text-gray-600 prose-li:text-gray-600 prose-ol:text-gray-600 prose-li:leading-relaxed prose-li:mb-1 prose-ul:pl-4 prose-ol:pl-4 prose-ul:mb-3 prose-ol:mb-3"
+                            dangerouslySetInnerHTML={{
+                              __html: item.description,
+                            }}
+                          />
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                               <p className="text-sm text-gray-500">
@@ -216,7 +219,6 @@ export default function Penyaluran() {
                 </div>
               </div>
             )}
-
           </div>
         </div>
       </div>

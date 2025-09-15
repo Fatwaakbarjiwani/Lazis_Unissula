@@ -199,7 +199,10 @@ export default function KonfirmasiPembayaran() {
               <p className="text-sm text-gray-500">(Hamba Allah)</p>
             </div>
             <button
-              onClick={() => setIsOn(!isOn)}
+              onClick={() => {
+                setIsOn(!isOn);
+                setName("Hamba Allah");
+              }}
               className={`w-16 h-8 flex items-center rounded-full p-1 border transition-colors ${
                 isOn
                   ? "bg-primary border-primary"

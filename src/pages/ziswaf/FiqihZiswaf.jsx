@@ -133,7 +133,8 @@ export default function Ziswaf() {
                     <div>
                       Wakaf Melalui Uang
                       <br />
-                      No Rekening : <span className="font-bold text-primary">6033015001</span>
+                      No Rekening :{" "}
+                      <span className="font-bold text-primary">6033015001</span>
                       <br />
                       (NAZHIR YBWSA)
                     </div>
