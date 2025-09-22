@@ -317,7 +317,7 @@ export default function CampaignDetail() {
                         {detailCampaign?.campaignImageDesc1 && (
                           <div className="relative group flex-shrink-0 snap-center">
                             <img
-                              src={detailCampaign.campaignImageDesc1}
+                              src={`https://skyconnect.lazis-sa.org/api/images/${detailCampaign.campaignImageDesc1}`}
                               alt="Gambar Campaign 1"
                               className="w-[calc(100vw-8rem)] sm:w-96 h-48 object-cover rounded-lg shadow-md group-hover:shadow-lg transition-shadow duration-300"
                             />
@@ -327,7 +327,7 @@ export default function CampaignDetail() {
                         {detailCampaign?.campaignImageDesc2 && (
                           <div className="relative group flex-shrink-0 snap-center">
                             <img
-                              src={detailCampaign.campaignImageDesc2}
+                              src={`https://skyconnect.lazis-sa.org/api/images/${detailCampaign.campaignImageDesc2}`}
                               alt="Gambar Campaign 2"
                               className="w-[calc(100vw-8rem)] sm:w-96 h-48 object-cover rounded-lg shadow-md group-hover:shadow-lg transition-shadow duration-300"
                             />
@@ -337,7 +337,7 @@ export default function CampaignDetail() {
                         {detailCampaign?.campaignImageDesc3 && (
                           <div className="relative group flex-shrink-0 snap-center">
                             <img
-                              src={detailCampaign.campaignImageDesc3}
+                              src={`https://skyconnect.lazis-sa.org/api/images/${detailCampaign.campaignImageDesc3}`}
                               alt="Gambar Campaign 3"
                               className="w-[calc(100vw-8rem)] sm:w-96 h-48 object-cover rounded-lg shadow-md group-hover:shadow-lg transition-shadow duration-300"
                             />
