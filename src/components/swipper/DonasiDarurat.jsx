@@ -13,6 +13,7 @@ const DonasiDarurat = () => {
     return null; // hindari render Swiper sebelum data siap
   }
 
+
   return (
     <Swiper
       autoplay={{
@@ -33,7 +34,7 @@ const DonasiDarurat = () => {
           <div className="flex justify-center">
             <div className="relative w-full md:w-10/12 lg:h-[75vh]">
               <Link
-                to={`/detailCampaign/${item?.campaignName}/${item?.campaignId}`}
+                to={`/detailCampaign/${item?.campaignCode}/${item?.campaignId}`}
               >
                 <img
                   src={item?.campaignImage}
