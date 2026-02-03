@@ -87,10 +87,11 @@ export const getTransaction = (va) => async (dispatch, getState) => {
     );
 
     const data = response.data;
-    // console.log(data);
     dispatch(setBilling(data));
+    return data;
   } catch (error) {
     console.error("Error fetching transaction:", error.message);
+    return null;
   }
 };
 
