@@ -154,7 +154,7 @@ export default function LoadQris() {
               aria-labelledby="qris-modal-title"
             >
               <div
-                className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl flex flex-col max-h-[90vh]"
+                className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl flex flex-col max-h-[95vh] overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 shrink-0">
@@ -179,7 +179,7 @@ export default function LoadQris() {
                     </button>
                   </div>
                 </div>
-                <div className="relative flex-1 min-h-[400px] bg-gray-100 rounded-b-2xl overflow-hidden">
+                <div className="relative flex-1 min-h-[65vh] sm:min-h-[70vh] bg-gray-100 rounded-b-2xl overflow-hidden">
                   {isIframeLoading && (
                     <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-gray-50 rounded-b-2xl">
                       <FaSpinner className="text-4xl text-primary animate-spin" />
@@ -221,18 +221,18 @@ export default function LoadQris() {
                 <button
                   onClick={checkStatus}
                   disabled={isLoading || !va}
-                  className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
+                  className={`w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-bold text-base transition-all border-2 ${
                     isLoading || !va
-                      ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200"
+                      ? "bg-gray-200 text-gray-500 border-gray-200 cursor-not-allowed"
+                      : "bg-primary/10 text-primary border-primary hover:bg-primary hover:text-white"
                   }`}
                 >
                   {isLoading ? (
-                    <FaSpinner className="text-lg animate-spin" />
+                    <FaSpinner className="text-xl animate-spin" />
                   ) : (
-                    <BsClockHistory className="text-lg" />
+                    <BsClockHistory className="text-xl" />
                   )}
-                  {isLoading ? "Memproses..." : "Cek Status Pembayaran"}
+                  {isLoading ? "Memproses..." : "Cek Status Pembayaran Sekarang"}
                 </button>
                 {statusMessage && (
                   <div
