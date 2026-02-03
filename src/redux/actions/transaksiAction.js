@@ -42,8 +42,11 @@ export const transaksi =
         dispatch(setVa(data.vaNumber));
         if (methode === "qris") {
           await dispatch(getMe3(data.vaNumber));
-          dispatch(getQr());
-          navigate(`/pembayaranQris/${campaignId}`);
+          if (name) localStorage.setItem("qris_name", name);
+          if (phoneNumber) localStorage.setItem("qris_phone", phoneNumber);
+          if (message) localStorage.setItem("qris_message", message);
+          await dispatch(getQr());
+          navigate(`/loadQris/${campaignId}`);
         } else {
           navigate(`/pembayaranVa/${campaignId}`);
         }
@@ -113,16 +116,19 @@ export const getQr = () => async (dispatch, getState) => {
 
     if (response) {
       const data = response.data;
-      // console.log(data["data"]);
-
-      window.open(data["data"], "_blank");
-      // console.log(data["data"], "_blank");
+      const qrisLink = data?.["data"];
+      if (qrisLink) {
+        localStorage.setItem("qris_link", qrisLink);
+        localStorage.setItem("qris_link_created_at", String(Date.now()));
+      }
+      return qrisLink;
     } else {
       Swal.fire({
         title: response.data["message"],
         text: "GAGAL",
         icon: "error",
       });
+      return null;
     }
   } catch (error) {
     Swal.fire({
@@ -130,6 +136,7 @@ export const getQr = () => async (dispatch, getState) => {
       text: "GAGAL",
       icon: "error",
     });
+    return null;
   }
 };
 

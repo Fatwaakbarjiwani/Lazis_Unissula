@@ -35,6 +35,7 @@ const PembayaranZiswaf = lazy(() =>
 );
 const PembayaranVa = lazy(() => import("./pages/pembayaran/PembayaranVa"));
 const PembayaranQris = lazy(() => import("./pages/pembayaran/PembayaranQris"));
+const LoadQris = lazy(() => import("./pages/pembayaran/LoadQris"));
 const KonfirmasiPembayaran = lazy(() =>
   import("./pages/pembayaran/KonfirmasiPembayaran")
 );
@@ -139,6 +140,7 @@ function App() {
             />
             <Route path="/pembayaranVa/:id" element={<PembayaranVa />} />
             <Route path="/pembayaranQris/:id" element={<PembayaranQris />} />
+            <Route path="/loadQris/:id" element={<LoadQris />} />
             <Route
               path="/konfirmasiPembayaran/:id"
               element={<KonfirmasiPembayaran />}
