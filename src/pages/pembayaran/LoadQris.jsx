@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BsArrowLeft, BsQrCodeScan, BsClockHistory, BsCheckCircleFill } from "react-icons/bs";
+import { BsArrowLeft, BsQrCodeScan, BsClockHistory, BsCheckCircleFill, BsX } from "react-icons/bs";
 import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FaSpinner } from "react-icons/fa";
@@ -8,6 +8,7 @@ import { getDetailCampaign } from "../../redux/actions/campaignAction";
 import { getDetailZiswaf } from "../../redux/actions/ziswafAction";
 import { getTransaction } from "../../redux/actions/transaksiAction";
 
+// eslint-disable-next-line react/prop-types -- label/value are display-only
 function InfoRow({ label, value }) {
   return (
     <div className="flex justify-between items-start py-3 border-b border-gray-100 last:border-0">
@@ -33,6 +34,9 @@ export default function LoadQris() {
   const { id } = useParams();
   const [statusMessage, setStatusMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isQrisModalOpen, setIsQrisModalOpen] = useState(false);
+  const [qrisModalUrl, setQrisModalUrl] = useState("");
+  const [isIframeLoading, setIsIframeLoading] = useState(true);
 
   const { nml, typePembayaran, waktu, va, billing } = useSelector(
     (state) => state.pembayaran
@@ -69,7 +73,19 @@ export default function LoadQris() {
       });
       return;
     }
-    window.location.href = qrisLink;
+    setQrisModalUrl(qrisLink);
+    setIsIframeLoading(true);
+    setIsQrisModalOpen(true);
+  };
+
+  const closeQrisModal = () => {
+    setIsQrisModalOpen(false);
+    setQrisModalUrl("");
+    setIsIframeLoading(true);
+  };
+
+  const openQrisInNewTab = () => {
+    if (qrisModalUrl) window.open(qrisModalUrl, "_blank", "noopener,noreferrer");
   };
 
   const checkStatus = async () => {
@@ -124,9 +140,69 @@ export default function LoadQris() {
               Buka Halaman QRIS
             </button>
             <p className="text-xs text-gray-500 text-center mt-3">
-              Anda akan diarahkan ke halaman pembayaran. Setelah selesai, gunakan tombol Back browser untuk kembali.
+              Klik tombol di atas untuk menampilkan halaman QRIS di dalam aplikasi.
             </p>
           </div>
+
+          {/* Modal QRIS (iframe) */}
+          {isQrisModalOpen && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+              onClick={closeQrisModal}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="qris-modal-title"
+            >
+              <div
+                className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl flex flex-col max-h-[90vh]"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 shrink-0">
+                  <h2 id="qris-modal-title" className="font-bold text-gray-800">
+                    Halaman Pembayaran QRIS
+                  </h2>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={openQrisInNewTab}
+                      className="text-sm font-medium text-primary hover:underline"
+                    >
+                      Buka di tab baru
+                    </button>
+                    <button
+                      type="button"
+                      onClick={closeQrisModal}
+                      className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-800 transition-colors"
+                      aria-label="Tutup"
+                    >
+                      <BsX className="text-2xl" />
+                    </button>
+                  </div>
+                </div>
+                <div className="relative flex-1 min-h-[400px] bg-gray-100 rounded-b-2xl overflow-hidden">
+                  {isIframeLoading && (
+                    <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-gray-50 rounded-b-2xl">
+                      <FaSpinner className="text-4xl text-primary animate-spin" />
+                      <p className="text-sm font-medium text-gray-600">
+                        Memuat halaman pembayaran...
+                      </p>
+                    </div>
+                  )}
+                  <iframe
+                    title="Halaman Pembayaran QRIS"
+                    src={qrisModalUrl}
+                    className="absolute inset-0 w-full h-full border-0"
+                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                    referrerPolicy="no-referrer"
+                    onLoad={() => setIsIframeLoading(false)}
+                  />
+                </div>
+                <p className="text-xs text-gray-500 text-center py-2 px-4 border-t border-gray-100">
+                  Jika halaman tidak tampil, gunakan &quot;Buka di tab baru&quot; di atas.
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Cek Status Pembayaran */}
           <div className="px-5 pb-4">
