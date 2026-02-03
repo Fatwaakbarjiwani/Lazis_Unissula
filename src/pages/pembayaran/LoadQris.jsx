@@ -192,7 +192,7 @@ export default function LoadQris() {
                     title="Halaman Pembayaran QRIS"
                     src={qrisModalUrl}
                     className="absolute inset-0 w-full h-full border-0"
-                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-downloads"
                     referrerPolicy="no-referrer"
                     onLoad={() => setIsIframeLoading(false)}
                   />
