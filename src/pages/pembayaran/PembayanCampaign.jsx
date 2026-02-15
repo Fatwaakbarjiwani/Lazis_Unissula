@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { BsStarFill } from "react-icons/bs";
 import {
   setNml,
   setTypePembayaran,
@@ -92,12 +93,22 @@ export default function PembayaranCampaign() {
             {DataPembayaran.map((item) => (
               <button
                 key={item.id}
-                className={`bg-white ring-2 ring-gray-300/40 shadow sm:drop-shadow-lg w-full p-2 rounded-xl active:translate-y-[-5px] duration-300 ${
-                  selectedTotal === item.total ? "bg-primary" : ""
-                }`}
+                className={`relative ring-2 shadow sm:drop-shadow-lg w-full p-2 rounded-xl active:translate-y-[-5px] duration-300 ${
+                  selectedTotal === item.total
+                    ? "bg-primary text-white ring-primary"
+                    : "bg-white text-gray-800 ring-gray-300/40"
+                } ${item.isFavorite ? "ring-primary/30" : ""}`}
                 onClick={() => setSelectedTotal(item.total)}
               >
-                Rp {item.total}
+                {item.isFavorite && (
+                  <span className={`absolute -top-1.5 right-2 flex items-center gap-0.5 text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow ${
+                    selectedTotal === item.total ? "bg-white/90 text-primary" : "bg-amber-400 text-amber-900"
+                  }`}>
+                    <BsStarFill className="text-[8px]" />
+                    Favorit
+                  </span>
+                )}
+                <span className="font-medium">Rp {item.total}</span>
               </button>
             ))}
           </div>
