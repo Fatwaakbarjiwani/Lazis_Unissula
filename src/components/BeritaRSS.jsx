@@ -21,10 +21,12 @@ export default function BeritaRSS() {
       setLoading(true);
       setError(null);
 
-      // Try multiple CORS proxies in case one fails
+      // Prefer same-origin (Vite dev proxy) to avoid flaky public proxies
+      const localProxy = "/rss";
+
+      // Fallback: try multiple public proxies in case one fails
       const proxies = [
         "https://api.allorigins.win/raw?url=",
-        "https://cors-anywhere.herokuapp.com/",
         "https://thingproxy.freeboard.io/fetch/",
       ];
 
@@ -32,11 +34,23 @@ export default function BeritaRSS() {
       let response = null;
       let xmlText = null;
 
-      // Try each proxy until one works
+      // 1) Try local proxy first
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+        response = await fetch(localProxy, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        if (response.ok) xmlText = await response.text();
+      } catch (err) {
+        console.log("Local proxy /rss failed:", err);
+      }
+
+      // 2) Try each public proxy until one works
       for (const proxy of proxies) {
+        if (xmlText) break;
         try {
           const fullUrl =
-            proxy === "https://cors-anywhere.herokuapp.com/"
+            proxy === "https://thingproxy.freeboard.io/fetch/"
               ? proxy + rssUrl
               : proxy + encodeURIComponent(rssUrl);
 
@@ -45,9 +59,6 @@ export default function BeritaRSS() {
           const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
           response = await fetch(fullUrl, {
-            headers: {
-              Origin: window.location.origin,
-            },
             signal: controller.signal,
           });
 

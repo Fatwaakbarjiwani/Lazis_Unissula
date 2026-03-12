@@ -6,6 +6,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
+      "/rss": {
+        target: "https://sadar.co.id",
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/rss/, "/feed/"),
+      },
       "/auth": {
         target: "https://donasi.lazis-sa.org",
         changeOrigin: true,
