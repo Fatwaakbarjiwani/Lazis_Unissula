@@ -10,7 +10,7 @@ import {
 import { getDetailCampaign } from "../../redux/actions/campaignAction";
 import DataPembayaran from "../../components/data/DataPembayaran";
 import Swal from "sweetalert2";
-
+// hehe
 export default function PembayaranCampaign() {
   const dispatch = useDispatch();
   const { detailCampaign } = useSelector((state) => state.campaign);
