@@ -27,7 +27,6 @@ const PANDUAN_LANGKAH = [
   "Upload hasil screenshot QR Code.",
   "Masukkan PIN dari aplikasi bank atau dompet digital.",
   "Setelah pembayaran berhasil, Anda akan menerima notifikasi sebagai bukti transaksi.",
-  "Setelah pembayaran sukses, mohon kirim konfirmasi pembayaran ke WhatsApp Panitia agar zakat dapat segera diproses dan dicatat sebagai Muzakki.",
 ];
 
 export default function LoadQris() {
@@ -47,6 +46,7 @@ export default function LoadQris() {
   const message = localStorage.getItem("qris_message") || "";
   const { detailCampaign } = useSelector((state) => state.campaign);
   const { detailZiswaf } = useSelector((state) => state.ziswaf);
+  const isZakatFitrah = detailZiswaf?.categoryName === "Zakat Fitrah";
 
   const nominal = useMemo(() => {
     const numberValue = typeof nml === "string" ? Number(nml) : nml;
@@ -280,48 +280,50 @@ Terlampir bukti transfer/screenshot sukses untuk diverifikasi. Jazakumullah khai
                   </span>
                 </div>
 
-                {/* Instruksi Konfirmasi Pembayaran */}
-                <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-                  <div className="px-5 py-4 border-b border-gray-100 bg-slate-50/50">
-                    <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wide">
-                      Instruksi Konfirmasi Pembayaran
-                    </h3>
-                    <p className="mt-2 text-sm text-gray-600 leading-relaxed">
-                      Setelah melakukan pembayaran via Virtual Account (VA) atau QRIS,
-                      mohon segera melakukan konfirmasi ke WhatsApp Panitia agar zakat
-                      Anda dapat segera diproses dan dicatat sebagai Muzakki.
-                    </p>
-                    <p className="mt-2 text-sm text-gray-600">
-                      Klik tombol di bawah ini atau salin format pesan berikut:
-                    </p>
-                  </div>
-                  <div className="p-5 space-y-4">
-                    <div className="flex flex-col sm:flex-row gap-3">
-                      <button
-                        type="button"
-                        onClick={handleOpenWaKonfirmasi}
-                        className="flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-xl font-semibold text-white bg-[#25D366] hover:bg-[#20BD5A] active:scale-[0.98] transition-all shadow-sm hover:shadow"
-                      >
-                        <BsWhatsapp className="text-xl" />
-                        Kirim via WhatsApp
-                      </button>
-                      <button
-                        type="button"
-                        onClick={handleCopyKonfirmasi}
-                        className="flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-xl font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 active:scale-[0.98] transition-all border border-gray-200"
-                      >
-                        <BsClipboard className="text-lg" />
-                        Salin Pesan
-                      </button>
+                {/* Instruksi Konfirmasi Pembayaran (khusus Zakat Fitrah) */}
+                {isZakatFitrah && (
+                  <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+                    <div className="px-5 py-4 border-b border-gray-100 bg-slate-50/50">
+                      <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wide">
+                        Instruksi Konfirmasi Pembayaran
+                      </h3>
+                      <p className="mt-2 text-sm text-gray-600 leading-relaxed">
+                        Setelah melakukan pembayaran via Virtual Account (VA) atau QRIS,
+                        mohon segera melakukan konfirmasi ke WhatsApp Panitia agar zakat
+                        Anda dapat segera diproses dan dicatat sebagai Muzakki.
+                      </p>
+                      <p className="mt-2 text-sm text-gray-600">
+                        Klik tombol di bawah ini atau salin format pesan berikut:
+                      </p>
                     </div>
-                    <div>
-                      <p className="text-xs font-medium text-gray-500 mb-2">Preview pesan</p>
-                      <div className="p-4 rounded-xl bg-slate-50 border border-gray-100 text-xs text-gray-700 leading-relaxed whitespace-pre-wrap">
-                        {getKonfirmasiTemplate()}
+                    <div className="p-5 space-y-4">
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <button
+                          type="button"
+                          onClick={handleOpenWaKonfirmasi}
+                          className="flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-xl font-semibold text-white bg-[#25D366] hover:bg-[#20BD5A] active:scale-[0.98] transition-all shadow-sm hover:shadow"
+                        >
+                          <BsWhatsapp className="text-xl" />
+                          Kirim via WhatsApp
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleCopyKonfirmasi}
+                          className="flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-xl font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 active:scale-[0.98] transition-all border border-gray-200"
+                        >
+                          <BsClipboard className="text-lg" />
+                          Salin Pesan
+                        </button>
+                      </div>
+                      <div>
+                        <p className="text-xs font-medium text-gray-500 mb-2">Preview pesan</p>
+                        <div className="p-4 rounded-xl bg-slate-50 border border-gray-100 text-xs text-gray-700 leading-relaxed whitespace-pre-wrap">
+                          {getKonfirmasiTemplate()}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
             ) : (
               <>
@@ -405,6 +407,17 @@ Terlampir bukti transfer/screenshot sukses untuk diverifikasi. Jazakumullah khai
                     <span>{text}</span>
                   </li>
                 ))}
+                {isZakatFitrah && (
+                  <li className="flex gap-2">
+                    <span className="text-gray-400 font-medium flex-shrink-0">
+                      {PANDUAN_LANGKAH.length + 1}.
+                    </span>
+                    <span>
+                      Setelah pembayaran sukses, mohon kirim konfirmasi pembayaran ke WhatsApp
+                      Panitia agar zakat dapat segera diproses dan dicatat sebagai Muzakki.
+                    </span>
+                  </li>
+                )}
               </ul>
             </div>
           </div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FaInfoCircle } from "react-icons/fa";
+import { BsClipboard, BsWhatsapp } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import banner from "../../assets/banner.jpeg";
 import toast from "react-hot-toast";
@@ -28,6 +29,54 @@ export default function PembayaranZiswaf() {
   const { category } = useParams();
   const [selectedTotal, setSelectedTotal] = useState("");
   const navigate = useNavigate();
+  const WA_NUMBER = "628212044952";
+
+  const getKonfirmasiTemplate = () => {
+    const now = new Date();
+    const tanggalWaktu = now.toLocaleString("id-ID", {
+      dateStyle: "full",
+      timeStyle: "short",
+    });
+
+    return `Konfirmasi Zakat Fitrah - LAZIS Sultan Agung
+
+Assalamu’alaikum Warahmatullahi Wabarakatuh,
+
+Saya telah menunaikan Zakat Fitrah melalui lazis-sa.org dengan detail:
+
+Metode: [Sebutkan VA Bank / QRIS]
+
+Total Nominal: Rp [Jumlah Total]
+
+Tanggal/Waktu: ${tanggalWaktu}
+
+Daftar Muzakki (Nama Pembayar):
+
+[Nama Lengkap 1]
+[Nama Lengkap 2]
+[Nama Lengkap 3]
+(Sebutkan semua nama jika lebih dari 1 orang)
+
+Terlampir bukti transfer/screenshot sukses untuk diverifikasi. Jazakumullah khairan katsiran.`;
+  };
+
+  const handleOpenWaKonfirmasi = () => {
+    const text = encodeURIComponent(getKonfirmasiTemplate());
+    window.open(
+      `https://wa.me/${WA_NUMBER}?text=${text}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
+
+  const handleCopyKonfirmasi = async () => {
+    try {
+      await navigator.clipboard.writeText(getKonfirmasiTemplate());
+      toast.success("Pesan konfirmasi berhasil disalin.");
+    } catch {
+      toast.error("Gagal menyalin pesan. Silakan salin manual.");
+    }
+  };
 
   function hapusTitik(nml) {
     let nmlStr = nml.toString();
@@ -140,7 +189,7 @@ export default function PembayaranZiswaf() {
             </div>
           </div>
           {/*  */}
-          <div className="w-full sm:w-5/6 mt-4 p-4 shadow-md rounded-lg border border-gray-200 bg-white">
+          <div className="w-full sm:w-5/6 mt-4 p-4 shadow-md rounded-lg border border-gray-200 bg-white space-y-4">
             {/* Noted Section */}
             <div className="flex items-center gap-2 bg-green-50 p-3 rounded-md border-l-4 border-green-500">
               <FaInfoCircle className="text-green-600 text-xl" />
@@ -154,7 +203,7 @@ export default function PembayaranZiswaf() {
 
             {/* Informasi Zakat Fitrah */}
             {detailZiswaf.categoryName === "Zakat Fitrah" && (
-              <div className="bg-white mt-4 p-5 rounded-xl shadow-md border border-gray-200">
+              <div className="bg-white p-5 rounded-xl shadow-md border border-gray-200">
                 <h3 className="text-lg font-semibold text-gray-700 text-center">
                   Informasi Zakat Fitrah
                 </h3>
@@ -189,6 +238,47 @@ export default function PembayaranZiswaf() {
                     </span>
                   </div>
                 </div>
+              </div>
+            )}
+
+            {/* Instruksi Konfirmasi Pembayaran (hanya untuk Zakat Fitrah) */}
+            {detailZiswaf.categoryName === "Zakat Fitrah" && (
+              <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                <h3 className="text-base font-semibold text-gray-800">
+                  Instruksi Konfirmasi Pembayaran
+                </h3>
+                <p className="text-sm text-gray-700 leading-relaxed">
+                  Setelah melakukan pembayaran via Virtual Account (VA) atau QRIS, mohon
+                  segera melakukan konfirmasi ke WhatsApp Panitia agar zakat Anda dapat
+                  segera diproses dan dicatat sebagai Muzakki.
+                </p>
+                <p className="text-xs text-gray-600">
+                  Klik tombol di bawah ini atau salin format pesan berikut:
+                </p>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <button
+                    type="button"
+                    onClick={handleOpenWaKonfirmasi}
+                    className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-white bg-[#25D366] hover:bg-[#20BD5A] active:scale-[0.98] transition-all shadow-sm hover:shadow"
+                  >
+                    <BsWhatsapp className="text-lg" />
+                    Kirim via WhatsApp
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCopyKonfirmasi}
+                    className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 active:scale-[0.98] transition-all border border-gray-200"
+                  >
+                    <BsClipboard className="text-base" />
+                    Salin Pesan
+                  </button>
+                </div>
+                <div className="text-xs text-gray-700 whitespace-pre-wrap bg-white border border-slate-200 rounded-lg p-3 leading-relaxed">
+                  {getKonfirmasiTemplate()}
+                </div>
+                <p className="mt-1 text-xs text-gray-600">
+                  Nomor konfirmasi WA Panitia: <span className="font-semibold">0821‑2044‑952</span>
+                </p>
               </div>
             )}
           </div>
