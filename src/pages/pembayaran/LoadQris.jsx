@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BsArrowLeft, BsQrCodeScan, BsClockHistory, BsCheckCircleFill, BsX } from "react-icons/bs";
+import { BsArrowLeft, BsQrCodeScan, BsClockHistory, BsCheckCircleFill, BsX, BsWhatsapp, BsClipboard } from "react-icons/bs";
 import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FaSpinner } from "react-icons/fa";
@@ -27,6 +27,7 @@ const PANDUAN_LANGKAH = [
   "Upload hasil screenshot QR Code.",
   "Masukkan PIN dari aplikasi bank atau dompet digital.",
   "Setelah pembayaran berhasil, Anda akan menerima notifikasi sebagai bukti transaksi.",
+  "Setelah pembayaran sukses, mohon kirim konfirmasi pembayaran ke WhatsApp Panitia agar zakat dapat segera diproses dan dicatat sebagai Muzakki.",
 ];
 
 export default function LoadQris() {
@@ -86,6 +87,67 @@ export default function LoadQris() {
 
   const openQrisInNewTab = () => {
     if (qrisModalUrl) window.open(qrisModalUrl, "_blank", "noopener,noreferrer");
+  };
+
+  const WA_NUMBER = "628212044952";
+  const getKonfirmasiTemplate = () => {
+    const now = new Date();
+    const tanggalWaktu = now.toLocaleString("id-ID", {
+      dateStyle: "full",
+      timeStyle: "short",
+    });
+    const namaList = name
+      ? name
+          .split(/[,;]/)
+          .map((n) => n.trim())
+          .filter(Boolean)
+          .map((n) => `- ${n}`)
+          .join("\n")
+      : "- [Nama Lengkap]";
+
+    return `Konfirmasi Zakat Fitrah - LAZIS Sultan Agung
+
+Assalamu'alaikum Warahmatullahi Wabarakatuh,
+
+Saya telah menunaikan Zakat Fitrah melalui lazis-sa.org dengan detail:
+
+Metode: [Sebutkan VA Bank / QRIS]
+
+Total Nominal: Rp ${nominal}
+
+Tanggal/Waktu: ${tanggalWaktu}
+
+Daftar Muzakki (Nama Pembayar):
+
+${namaList}
+
+(Sebutkan semua nama jika lebih dari 1 orang)
+
+Terlampir bukti transfer/screenshot sukses untuk diverifikasi. Jazakumullah khairan katsiran.`;
+  };
+
+  const handleOpenWaKonfirmasi = () => {
+    const text = encodeURIComponent(getKonfirmasiTemplate());
+    window.open(`https://wa.me/${WA_NUMBER}?text=${text}`, "_blank", "noopener,noreferrer");
+  };
+
+  const handleCopyKonfirmasi = async () => {
+    try {
+      await navigator.clipboard.writeText(getKonfirmasiTemplate());
+      Swal.fire({
+        icon: "success",
+        title: "Berhasil disalin",
+        text: "Pesan konfirmasi telah disalin ke clipboard.",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+    } catch {
+      Swal.fire({
+        icon: "error",
+        title: "Gagal menyalin",
+        text: "Silakan salin manual dari kotak pesan di bawah.",
+      });
+    }
   };
 
   const checkStatus = async () => {
@@ -210,11 +272,56 @@ export default function LoadQris() {
               Cek Status Pembayaran
             </h2>
             {responseCode === "01" ? (
-              <div className="flex items-center gap-3 p-4 rounded-xl bg-green-50 border border-green-100">
-                <BsCheckCircleFill className="text-3xl text-green-600 flex-shrink-0" />
-                <span className="font-semibold text-green-800">
-                  Pembayaran berhasil! Terima kasih.
-                </span>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 p-4 rounded-xl bg-green-50 border border-green-100">
+                  <BsCheckCircleFill className="text-3xl text-green-600 flex-shrink-0" />
+                  <span className="font-semibold text-green-800">
+                    Pembayaran berhasil! Terima kasih.
+                  </span>
+                </div>
+
+                {/* Instruksi Konfirmasi Pembayaran */}
+                <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+                  <div className="px-5 py-4 border-b border-gray-100 bg-slate-50/50">
+                    <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wide">
+                      Instruksi Konfirmasi Pembayaran
+                    </h3>
+                    <p className="mt-2 text-sm text-gray-600 leading-relaxed">
+                      Setelah melakukan pembayaran via Virtual Account (VA) atau QRIS,
+                      mohon segera melakukan konfirmasi ke WhatsApp Panitia agar zakat
+                      Anda dapat segera diproses dan dicatat sebagai Muzakki.
+                    </p>
+                    <p className="mt-2 text-sm text-gray-600">
+                      Klik tombol di bawah ini atau salin format pesan berikut:
+                    </p>
+                  </div>
+                  <div className="p-5 space-y-4">
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <button
+                        type="button"
+                        onClick={handleOpenWaKonfirmasi}
+                        className="flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-xl font-semibold text-white bg-[#25D366] hover:bg-[#20BD5A] active:scale-[0.98] transition-all shadow-sm hover:shadow"
+                      >
+                        <BsWhatsapp className="text-xl" />
+                        Kirim via WhatsApp
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleCopyKonfirmasi}
+                        className="flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-xl font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 active:scale-[0.98] transition-all border border-gray-200"
+                      >
+                        <BsClipboard className="text-lg" />
+                        Salin Pesan
+                      </button>
+                    </div>
+                    <div>
+                      <p className="text-xs font-medium text-gray-500 mb-2">Preview pesan</p>
+                      <div className="p-4 rounded-xl bg-slate-50 border border-gray-100 text-xs text-gray-700 leading-relaxed whitespace-pre-wrap">
+                        {getKonfirmasiTemplate()}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             ) : (
               <>
