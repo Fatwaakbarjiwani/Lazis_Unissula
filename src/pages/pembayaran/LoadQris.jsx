@@ -281,7 +281,7 @@ Terlampir bukti transfer/screenshot sukses untuk diverifikasi. Jazakumullah khai
                 </div>
 
                 {/* Instruksi Konfirmasi Pembayaran (khusus Zakat Fitrah) */}
-                {typePembayaran === "ziswaf" && isZakatFitrah && (
+                {typePembayaran !== "campaign" && isZakatFitrah && (
                   <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
                     <div className="px-5 py-4 border-b border-gray-100 bg-slate-50/50">
                       <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wide">
